@@ -1,5 +1,6 @@
 local G = GLOBAL
 local require = G.require
+local WhereIsItMenuScreen = require("screens/menu")
 
 ---- Mod config data
 -- Settings
@@ -41,7 +42,7 @@ local function OpenMenu()
     -- If the hud exists, open the UI
     if screen.name:find("HUD") then
         -- We want to pass in the (clientside) player entity
-        TheFrontEnd:PushScreen(require("screens/menu")(G.ThePlayer))
+        TheFrontEnd:PushScreen(WhereIsItMenuScreen(G.ThePlayer))
         DebugLog("Opened Menu")
         return true
     else
