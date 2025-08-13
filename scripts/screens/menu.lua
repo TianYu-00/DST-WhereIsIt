@@ -45,26 +45,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.title:SetString("Where is it")
 	self.title:SetColour(unpack(GOLD))
 
-	-- FOR DEBUG ONLY
-	-- up animation
-	self.animationUp = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30, "Y: ", { unpack(RED) }))
-	self.animationUp:SetPosition(-520, -350)
-	-- Assign the task to the client
-	self.tasks[#self.tasks + 1] = self.inst:DoPeriodicTask(0.1, function()
-		local pos = self.animationUp:GetPosition()
-		self.animationUp:SetPosition(pos.x, pos.y > 350 and -350 or pos.y + 5)
-		self.animationUp:SetString("Y: " .. pos.y)
-	end)
-	-- right animation
-	self.animationRight = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30, "X: ", { unpack(RED) }))
-	self.animationRight:SetPosition(-600, -290)
-	-- Assign the task to the client
-	self.tasks[#self.tasks + 1] = self.inst:DoPeriodicTask(0.1, function()
-		local pos = self.animationRight:GetPosition()
-		self.animationRight:SetPosition(pos.x > 600 and -600 or pos.x + 5, pos.y)
-		self.animationRight:SetString("X: " .. pos.x)
-	end)
-
 	-- grid parameters
 	local cell_size = 70
 	local base_size = 70
@@ -194,26 +174,40 @@ function WhereIsItMenuScreen:OnControl(control, down)
 	end
 end
 
+----------------------------------- Debug -----------------------------------
+---
+function WhereIsItMenuScreen:SetDebugMode(state)
+	self.debug_mode = state
+	if state and not self.debug_elements then
+		self.debug_elements = true
+		self:SetupDebugElements()
+	end
+end
+
+function WhereIsItMenuScreen:SetupDebugElements()
+	-- y animation
+	self.animationUp = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30, "Y: ", { unpack(RED) }))
+	self.animationUp:SetPosition(-520, -350)
+	-- Assign the task to the client
+	self.tasks[#self.tasks + 1] = self.inst:DoPeriodicTask(0.1, function()
+		local pos = self.animationUp:GetPosition()
+		self.animationUp:SetPosition(pos.x, pos.y > 350 and -350 or pos.y + 5)
+		self.animationUp:SetString("Y: " .. pos.y)
+	end)
+	-- x animation
+	self.animationRight = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30, "X: ", { unpack(RED) }))
+	self.animationRight:SetPosition(-600, -290)
+	-- Assign the task to the client
+	self.tasks[#self.tasks + 1] = self.inst:DoPeriodicTask(0.1, function()
+		local pos = self.animationRight:GetPosition()
+		self.animationRight:SetPosition(pos.x > 600 and -600 or pos.x + 5, pos.y)
+		self.animationRight:SetString("X: " .. pos.x)
+	end)
+end
+
 return WhereIsItMenuScreen
 
 ----------------------------------- Comments -----------------------------------
 
 -- bigpopupdialog.lua shows the basics to creating ui
 -- templates.lua line 593 for CurlyWindow
-
------------------------------------ Old Code -----------------------------------
-
--- --text
--- self.text = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30))
--- self.text:SetPosition(0, 5, 0)
--- self.text:SetString("My Text")
--- self.text:EnableWordWrap(true)
--- self.text:SetRegionSize(500, 200)
--- self.text:SetColour(unpack(WHITE))
-
--- self.mybutton2 = self.proot:AddChild(ImageButton("images/worldgen_customization.xml", "beefalo.tex"))
--- self.mybutton2:SetPosition(0, 0, 0)
--- self.mybutton2:SetScale(.5)
--- self.mybutton2:SetOnClick(function()
---   print("Image clicked!")
--- end)

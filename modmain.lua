@@ -18,6 +18,9 @@ local function DebugLog(msg)
 end
 
 AddSimPostInit(function()
+	if not debug_mode then
+		return
+	end
 	G.TheInput:AddKeyHandler(function(key, down)
 		if not down then
 			return
@@ -34,6 +37,12 @@ AddSimPostInit(function()
 			end
 		end
 	end)
+end)
+
+----------------------------------- AddClassPostConstruct -----------------------------------
+
+AddClassPostConstruct("screens/menu", function(screen)
+	screen:SetDebugMode(debug_mode)
 end)
 
 ----------------------------------- Feature -----------------------------------
