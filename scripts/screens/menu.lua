@@ -86,7 +86,10 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
     entity.mybutton:SetPosition(col * spacingX, -row * spacingY, 0)
     entity.mybutton:SetScale(0.5)
     entity.mybutton:SetOnClick(function()
-      print("Image clicked! Index:", index)
+      print("Image clicked! Index:", index , " name of:", EntityPrefabs[index].name)
+      -- RPC Command
+      SendModRPCToServer(GetModRPC("WhereIsIt", "GoToPrefab"), EntityPrefabs[index].name, EntityPrefabs[index].single_entity)
+      self:OnClose()
     end)
 
     return entity
@@ -116,7 +119,6 @@ function WhereIsItMenuScreen:OnClose()
     -- Remove our screen
     TheFrontEnd:PopScreen()
   end
-  TheFrontEnd:GetSound():PlaySound("dontstarve/HUD/click_move")
 end
 
 function WhereIsItMenuScreen:OnControl(control, down)

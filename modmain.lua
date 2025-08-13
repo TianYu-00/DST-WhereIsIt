@@ -43,6 +43,7 @@ local function OpenMenu()
     if screen.name:find("HUD") then
         -- We want to pass in the (clientside) player entity
         TheFrontEnd:PushScreen(WhereIsItMenuScreen(G.ThePlayer))
+        TheFrontEnd:GetSound():PlaySound("dontstarve/HUD/click_move")
         DebugLog("Opened Menu")
         return true
     else
@@ -53,6 +54,47 @@ local function OpenMenu()
         end
     end
 end
+
+local function FindAllEntity(prefab_name, is_single)
+    local entities = {}
+    -- refer to consolecommands.lua line 894
+    for k,v in pairs(G.Ents) do
+        if v.prefab == prefab_name then
+            table.insert(entities, v)
+            if is_single then
+                return entities
+            end
+        end
+    end
+    return entities
+end
+
+----------------------------------- MOD RPC ----------------------------------- 
+
+AddModRPCHandler("WhereIsIt", "GoToPrefab", function(player, prefab_name, is_single)
+    local entities = FindAllEntity(prefab_name, is_single)
+    -- refer to archive_resonator.lua line 195-207 to get a better understanding on how to to create the directional beam
+    if #entities > 0 then
+        for i, ent in ipairs(entities) do
+            local x,y,z = player.Transform:GetWorldPosition()
+            local angle = ent:GetAngleToPoint(x,y,z)
+            local radius = -3
+            local theta = (angle)*G.DEGREES
+            local offset = G.Vector3(radius * math.cos( theta ), 0, -radius * math.sin( theta ))
+            local base = G.SpawnPrefab("archive_resonator_base")
+            base.Transform:SetPosition(x+offset.x,y,z+offset.z)
+            base.Transform:SetRotation(angle+90)
+            base.AnimState:PlayAnimation("beam_marker")
+            base.AnimState:PushAnimation("idle_marker",true)
+            base:DoTaskInTime(8, function(inst) inst:Remove() end)
+        end
+        player.SoundEmitter:PlaySound("grotto/common/archive_resonator/beam")
+    else
+        if player.components.talker then
+            player.components.talker:Say(string.format("No "..prefab_name.." found"))
+        end
+    end
+end)
 
 
 ----------------------------------- KEY HANDLERS ----------------------------------- 
