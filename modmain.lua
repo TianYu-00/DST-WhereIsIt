@@ -5,6 +5,8 @@ local WhereIsItMenuScreen = require("screens/menu")
 ---- Mod config data
 -- Settings
 local menu_key = GetModConfigData("Menu_Key") or "O"
+-- Debud settings
+local debug_mode = GetModConfigData("Debug_Mode") or false
 
 ----------------------------------- Debug Mode -----------------------------------
 
