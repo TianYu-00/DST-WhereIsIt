@@ -9,6 +9,3 @@
     - [ ] Search bar
     - [ ] Add entity to menu
     - [ ] Save that entity with TheSim:GetPersistentString/TheSim:SetSetting maybe. Need to look into this more
-
-- [x] Fix
-    - [ ] Bottom grid tooltips being blocked by mask
