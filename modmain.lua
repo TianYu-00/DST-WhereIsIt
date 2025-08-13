@@ -71,7 +71,7 @@ end
 
 ----------------------------------- MOD RPC ----------------------------------- 
 
-AddModRPCHandler("WhereIsIt", "GoToPrefab", function(player, prefab_name, is_single)
+AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_single)
     local entities = FindAllEntity(prefab_name, is_single)
     -- refer to archive_resonator.lua line 195-207 to get a better understanding on how to to create the directional beam
     if #entities > 0 then
