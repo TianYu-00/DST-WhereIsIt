@@ -19,9 +19,12 @@ How would the logic look like?
 - we already have Entity prefab registry, but the registry imported is directly used. Maybe before we add it to scrolling grid we combine user added entity + base entity.
 
 Some things to look into first.
-- Find the input textbox xml tex file
 - buttons have their own xml and tex, i remember messing with it. If i remember correctly its called long button or something along those lines
-- for actual input, could use TextEdit template i think
+- for actual input, could use TextEdit template i think - used `Templates2.StandardSingleLineTextEntry` instead 
 
 Ok do these 3 for now and go on from there, maybe work on save entity after that but ill still need some time to look into it.
 
+About time to do some localization now. 
+
+Also found a better alternative to worldgen_customization and worldsettings_customization icons
+use scrapbook icons instead `databundles/images/images/scrapbook_icons1` 2 and 3

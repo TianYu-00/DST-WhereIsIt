@@ -6,12 +6,9 @@ local EntityCell = Class(Widget, function(self, context, index)
 	-- refer to cookbookpage_crockpot.lua line 407
 	Widget._ctor(self, "entity-cell-" .. index)
 
-	self.screen = context.screen
+	self.parent_screen = context.screen
 	local cell_size = context.cell_size
 	local base_size = context.base_size
-
-	print("context.cell_size =", cell_size)
-	print("context.base_size =", base_size)
 
 	self.cell_root = self:AddChild(ImageButton("images/global.xml", "square.tex"))
 	self.cell_root:SetFocusScale(cell_size / base_size + 0.05, cell_size / base_size + 0.05)
@@ -37,7 +34,7 @@ local EntityCell = Class(Widget, function(self, context, index)
 		if self.data ~= nil then
 			print("Image clicked! Index:", index, " name of:", self.data.name)
 			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.single_entity)
-			self.screen:OnClose()
+			self.parent_screen:OnClose()
 		end
 	end)
 end)
@@ -62,24 +59,24 @@ function EntityCell:ShowTooltip()
 	local function UpdateTooltipPosition()
 		local x, y = self:GetPosition():Get()
 		local parent = self:GetParent()
-		while parent and parent ~= self.screen.proot do
+		while parent and parent ~= self.parent_screen.proot do
 			local px, py = parent:GetPosition():Get()
 			x = x + px
 			y = y + py
 			parent = parent:GetParent()
 		end
-		self.screen.tooltip:SetString(self.data.name)
-		self.screen.tooltip:SetPosition(x, y - 40, 0)
-		self.screen.tooltip:MoveToFront()
-		self.screen.tooltip:Show()
+		self.parent_screen.tooltip:SetString(self.data.name)
+		self.parent_screen.tooltip:SetPosition(x, y - 40, 0)
+		self.parent_screen.tooltip:MoveToFront()
+		self.parent_screen.tooltip:Show()
 	end
 
 	UpdateTooltipPosition()
-	self.tooltip_task = self.screen.inst:DoPeriodicTask(0.05, UpdateTooltipPosition)
+	self.tooltip_task = self.parent_screen.inst:DoPeriodicTask(0.05, UpdateTooltipPosition)
 end
 
 function EntityCell:HideTooltip()
-	self.screen.tooltip:Hide()
+	self.parent_screen.tooltip:Hide()
 	if self.tooltip_task then
 		self.tooltip_task:Cancel()
 		self.tooltip_task = nil

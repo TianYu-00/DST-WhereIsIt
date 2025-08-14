@@ -1,0 +1,33 @@
+local Widget = require("widgets/widget")
+local Image = require("widgets/image")
+local Templates = require("widgets/templates")
+local Templates2 = require("widgets/redux/templates")
+
+local EntityInput = Class(Widget, function(self, context)
+	Widget._ctor(self, "entity-input")
+
+	self.parent_screen = context.screen
+
+	local textbox_width = 150
+	local textbox_height = 30
+	local textbox_font = NEWFONT
+	local textbox_fontsize = 25
+	local textbox_placeholder = "Entity"
+	local textbox_textlimit = 50
+
+	-- fieldtext, width_field, height, font, font_size, prompt_text
+	-- redux templates.lua line 1077
+	self.textinput = self:AddChild(
+		Templates2.StandardSingleLineTextEntry(
+			"",
+			textbox_width,
+			textbox_height,
+			textbox_font,
+			textbox_fontsize,
+			textbox_placeholder
+		)
+	)
+	self.textinput.textbox:SetTextLengthLimit(textbox_textlimit)
+end)
+
+return EntityInput

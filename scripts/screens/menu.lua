@@ -8,8 +8,10 @@ local ImageButton = require("widgets/imagebutton")
 -- My files imports
 local EntityList = require("widgets/entitylist")
 local EntityCell = require("widgets/entitycell")
+local EntityInput = require("widgets/entityinput")
 
 -- Assets
+-- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
 Assets = {
 	Asset("ATLAS", "images/worldgen_customization.xml"), -- taken from data/images
 	Asset("IMAGE", "images/worldgen_customization.tex"), -- taken from data/images
@@ -47,6 +49,10 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.title:SetPosition(0, 250, 0)
 	self.title:SetString("Where is it")
 	self.title:SetColour(unpack(GOLD))
+
+	-- Input
+	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
+	self.name_input:SetPosition(175, 245, 0)
 
 	-- Tooltip text, for my cells
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
