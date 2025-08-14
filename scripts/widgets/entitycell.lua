@@ -58,6 +58,7 @@ function EntityCell:SetData(data)
 		end
 		self:Enable()
 	else
+		self.icon:SetSize(0, 0)
 		if self.cell_root.image then
 			self.cell_root.image:SetTint(0.2, 0.2, 0.2, 0.5)
 		end
