@@ -15,11 +15,14 @@ local EntityAdd = require("widgets/entityadd")
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
 Assets = {
-	Asset("ATLAS", "images/worldgen_customization.xml"), -- taken from data/images
-	Asset("IMAGE", "images/worldgen_customization.tex"), -- taken from data/images
+	Asset("ATLAS", "images/scrapbook_icons1.xml"),
+	Asset("IMAGE", "images/scrapbook_icons1.tex"),
 
-	Asset("ATLAS", "images/worldsettings_customization.xml"), -- taken from data/images
-	Asset("IMAGE", "images/worldsettings_customization.tex"), -- taken from data/images
+	Asset("ATLAS", "images/scrapbook_icons2.xml"),
+	Asset("IMAGE", "images/scrapbook_icons2.tex"),
+
+	Asset("ATLAS", "images/scrapbook_icons3.xml"),
+	Asset("IMAGE", "images/scrapbook_icons3.tex"),
 }
 
 local WhereIsItMenuScreen = Class(Screen, function(self, inst)
@@ -141,8 +144,8 @@ function WhereIsItMenuScreen:AddToEntityList(entity_name)
 	-- new entity
 	table.insert(self.saved_entities, {
 		name = entity_name,
-		icon_atlas = "images/customisation.xml",
-		icon_tex = "blank_world.tex",
+		icon_atlas = "images/scrapbook_icons3.xml",
+		icon_tex = "unknown.tex",
 		is_custom = true,
 	})
 

@@ -13,4 +13,7 @@
     - [ ] Update more base entities
 
 Also found a better alternative to worldgen_customization and worldsettings_customization icons
+
 use scrapbook icons instead `databundles/images/images/scrapbook_icons1` 2 and 3
+
+copy the files over for now and use it locally just in case they do changes to it later on.

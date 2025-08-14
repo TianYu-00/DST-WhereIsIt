@@ -17,7 +17,7 @@ local EntityCell = Class(Widget, function(self, context, index)
 
 	-- Icon inside
 	self.icon = self.cell_root:AddChild(Image())
-	self.icon:SetScale(0.5)
+	self.icon:SetScale(0.52)
 
 	-- Tooltip + focus behavior
 	self.cell_root:SetOnGainFocus(function()
@@ -34,7 +34,7 @@ local EntityCell = Class(Widget, function(self, context, index)
 	self.cell_root:SetOnClick(function()
 		if self.data ~= nil then
 			print("Image clicked! Index:", index, " name of:", self.data.name)
-			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.single_entity)
+			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.is_single)
 			self.parent_screen:OnClose()
 		end
 	end)
@@ -42,25 +42,38 @@ end)
 
 function EntityCell:SetData(data)
 	self.data = data
+
+	-- Remove any previous EntityRemove button
+	if self.entity_remove ~= nil then
+		self.entity_remove:Kill()
+		self.entity_remove = nil
+	end
+
 	if data ~= nil then
+		-- Set icon
 		self.icon:SetTexture(data.icon_atlas or "images/global.xml", data.icon_tex or "square.tex")
 		if self.cell_root.image then
 			self.cell_root.image:SetTint(1, 1, 1, 1)
-			-- remove button if custom
-			if data.is_custom then
-				self.entity_remove = self:AddChild(EntityRemove({
-					screen = self,
-					data = data,
-					main_parent_screen = self.parent_screen,
-				}))
-				self.entity_remove:SetPosition(20, -18, 0)
-			end
 		end
+
+		-- Add remove button if custom
+		if data.is_custom then
+			self.entity_remove = self:AddChild(EntityRemove({
+				screen = self,
+				data = data,
+				main_parent_screen = self.parent_screen,
+			}))
+			self.entity_remove:SetPosition(20, -18, 0)
+		end
+
 		self:Enable()
 	else
+		-- Reset icon to blank/default
+		self.icon:SetTexture("images/global.xml", "square.tex")
 		if self.cell_root.image then
 			self.cell_root.image:SetTint(0.2, 0.2, 0.2, 0.5)
 		end
+
 		self:Disable()
 	end
 end
