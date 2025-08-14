@@ -1,3 +1,9 @@
+GLOBAL.setmetatable(env, {
+	__index = function(_, k)
+		return GLOBAL.rawget(GLOBAL, k)
+	end,
+})
+
 local G = GLOBAL
 local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
@@ -39,6 +45,23 @@ AddSimPostInit(function()
 	end)
 end)
 
+----------------------------------- Checks -----------------------------------
+
+local function IsInteractionAllowed()
+	-- check playerhud.lua for more screens
+	local active_screen = G.TheFrontEnd:GetActiveScreen()
+	-- DebugLog("Screen:" .. tostring(active_screen and active_screen.name or "nil"))
+	-- DebugLog("IsCraftingOpen:" .. tostring(G.ThePlayer.HUD:IsCraftingOpen()))
+	-- DebugLog("IsChatOpen:" .. tostring(G.ThePlayer.HUD:IsChatInputScreenOpen()))
+	-- DebugLog("IsConsoleOpen:" .. tostring(G.ThePlayer.HUD:IsConsoleScreenOpen()))
+
+	return active_screen ~= nil
+		and not G.ThePlayer.HUD:IsCraftingOpen()
+		and not G.ThePlayer.HUD:IsChatInputScreenOpen()
+		and not G.ThePlayer.HUD:IsConsoleScreenOpen()
+		and (active_screen.name == "HUD" or active_screen.name == "WhereIsItMenuScreen")
+end
+
 ----------------------------------- AddClassPostConstruct -----------------------------------
 
 AddClassPostConstruct("screens/menu", function(screen)
@@ -48,6 +71,11 @@ end)
 ----------------------------------- Feature -----------------------------------
 
 local function OpenMenu()
+	-- check screens
+	if not IsInteractionAllowed() then
+		return true
+	end
+
 	DebugLog("Function: OpenMenu() called")
 	local screen = TheFrontEnd:GetActiveScreen()
 	-- End if we can't find the screen name (e.g. asleep)

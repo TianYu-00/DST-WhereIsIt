@@ -89,6 +89,10 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 end)
 
 function WhereIsItMenuScreen:OnClose()
+	if self.name_input.is_focus then
+		return -- end function when its input focus
+	end
+
 	-- Cancel any started tasks
 	-- This prevents stale components
 	for k, task in pairs(self.tasks) do
@@ -110,6 +114,7 @@ function WhereIsItMenuScreen:OnControl(control, down)
 	end
 	-- Close UI on ESC
 	if not down and (control == CONTROL_PAUSE or control == CONTROL_CANCEL) then
+		self.name_input.is_focus = false
 		self:OnClose()
 		return true
 	end

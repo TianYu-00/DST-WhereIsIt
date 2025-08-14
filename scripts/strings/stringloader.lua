@@ -17,8 +17,6 @@ end
 
 local function GetTextStrings()
 	local lang = DetectLanguage()
-	print("[WHERE IS IT] Using language:", lang)
-
 	if lang == "zh" then
 		return ChineseStrings
 	else
