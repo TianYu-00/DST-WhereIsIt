@@ -31,6 +31,11 @@ local EntityInput = Class(Widget, function(self, context)
 	)
 	self.textinput.textbox:SetTextLengthLimit(textbox_textlimit)
 
+	self.textinput.textbox.OnTextInputted = function()
+		self.parent_screen:FilterEntityList(self.textinput.textbox:GetString())
+		self.parent_screen:CreateEntityList()
+	end
+
 	self.is_focus = false
 
 	self.textinput:SetOnGainFocus(function()

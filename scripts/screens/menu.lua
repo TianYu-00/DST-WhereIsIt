@@ -9,6 +9,7 @@ local ImageButton = require("widgets/imagebutton")
 local EntityList = require("entitylist")
 local EntityCell = require("widgets/entitycell")
 local EntityInput = require("widgets/entityinput")
+local EntitySearch = require("widgets/entitysearch")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -49,7 +50,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
 	self.title:SetPosition(0, 250, 0)
-	-- self.title:SetString("Where is it")
 	self.title:SetString(TextStrings.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
 
@@ -57,9 +57,40 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
 	self.name_input:SetPosition(180, 245, 0)
 
+	-- Search
+	self.name_search = self.proot:AddChild(EntitySearch({ screen = self }))
+	self.name_search:SetPosition(275, 245, 0)
+
+	-- Save
+
 	-- Tooltip text, for my cells
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.tooltip:Hide()
+
+	-- Display entities
+	self.entity_list = EntityList
+
+	self:CreateEntityList()
+end)
+
+function WhereIsItMenuScreen:FilterEntityList(search)
+	local search_lower = search:lower()
+
+	local filtered = {}
+	for _, entity in ipairs(EntityList) do
+		if entity.name:lower():find(search_lower, 1, true) then
+			table.insert(filtered, entity)
+		end
+	end
+
+	self.entity_list = filtered
+end
+
+function WhereIsItMenuScreen:CreateEntityList()
+	if self.scroll_list then
+		self.scroll_list:Kill()
+		self.scroll_list = nil
+	end
 
 	-- Grid parameters
 	local cell_size = 70
@@ -69,7 +100,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	-- Create scrolling grid
 	-- refer to redux templates.lua line 1961 and cookbookpage_crockpot.lua line 540
-	self.scroll_list = self.proot:AddChild(Templates2.ScrollingGrid(EntityList, {
+	self.scroll_list = self.proot:AddChild(Templates2.ScrollingGrid(self.entity_list, {
 		scroll_context = { screen = self, cell_size = cell_size, base_size = base_size },
 		widget_width = cell_size + col_spacing,
 		widget_height = cell_size + row_spacing,
@@ -86,7 +117,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 		scrollbar_height_offset = -60,
 	}))
 	self.scroll_list:SetPosition(0, 0, 0)
-end)
+end
 
 function WhereIsItMenuScreen:OnClose()
 	if self.name_input.is_focus then
