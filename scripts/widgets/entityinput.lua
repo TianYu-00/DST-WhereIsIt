@@ -5,6 +5,8 @@ local Templates2 = require("widgets/redux/templates")
 
 local EntityInput = Class(Widget, function(self, context)
 	Widget._ctor(self, "entity-input")
+	local GetTextStrings = require("strings/stringloader")
+	local TextStrings = GetTextStrings()
 
 	self.parent_screen = context.screen
 
@@ -12,7 +14,7 @@ local EntityInput = Class(Widget, function(self, context)
 	local textbox_height = 30
 	local textbox_font = NEWFONT
 	local textbox_fontsize = 25
-	local textbox_placeholder = "Entity"
+	local textbox_placeholder = TextStrings.ENTITY_INPUT_PLACEHOLDER
 	local textbox_textlimit = 50
 
 	-- fieldtext, width_field, height, font, font_size, prompt_text

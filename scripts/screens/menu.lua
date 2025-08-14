@@ -6,7 +6,7 @@ local Templates2 = require("widgets/redux/templates")
 local Text = require("widgets/text")
 local ImageButton = require("widgets/imagebutton")
 -- My files imports
-local EntityList = require("widgets/entitylist")
+local EntityList = require("entitylist")
 local EntityCell = require("widgets/entitycell")
 local EntityInput = require("widgets/entityinput")
 
@@ -23,7 +23,9 @@ Assets = {
 local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.inst = inst
 	self.tasks = {}
-	Screen._ctor(self, "WhereIsItMenuScreen") -- screen name. side note: if other mods that has the same name as this, it could potentially cause issues
+	Screen._ctor(self, "WhereIsItMenuScreen") -- screen name
+	local GetTextStrings = require("strings/stringloader")
+	local TextStrings = GetTextStrings()
 
 	-- Dark background
 	self.black = self:AddChild(Image("images/global.xml", "square.tex"))
@@ -47,12 +49,13 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
 	self.title:SetPosition(0, 250, 0)
-	self.title:SetString("Where is it")
+	-- self.title:SetString("Where is it")
+	self.title:SetString(TextStrings.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
 
 	-- Input
 	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
-	self.name_input:SetPosition(175, 245, 0)
+	self.name_input:SetPosition(180, 245, 0)
 
 	-- Tooltip text, for my cells
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
@@ -113,7 +116,7 @@ function WhereIsItMenuScreen:OnControl(control, down)
 end
 
 ----------------------------------- Debug -----------------------------------
----
+
 function WhereIsItMenuScreen:SetDebugMode(state)
 	self.debug_mode = state
 	if state and not self.debug_elements then
