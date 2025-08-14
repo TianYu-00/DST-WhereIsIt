@@ -4,7 +4,6 @@ local Widget = require("widgets/widget")
 local Templates = require("widgets/templates")
 local Templates2 = require("widgets/redux/templates")
 local Text = require("widgets/text")
-local ImageButton = require("widgets/imagebutton")
 local json = require("json")
 -- My files imports
 local EntityList = require("entitylist")
@@ -144,6 +143,7 @@ function WhereIsItMenuScreen:AddToEntityList(entity_name)
 		name = entity_name,
 		icon_atlas = "images/customisation.xml",
 		icon_tex = "blank_world.tex",
+		is_custom = true,
 	})
 
 	self:SaveEntities() -- save entity
@@ -151,6 +151,22 @@ function WhereIsItMenuScreen:AddToEntityList(entity_name)
 
 	-- Clear the input field
 	self.name_input.textinput.textbox:SetString("")
+end
+
+function WhereIsItMenuScreen:RemoveEntity(entity_name)
+	if not entity_name then
+		return
+	end
+
+	for i, e in ipairs(self.saved_entities) do
+		if e.name == entity_name then
+			table.remove(self.saved_entities, i)
+			break
+		end
+	end
+
+	self:SaveEntities()
+	self:RefreshEntityList()
 end
 
 function WhereIsItMenuScreen:FilterEntityList(search)

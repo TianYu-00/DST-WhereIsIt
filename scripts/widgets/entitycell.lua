@@ -1,6 +1,7 @@
 local Widget = require("widgets/widget")
 local Image = require("widgets/image")
 local ImageButton = require("widgets/imagebutton")
+local EntityRemove = require("widgets/entityremove")
 
 local EntityCell = Class(Widget, function(self, context, index)
 	-- refer to cookbookpage_crockpot.lua line 407
@@ -45,6 +46,15 @@ function EntityCell:SetData(data)
 		self.icon:SetTexture(data.icon_atlas or "images/global.xml", data.icon_tex or "square.tex")
 		if self.cell_root.image then
 			self.cell_root.image:SetTint(1, 1, 1, 1)
+			-- remove button if custom
+			if data.is_custom then
+				self.entity_remove = self:AddChild(EntityRemove({
+					screen = self,
+					data = data,
+					main_parent_screen = self.parent_screen,
+				}))
+				self.entity_remove:SetPosition(20, -18, 0)
+			end
 		end
 		self:Enable()
 	else

@@ -1,6 +1,4 @@
 local Widget = require("widgets/widget")
-local Image = require("widgets/image")
-local Templates = require("widgets/templates")
 local Templates2 = require("widgets/redux/templates")
 
 local EntityAdd = Class(Widget, function(self, context)
