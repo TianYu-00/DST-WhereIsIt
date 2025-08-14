@@ -5,11 +5,13 @@ local Templates = require("widgets/templates")
 local Templates2 = require("widgets/redux/templates")
 local Text = require("widgets/text")
 local ImageButton = require("widgets/imagebutton")
+local json = require("json")
 -- My files imports
 local EntityList = require("entitylist")
 local EntityCell = require("widgets/entitycell")
 local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
+local EntityAdd = require("widgets/entityadd")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -62,28 +64,113 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.name_search:SetPosition(275, 245, 0)
 
 	-- Save
+	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
+	self.name_add:SetPosition(315, 245, 0)
 
 	-- Tooltip text, for my cells
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.tooltip:Hide()
 
-	-- Display entities
-	self.entity_list = EntityList
+	-- Initialize entity storage
+	self.saved_entities = {}
+	self.entity_list = {}
 
-	self:CreateEntityList()
+	-- Load saved entities and build initial list
+	self:LoadSavedEntities()
 end)
 
-function WhereIsItMenuScreen:FilterEntityList(search)
-	local search_lower = search:lower()
+-- Persistent data functions
+function WhereIsItMenuScreen:LoadSavedEntities()
+	TheSim:GetPersistentString("tian_whereisit_custom_entities", function(success, str)
+		if success and str ~= nil and str ~= "" then
+			local ok, data = pcall(json.decode, str)
+			if ok and data then
+				self.saved_entities = data
+			end
+		end
+		self:RefreshEntityList()
+	end)
+end
 
-	local filtered = {}
-	for _, entity in ipairs(EntityList) do
-		if entity.name:lower():find(search_lower, 1, true) then
-			table.insert(filtered, entity)
+function WhereIsItMenuScreen:SaveEntities()
+	SavePersistentString("tian_whereisit_custom_entities", json.encode(self.saved_entities), function(success)
+		if not success then
+			print("WhereIsIt: Failed to save custom entities")
+		end
+	end)
+end
+
+function WhereIsItMenuScreen:RefreshEntityList()
+	-- Combine default and saved entities
+	self.master_entity_list = {}
+
+	-- Add default entities
+	for _, e in ipairs(EntityList) do
+		table.insert(self.master_entity_list, e)
+	end
+
+	-- Add saved entities
+	for _, e in ipairs(self.saved_entities) do
+		table.insert(self.master_entity_list, e)
+	end
+
+	-- Initially, entity_list is the full master list
+	self.entity_list = {}
+	for _, e in ipairs(self.master_entity_list) do
+		table.insert(self.entity_list, e)
+	end
+
+	self:CreateEntityList()
+end
+
+function WhereIsItMenuScreen:AddToEntityList(entity_name)
+	if not entity_name or entity_name:match("^%s*$") then
+		return
+	end
+
+	-- Clean up the input
+	-- "^%s*(.-)%s*$" clears front and back whitespaces and keeps middle content
+	entity_name = entity_name:lower():gsub("^%s*(.-)%s*$", "%1")
+
+	-- Check for duplicates in saved entities
+	for _, e in ipairs(self.saved_entities) do
+		if e.name == entity_name then
+			return
 		end
 	end
 
-	self.entity_list = filtered
+	-- new entity
+	table.insert(self.saved_entities, {
+		name = entity_name,
+		icon_atlas = "images/customisation.xml",
+		icon_tex = "blank_world.tex",
+	})
+
+	self:SaveEntities() -- save entity
+	self:RefreshEntityList() -- refresh it
+
+	-- Clear the input field
+	self.name_input.textinput.textbox:SetString("")
+end
+
+function WhereIsItMenuScreen:FilterEntityList(search)
+	local search_lower = search:lower():gsub("^%s*(.-)%s*$", "%1")
+	self.entity_list = {}
+
+	if search_lower == "" then
+		-- Reset to full list
+		for _, e in ipairs(self.master_entity_list) do
+			table.insert(self.entity_list, e)
+		end
+	else
+		for _, entity in ipairs(self.master_entity_list) do
+			if entity.name:lower():find(search_lower, 1, true) then
+				table.insert(self.entity_list, entity)
+			end
+		end
+	end
+
+	self:CreateEntityList()
 end
 
 function WhereIsItMenuScreen:CreateEntityList()
