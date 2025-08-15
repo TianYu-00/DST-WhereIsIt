@@ -2,6 +2,10 @@ local G = GLOBAL
 local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
 
+-- Language Strings
+local GetTextStrings = require("strings/stringloader")
+local TextStrings = GetTextStrings()
+
 ---- Mod config data
 -- Settings
 local menu_key = GetModConfigData("Menu_Key") or "O"
@@ -148,7 +152,7 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 		player.SoundEmitter:PlaySound("grotto/common/archive_resonator/beam")
 	else
 		if player.components.talker then
-			player.components.talker:Say(string.format("No " .. prefab_name .. " found"))
+			player.components.talker:Say(string.format(TextStrings.FAILED_TO_FIND .. " " .. prefab_name))
 		end
 	end
 end)
