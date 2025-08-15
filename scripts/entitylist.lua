@@ -76,7 +76,7 @@ return {
     {name="itemmimic_revealed", icon_atlas="images/scrapbook_icons1.xml", icon_tex="itemmimic_revealed.tex"},
     {name="pond", icon_atlas="images/scrapbook_icons2.xml", icon_tex="pond.tex"},
     {name="pirate_stash", icon_atlas="images/scrapbook_icons2.xml", icon_tex="pirate_stash.tex"},
-    {name="sharkboi", icon_atlas="images/scrapbook_icons2.xml", icon_tex="sharkboi.tex"},
+    {name="icefishing_hole", icon_atlas="images/scrapbook_icons2.xml", icon_tex="sharkboi.tex"},
     {name="spiderqueen", icon_atlas="images/scrapbook_icons3.xml", icon_tex="spiderqueen.tex"},
     {name="spiderden", icon_atlas="images/scrapbook_icons3.xml", icon_tex="spiderden.tex"},
     {name="wagpunk_workstation", icon_atlas="images/scrapbook_icons3.xml", icon_tex="wagpunk_workstation.tex"},
