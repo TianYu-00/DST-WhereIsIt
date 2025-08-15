@@ -1,9 +1,3 @@
-GLOBAL.setmetatable(env, {
-	__index = function(_, k)
-		return GLOBAL.rawget(GLOBAL, k)
-	end,
-})
-
 local G = GLOBAL
 local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
@@ -111,6 +105,24 @@ local function FindAllEntity(prefab_name, is_single)
 	end
 	return entities
 end
+
+----------------------------------- Volt Goat Herd Spawn point -----------------------------------
+
+-- ill just put it here for now since its specific to it, and i wont be using it else where
+PrefabFiles = { "lightninggoatfx" }
+
+AddPrefabPostInit("lightninggoatherd", function(inst)
+	inst.entity:AddNetwork()
+	inst.entity:SetPristine()
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	inst:DoTaskInTime(G.FRAMES, function()
+		local fx = G.SpawnPrefab("tian_whereisit_lightninggoatfx")
+		fx.entity:SetParent(inst.entity)
+	end)
+end)
 
 ----------------------------------- MOD RPC -----------------------------------
 
