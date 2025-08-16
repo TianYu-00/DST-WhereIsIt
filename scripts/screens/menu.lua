@@ -14,16 +14,18 @@ local EntityAdd = require("widgets/entityadd")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
-Assets = {
-	Asset("ATLAS", "images/scrapbook_icons1.xml"),
-	Asset("IMAGE", "images/scrapbook_icons1.tex"),
+-- Change images-backup folder to images and uncomment this section here only if dst changed its scrapbook icons to something completely different or no longer match my entity name, atlas and tex.
+-- This will save about 16mb when not using it
+-- Assets = {
+-- 	Asset("ATLAS", "images/scrapbook_icons1.xml"),
+-- 	Asset("IMAGE", "images/scrapbook_icons1.tex"),
 
-	Asset("ATLAS", "images/scrapbook_icons2.xml"),
-	Asset("IMAGE", "images/scrapbook_icons2.tex"),
+-- 	Asset("ATLAS", "images/scrapbook_icons2.xml"),
+-- 	Asset("IMAGE", "images/scrapbook_icons2.tex"),
 
-	Asset("ATLAS", "images/scrapbook_icons3.xml"),
-	Asset("IMAGE", "images/scrapbook_icons3.tex"),
-}
+-- 	Asset("ATLAS", "images/scrapbook_icons3.xml"),
+-- 	Asset("IMAGE", "images/scrapbook_icons3.tex"),
+-- }
 
 local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.inst = inst
