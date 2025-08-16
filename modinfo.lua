@@ -14,7 +14,7 @@ The mod provides a menu interface with a smooth scroll bar, allowing players to 
 
 Once a target is selected, a directional beam will point towards the specified location. 
 
-Any entities added by the player will be saved to the current cluster.
+Any entities that the player add will persist across different servers if the "Where Is It" mod is installed.
 ]]
 or
 [[
@@ -23,7 +23,7 @@ Where Is It 是一款适用于饥荒联机版的实用模组，可帮助玩家�
 
 该模组提供带平滑滚动条的菜单界面，允许玩家自由浏览、搜索、添加或移除实体。
 
-当选中目标后，方向光束将指向指定位置。玩家添加的任何实体都将保存至当前存档。
+当选中目标后，方向光束将指向指定位置。玩家添加的实体在安装了“Where Is It”模组的服务器间可同步显示。
 ]]
 author = "Tian || TianYu"
 version = "1.0.0"
