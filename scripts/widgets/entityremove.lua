@@ -2,7 +2,7 @@ local Widget = require("widgets/widget")
 local ImageButton = require("widgets/imagebutton")
 
 local EntityRemove = Class(Widget, function(self, context)
-	Widget._ctor(self, "entity-remove")
+	Widget._ctor(self, "tian_whereisit_widget_entity_remove_" .. context.index)
 	self.parent_screen = context.main_parent_screen
 	self.screen = context.screen
 	local button_atlas = "images/button_icons.xml"

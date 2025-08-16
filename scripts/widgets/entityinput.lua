@@ -2,7 +2,7 @@ local Widget = require("widgets/widget")
 local Templates2 = require("widgets/redux/templates")
 
 local EntityInput = Class(Widget, function(self, context)
-	Widget._ctor(self, "entity-input")
+	Widget._ctor(self, "tian_whereisit_widget_entity_input")
 	local GetTextStrings = require("strings/stringloader")
 	local TextStrings = GetTextStrings()
 

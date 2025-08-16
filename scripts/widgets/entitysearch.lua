@@ -2,7 +2,7 @@ local Widget = require("widgets/widget")
 local Templates2 = require("widgets/redux/templates")
 
 local EntitySearch = Class(Widget, function(self, context)
-	Widget._ctor(self, "entity-search")
+	Widget._ctor(self, "tian_whereisit_widget_entity_search")
 	self.parent_screen = context.screen
 	local button_atlas = "images/button_icons.xml"
 	local button_tex = "submit.tex"

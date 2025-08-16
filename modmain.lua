@@ -59,7 +59,7 @@ local function IsInteractionAllowed()
 		and not G.ThePlayer.HUD:IsCraftingOpen()
 		and not G.ThePlayer.HUD:IsChatInputScreenOpen()
 		and not G.ThePlayer.HUD:IsConsoleScreenOpen()
-		and (active_screen.name == "HUD" or active_screen.name == "WhereIsItMenuScreen")
+		and (active_screen.name == "HUD" or active_screen.name == "tian_whereisit_screen_mainmenu")
 end
 
 ----------------------------------- AddClassPostConstruct -----------------------------------
@@ -70,13 +70,13 @@ end)
 
 ----------------------------------- Feature -----------------------------------
 
-local function OpenMenu()
+local function ToggleMenu()
 	-- check screens
 	if not IsInteractionAllowed() then
 		return true
 	end
 
-	DebugLog("Function: OpenMenu() called")
+	DebugLog("Function: ToggleMenu() called")
 	local screen = G.TheFrontEnd:GetActiveScreen()
 	-- End if we can't find the screen name (e.g. asleep)
 	if not screen or not screen.name then
@@ -91,7 +91,7 @@ local function OpenMenu()
 		return true
 	else
 		-- If the screen is already open, close it
-		if screen.name == "WhereIsItMenuScreen" then
+		if screen.name == "tian_whereisit_screen_mainmenu" then
 			screen:OnClose()
 			DebugLog("Closed Menu")
 		end
@@ -234,6 +234,12 @@ local function InputHelper(key, on_down_fn, on_up_fn)
 end
 
 AddSimPostInit(function()
-	InputHelper(menu_key, OpenMenu, nil)
+	InputHelper(menu_key, ToggleMenu, nil)
 	InputHelper(repeat_lookup_key, nil, RepeatLookUp)
 end)
+
+----------------------------------- Comments -----------------------------------
+
+-- Persistent Strings Please Follow This Format "tian_whereisit_persist_xxx"
+-- Screens please follow this format "tian_whereisit_screen_xxx"
+-- Widgets please follow this format "tian_whereisit_widget_xxx"

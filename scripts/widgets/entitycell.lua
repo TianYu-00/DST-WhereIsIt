@@ -3,14 +3,16 @@ local Image = require("widgets/image")
 local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
 local EntitySelected = require("widgets/entityselected")
+-- local EntityFavourite = require("widgets/entityfavourite")
 
 local EntityCell = Class(Widget, function(self, context, index)
 	-- refer to cookbookpage_crockpot.lua line 407
-	Widget._ctor(self, "entity-cell-" .. index)
+	Widget._ctor(self, "tian_whereisit_widget_entity_cell_" .. index)
 
 	self.parent_screen = context.screen
 	local cell_size = context.cell_size
 	local base_size = context.base_size
+	self.entity_index = index
 
 	self.cell_root = self:AddChild(ImageButton("images/global.xml", "square.tex"))
 	self.cell_root:SetFocusScale(cell_size / base_size + 0.05, cell_size / base_size + 0.05)
@@ -55,9 +57,17 @@ function EntityCell:SetData(data)
 					screen = self,
 					data = data,
 					main_parent_screen = self.parent_screen,
+					index = self.entity_index,
 				}))
 				self.entity_remove:SetPosition(20, -18, 0)
 			end
+			-- favourite state button
+			-- self.entity_favourite_root = self:AddChild(EntityFavourite({
+			-- 	screen = self,
+			-- 	data = data,
+			-- 	main_parent_screen = self.parent_screen,
+			-- 	index = self.entity_index,
+			-- }))
 		end
 		self:Enable()
 	else

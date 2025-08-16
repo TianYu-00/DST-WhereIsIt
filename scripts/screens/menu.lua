@@ -30,7 +30,7 @@ local EntityAdd = require("widgets/entityadd")
 local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.inst = inst
 	self.tasks = {}
-	Screen._ctor(self, "WhereIsItMenuScreen") -- screen name
+	Screen._ctor(self, "tian_whereisit_screen_mainmenu") -- screen name
 	local GetTextStrings = require("strings/stringloader")
 	local TextStrings = GetTextStrings()
 
@@ -85,7 +85,7 @@ end)
 
 -- Persistent data functions
 function WhereIsItMenuScreen:LoadSavedEntities()
-	TheSim:GetPersistentString("tian_whereisit_custom_entities", function(success, str)
+	TheSim:GetPersistentString("tian_whereisit_persist_custom_entities", function(success, str)
 		if success and str ~= nil and str ~= "" then
 			local ok, data = pcall(json.decode, str)
 			if ok and data then
@@ -97,11 +97,16 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 end
 
 function WhereIsItMenuScreen:SaveEntities()
-	SavePersistentString("tian_whereisit_custom_entities", json.encode(self.saved_entities), function(success)
-		if not success then
-			print("WhereIsIt: Failed to save custom entities")
+	SavePersistentString(
+		"tian_whereisit_persist_custom_entities",
+		json.encode(self.saved_entities),
+		false,
+		function(success)
+			if not success then
+				print("WhereIsIt: Failed to save custom entities")
+			end
 		end
-	end)
+	)
 end
 
 function WhereIsItMenuScreen:RefreshEntityList()
