@@ -27,5 +27,5 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Remove entity from menu
         - [x] Update more base entities
         - [x] Volt goat herd position
-        - [ ] Repeat previous entity search
+        - [x] Repeat previous entity search
         - [ ] Pin/Favourite entity
