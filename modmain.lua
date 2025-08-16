@@ -77,7 +77,7 @@ local function OpenMenu()
 	end
 
 	DebugLog("Function: OpenMenu() called")
-	local screen = TheFrontEnd:GetActiveScreen()
+	local screen = G.TheFrontEnd:GetActiveScreen()
 	-- End if we can't find the screen name (e.g. asleep)
 	if not screen or not screen.name then
 		return true
@@ -85,8 +85,8 @@ local function OpenMenu()
 	-- If the hud exists, open the UI
 	if screen.name:find("HUD") then
 		-- We want to pass in the (clientside) player entity
-		TheFrontEnd:PushScreen(WhereIsItMenuScreen(G.ThePlayer))
-		TheFrontEnd:GetSound():PlaySound("dontstarve/HUD/click_move")
+		G.TheFrontEnd:PushScreen(WhereIsItMenuScreen(G.ThePlayer))
+		G.TheFrontEnd:GetSound():PlaySound("dontstarve/HUD/click_move")
 		DebugLog("Opened Menu")
 		return true
 	else
