@@ -119,13 +119,13 @@ configuration_options = {
     {
         name = "Menu_Key",
         label = localize("Menu Key", "菜单键"),
-        hover = localize("Used to open the mod menu", "用于打开模组菜单"),
+        hover = localize("Used to open/close the mod menu", "用于打开/关闭模组菜单"),
         options = key_options,
         default = "O",
     },
     {
         name = "Repeat_Lookup_Key",
-        label = localize("Repeat Position Lookup Key", "重复定位快键"),
+        label = localize("Repeat Last Lookup", "重复定位"),
         hover = localize("", ""),
         options = key_options,
         default = "V",
