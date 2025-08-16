@@ -90,7 +90,11 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 			local ok, data = pcall(json.decode, str)
 			if ok and data then
 				self.saved_entities = data
+			else
+				print("WhereIsIt: Failed to decode saved entities")
 			end
+		else
+			print("WhereIsIt: No saved entities found")
 		end
 		self:RefreshEntityList()
 	end)
@@ -210,6 +214,9 @@ function WhereIsItMenuScreen:CreateEntityList()
 	local base_size = 70
 	local row_spacing = 10
 	local col_spacing = 10
+
+	-- print("WhereIsIt: Create entity list Loaded entities (table dump) ->")
+	-- dumptable(self.entity_list, 1, 1)
 
 	-- Create scrolling grid
 	-- refer to redux templates.lua line 1961 and cookbookpage_crockpot.lua line 540
