@@ -2,7 +2,7 @@
 
 **Where Is It**
 
-**Where Is It** is a practical mod for Don't Starve Together that helps players quickly locate creatures, resources, and other entities in the game world. The mod provides a menu interface with a smooth scroll bar, allowing players to freely browse, search, add, or remove entities. Once a target is selected, a directional beam will point towards the specified location. Any entities added by the player will be saved to the current cluster.
+**Where Is It** is a practical mod for **Don't Starve Together** that helps players quickly locate creatures, resources, and other entities in the game world. The mod provides a menu interface with a smooth scroll bar, allowing players to freely browse, search, add, or remove entities. Once a target is selected, a directional beam will point towards the specified location. Any entities added by the player will be saved to the current cluster.
 
 Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are), but mod was coded from scratch.
 
