@@ -91,9 +91,13 @@ end
 -- Mod Config Helper
 local function AddSection(lang_en, lang_cn)
     local tempName = "temp_"..lang_en:gsub("%s+", "_"):lower()
+    local front_prefix = "☆ "
+    local back_prefix = " ────────────────────────────────────"
+    local english = front_prefix .. lang_en .. back_prefix
+    local chinese = front_prefix .. lang_cn .. back_prefix
     return {
         name = tempName,
-        label = localize("☆ " .. lang_en .. " ──────────────────", "☆ " .. lang_cn .. " ──────────────────"),
+        label = localize(english, chinese),
         options = {{description = "", data = 0}},
         default = 0
     }
