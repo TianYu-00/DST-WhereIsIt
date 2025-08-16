@@ -14,8 +14,6 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
 
 ## TO DO LIST
 - [x] Features
-    - [] HOT FIX
-        - Multiplayer access to menus
     - [x] Minimum Viable Product (MVP)
         - [x] Custom menu screen
         - [x] Find entities 
