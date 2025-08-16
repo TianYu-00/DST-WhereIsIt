@@ -11,6 +11,7 @@ local EntityCell = require("widgets/entitycell")
 local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
+local EntityFavourite = require("widgets/entityfavourite")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -75,6 +76,11 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.tooltip:Hide()
 
+	-- Initialize favourite list
+	EntityFavourite:GetFavouritePersistentData(function(data)
+		self.favourite_persist_data = data
+	end)
+
 	-- Initialize entity storage
 	self.saved_entities = {}
 	self.entity_list = {}
@@ -101,16 +107,7 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 end
 
 function WhereIsItMenuScreen:SaveEntities()
-	SavePersistentString(
-		"tian_whereisit_persist_custom_entities",
-		json.encode(self.saved_entities),
-		false,
-		function(success)
-			if not success then
-				print("WhereIsIt: Failed to save custom entities")
-			end
-		end
-	)
+	SavePersistentString("tian_whereisit_persist_custom_entities", json.encode(self.saved_entities), false)
 end
 
 function WhereIsItMenuScreen:RefreshEntityList()

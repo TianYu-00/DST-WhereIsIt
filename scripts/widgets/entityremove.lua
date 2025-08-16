@@ -10,8 +10,19 @@ local EntityRemove = Class(Widget, function(self, context)
 	self.entity_remove_button = self:AddChild(ImageButton(button_atlas, button_tex))
 	self.entity_remove_button:SetScale(0.05)
 	self.entity_remove_button:SetOnClick(function()
-		self.parent_screen:RemoveEntity(context.data.name)
-		print(context.data.name, "deleted")
+		local name = context.data.name
+		self.parent_screen:RemoveEntity(name)
+
+		-- Remove from favourites table if exists
+		if self.parent_screen.favourite_persist_data and self.parent_screen.favourite_persist_data[name] ~= nil then
+			self.parent_screen.favourite_persist_data[name] = nil
+
+			-- Save updated favourites persistently
+			local persist_naming = "tian_whereisit_persist_entity_favourite_states"
+			SavePersistentString(persist_naming, json.encode(self.parent_screen.favourite_persist_data), false)
+		end
+
+		print(name, "deleted")
 	end)
 end)
 
