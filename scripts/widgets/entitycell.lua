@@ -2,6 +2,7 @@ local Widget = require("widgets/widget")
 local Image = require("widgets/image")
 local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
+local EntitySelected = require("widgets/entityselected")
 
 local EntityCell = Class(Widget, function(self, context, index)
 	-- refer to cookbookpage_crockpot.lua line 407
@@ -35,6 +36,8 @@ local EntityCell = Class(Widget, function(self, context, index)
 		if self.data ~= nil then
 			print("Image clicked! Index:", index, " name of:", self.data.name)
 			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.is_single)
+			EntitySelected.name = self.data.name
+			EntitySelected.is_single = self.data.is_single
 			self.parent_screen:OnClose()
 		end
 	end)

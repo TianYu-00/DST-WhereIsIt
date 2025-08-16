@@ -1,6 +1,7 @@
 local G = GLOBAL
 local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
+local EntitySelected = require("widgets/entityselected")
 
 -- Language Strings
 local GetTextStrings = require("strings/stringloader")
@@ -9,6 +10,7 @@ local TextStrings = GetTextStrings()
 ---- Mod config data
 -- Settings
 local menu_key = GetModConfigData("Menu_Key") or "O"
+local repeat_lookup_key = GetModConfigData("Repeat_Lookup_Key") or "C"
 -- Debug settings
 local debug_mode = GetModConfigData("Debug_Mode") or false
 
@@ -110,6 +112,22 @@ local function FindAllEntity(prefab_name, is_single)
 	return entities
 end
 
+local function RepeatLookUp()
+	local player = G.ThePlayer
+	if not IsInteractionAllowed() then
+		return true
+	end
+
+	if EntitySelected.name == "" then
+		if player.components.talker then
+			player.components.talker:Say(TextStrings.NO_ENTITY_SELECTED)
+		end
+		return
+	end
+
+	SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), EntitySelected.name, EntitySelected.is_single)
+end
+
 ----------------------------------- Volt Goat Herd Spawn point -----------------------------------
 
 -- ill just put it here for now since its specific to it, and i wont be using it else where
@@ -207,4 +225,5 @@ end
 
 AddSimPostInit(function()
 	InputHelper(menu_key, OpenMenu, nil)
+	InputHelper(repeat_lookup_key, nil, RepeatLookUp)
 end)

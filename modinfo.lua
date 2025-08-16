@@ -118,6 +118,13 @@ configuration_options = {
         options = key_options,
         default = "O",
     },
+    {
+        name = "Repeat_Lookup_Key",
+        label = localize("Repeat Position Lookup Key", "重复定位快键"),
+        hover = localize("", ""),
+        options = key_options,
+        default = "C",
+    },
     AddSection("Debug", "调试"),
     {
         name = "Debug_Mode",
