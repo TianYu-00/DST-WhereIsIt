@@ -28,6 +28,24 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Update more base entities
         - [x] Volt goat herd position
         - [x] Repeat previous entity search
+        - [x] Clear old directional beam when new beam is generated
         - [ ] Pin/Favourite entity
+        - [ ] Allow players to have their own keybinds
+
+
+
+### Pin/Favourite entity
+menu:favourite/unfavourite
+- crafting_menu.xml
+- favorite_checked.tex
+- favorite_unchecked.tex
+
+How should we handle favourites?
+set persist string?
+
+
+### Allow users to have their own keybinds
+
+- Move all keybinds to in game instead of mod config.
 
     

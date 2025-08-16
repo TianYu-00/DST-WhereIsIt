@@ -28,7 +28,9 @@ Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=28239635
         [*][✔]Update more base entities
         [*][✔]Volt goat herd position
         [*][✔]Repeat previous entity search
+        [*][✔]Clear old directional beam when new beam is generated
         [*][✘]Pin/Favourite entity
+        [*][✘]Allow players to have their own keybinds
     [/list]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]

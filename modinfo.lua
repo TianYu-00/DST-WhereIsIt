@@ -212,3 +212,4 @@ configuration_options = {
 -- https://forums.kleientertainment.com/forums/topic/126774-documentation-list-of-all-engine-functions/
 -- https://dst-api-docs.fandom.com/wiki/AddKeyDownHandler
 -- https://forums.kleientertainment.com/forums/topic/118009-tutorial-custom-user-interfaces/
+-- https://dst-api-docs.fandom.com/wiki/Persistent_Strings

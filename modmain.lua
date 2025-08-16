@@ -152,6 +152,14 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 	local entities = FindAllEntity(prefab_name, is_single)
 	-- refer to archive_resonator.lua line 195-207 to get a better understanding on how to to create the directional beam
 	if #entities > 0 then
+		local tag = "whereisit_beam_" .. player.userid
+		local old_beams = FindAllEntity("archive_resonator_base", false)
+		for _, beam in ipairs(old_beams) do
+			if beam and beam:IsValid() and beam:HasTag(tag) then
+				beam:Remove()
+			end
+		end
+
 		for i, ent in ipairs(entities) do
 			local x, y, z = player.Transform:GetWorldPosition()
 			local angle = ent:GetAngleToPoint(x, y, z)
@@ -163,6 +171,8 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 			base.Transform:SetRotation(angle + 90)
 			base.AnimState:PlayAnimation("beam_marker")
 			base.AnimState:PushAnimation("idle_marker", true)
+			base:AddTag(tag)
+			base.persists = false -- prevent the prefab from being saved in world state. Fixes the issue where saving the world while the beam is active would cause it to stay there on load
 			base:DoTaskInTime(8, function(inst)
 				inst:Remove()
 			end)
