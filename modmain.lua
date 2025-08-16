@@ -10,7 +10,7 @@ local TextStrings = GetTextStrings()
 ---- Mod config data
 -- Settings
 local menu_key = GetModConfigData("Menu_Key") or "O"
-local repeat_lookup_key = GetModConfigData("Repeat_Lookup_Key") or "C"
+local repeat_lookup_key = GetModConfigData("Repeat_Lookup_Key") or "V"
 -- Debug settings
 local debug_mode = GetModConfigData("Debug_Mode") or false
 

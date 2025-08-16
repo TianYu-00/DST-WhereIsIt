@@ -128,7 +128,7 @@ configuration_options = {
         label = localize("Repeat Position Lookup Key", "重复定位快键"),
         hover = localize("", ""),
         options = key_options,
-        default = "C",
+        default = "V",
     },
     AddSection("Debug", "调试"),
     {
