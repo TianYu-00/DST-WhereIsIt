@@ -3,7 +3,7 @@ local Image = require("widgets/image")
 local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
 local EntitySelected = require("widgets/entityselected")
--- local EntityFavourite = require("widgets/entityfavourite")
+local EntityFavourite = require("widgets/entityfavourite")
 
 local EntityCell = Class(Widget, function(self, context, index)
 	Widget._ctor(self, "tian_whereisit_widget_entity_cell_" .. index)
@@ -53,6 +53,11 @@ function EntityCell:SetData(data)
 		self.entity_remove = nil
 	end
 
+	if self.entity_favourite_root then
+		self.entity_favourite_root:Kill()
+		self.entity_favourite_root = nil
+	end
+
 	if not data then
 		self.icon:SetScale(0, 0)
 		if self.cell_root.image then
@@ -81,12 +86,13 @@ function EntityCell:SetData(data)
 	end
 
 	-- Favourite button
-	-- self.entity_favourite_root = self:AddChild(EntityFavourite({
-	--     screen = self,
-	--     data = data,
-	--     main_parent_screen = self.parent_screen,
-	--     index = self.entity_index,
-	-- }))
+	self.entity_favourite_root = self:AddChild(EntityFavourite({
+		screen = self,
+		data = data,
+		main_parent_screen = self.parent_screen,
+		index = self.entity_index,
+	}))
+	self.entity_favourite_root:SetPosition(20, 18, 0)
 
 	self:Enable()
 end

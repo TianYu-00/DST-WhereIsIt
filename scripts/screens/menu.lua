@@ -11,6 +11,7 @@ local EntityCell = require("widgets/entitycell")
 local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
+local EntityFavourite = require("widgets/entityfavourite")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -75,6 +76,11 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.tooltip:Hide()
 
+	-- Initialize favourite list
+	EntityFavourite:GetFavouritePersistentData(function(data)
+		self.favourite_persist_data = data
+	end)
+
 	-- Initialize entity storage
 	self.saved_entities = {}
 	self.entity_list = {}
@@ -101,16 +107,7 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 end
 
 function WhereIsItMenuScreen:SaveEntities()
-	SavePersistentString(
-		"tian_whereisit_persist_custom_entities",
-		json.encode(self.saved_entities),
-		false,
-		function(success)
-			if not success then
-				print("WhereIsIt: Failed to save custom entities")
-			end
-		end
-	)
+	SavePersistentString("tian_whereisit_persist_custom_entities", json.encode(self.saved_entities), false)
 end
 
 function WhereIsItMenuScreen:RefreshEntityList()
@@ -127,9 +124,27 @@ function WhereIsItMenuScreen:RefreshEntityList()
 		table.insert(self.master_entity_list, e)
 	end
 
-	-- Initially, entity_list is the full master list
 	self.entity_list = {}
+
+	-- Separate favourites and non-favourites
+	local favourites = {}
+	local non_favourites = {}
+
 	for _, e in ipairs(self.master_entity_list) do
+		if self.favourite_persist_data and self.favourite_persist_data[e.name] then
+			table.insert(favourites, e)
+		else
+			table.insert(non_favourites, e)
+		end
+	end
+
+	-- Put favourites first
+	for _, e in ipairs(favourites) do
+		table.insert(self.entity_list, e)
+	end
+
+	-- Then the rest
+	for _, e in ipairs(non_favourites) do
 		table.insert(self.entity_list, e)
 	end
 
