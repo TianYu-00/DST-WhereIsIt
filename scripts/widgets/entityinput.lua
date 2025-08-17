@@ -1,5 +1,6 @@
 local Widget = require("widgets/widget")
 local Templates2 = require("widgets/redux/templates")
+local EntitySearch = require("widgets/entitysearch")
 
 local EntityInput = Class(Widget, function(self, context)
 	Widget._ctor(self, "tian_whereisit_widget_entity_input")
@@ -30,7 +31,9 @@ local EntityInput = Class(Widget, function(self, context)
 	self.textinput.textbox:SetTextLengthLimit(textbox_textlimit)
 
 	self.textinput.textbox.OnTextInputted = function()
-		self.parent_screen:FilterEntityList(self.textinput.textbox:GetString())
+		if self.parent_screen and self.parent_screen.name_search then
+			self.parent_screen.name_search:FilterEntityList(self.textinput.textbox:GetString())
+		end
 	end
 
 	self.is_focus = false

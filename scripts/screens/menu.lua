@@ -159,28 +159,6 @@ function WhereIsItMenuScreen:RefreshEntityList()
 	self:CreateEntityList()
 end
 
--- This needs to be moved to entitysearch.lua
-function WhereIsItMenuScreen:FilterEntityList(search)
-	local search_lower = search:lower():gsub("^%s*(.-)%s*$", "%1")
-	self.entity_list = {}
-
-	if search_lower == "" then
-		-- Reset to full list
-		for _, e in ipairs(self.master_entity_list) do
-			table.insert(self.entity_list, e)
-		end
-	else
-		for _, entity in ipairs(self.master_entity_list) do
-			if entity.name:lower():find(search_lower, 1, true) then
-				table.insert(self.entity_list, entity)
-			end
-		end
-	end
-
-	self:CreateEntityList()
-end
-
--- this is fine here as this is the actual initializer of grid cells
 function WhereIsItMenuScreen:CreateEntityList()
 	if self.scroll_list then
 		self.scroll_list:Kill()
@@ -217,7 +195,6 @@ function WhereIsItMenuScreen:CreateEntityList()
 	self.scroll_list:SetPosition(0, 0, 0)
 end
 
--- this is fine too
 function WhereIsItMenuScreen:OnClose()
 	if self.name_input.is_focus then
 		return -- end function when its input focus
@@ -237,7 +214,6 @@ function WhereIsItMenuScreen:OnClose()
 	end
 end
 
--- this is fine too
 function WhereIsItMenuScreen:OnControl(control, down)
 	-- Sends clicks to the screen
 	if WhereIsItMenuScreen._base.OnControl(self, control, down) then
