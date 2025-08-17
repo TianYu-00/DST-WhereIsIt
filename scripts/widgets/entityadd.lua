@@ -39,8 +39,8 @@ function EntityAdd:AddToEntityList(entity_name)
 		is_custom = true,
 	})
 
-	self.parent_screen:SaveEntities() -- save entity
-	self.parent_screen:RefreshEntityList() -- refresh it
+	self.parent_screen:SaveEntities()
+	self.parent_screen:RefreshEntityList()
 
 	-- Clear the input field
 	self.parent_screen.name_input.textinput.textbox:SetString("")

@@ -11,7 +11,7 @@ local EntityRemove = Class(Widget, function(self, context)
 	self.entity_remove_button:SetScale(0.05)
 	self.entity_remove_button:SetOnClick(function()
 		local name = context.data.name
-		self.parent_screen:RemoveEntity(name)
+		self:RemoveEntity(name)
 
 		-- Remove from favourites table if exists
 		if self.parent_screen.favourite_persist_data and self.parent_screen.favourite_persist_data[name] ~= nil then
@@ -25,5 +25,21 @@ local EntityRemove = Class(Widget, function(self, context)
 		print(name, "deleted")
 	end)
 end)
+
+function EntityRemove:RemoveEntity(entity_name)
+	if not entity_name then
+		return
+	end
+
+	for i, e in ipairs(self.parent_screen.saved_entities) do
+		if e.name == entity_name then
+			table.remove(self.parent_screen.saved_entities, i)
+			break
+		end
+	end
+
+	self.parent_screen:SaveEntities()
+	self.parent_screen:RefreshEntityList()
+end
 
 return EntityRemove

@@ -159,24 +159,7 @@ function WhereIsItMenuScreen:RefreshEntityList()
 	self:CreateEntityList()
 end
 
--- This needs to be moved to entityremove.lua
-function WhereIsItMenuScreen:RemoveEntity(entity_name)
-	if not entity_name then
-		return
-	end
-
-	for i, e in ipairs(self.saved_entities) do
-		if e.name == entity_name then
-			table.remove(self.saved_entities, i)
-			break
-		end
-	end
-
-	self:SaveEntities()
-	self:RefreshEntityList()
-end
-
--- This needs to be moved to entity.lua
+-- This needs to be moved to entitysearch.lua
 function WhereIsItMenuScreen:FilterEntityList(search)
 	local search_lower = search:lower():gsub("^%s*(.-)%s*$", "%1")
 	self.entity_list = {}
