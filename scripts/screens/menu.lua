@@ -53,6 +53,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	-- Main Background UI
 	self.bg = self.proot:AddChild(Templates.CurlyWindow(400, 450, 1, 1, 68, -40)) -- sizeX, sizeY, scaleX, scaleY, topCrownOffset, bottomCrownOffset, xOffset
+	self.bg:SetTint(1, 1, 1, 0.7)
 
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
