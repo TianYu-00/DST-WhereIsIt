@@ -12,6 +12,8 @@ local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
 local EntityFavourite = require("widgets/entityfavourite")
+local GetTextStrings = require("strings/stringloader")
+local TextStrings = GetTextStrings()
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -32,9 +34,8 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.inst = inst
 	self.tasks = {}
 	Screen._ctor(self, "tian_whereisit_screen_mainmenu") -- screen name
-	local GetTextStrings = require("strings/stringloader")
-	local TextStrings = GetTextStrings()
 
+	----------------------------------- creating the base menu ui
 	-- Dark background
 	self.black = self:AddChild(Image("images/global.xml", "square.tex"))
 	self.black:SetVRegPoint(ANCHOR_MIDDLE)
@@ -61,6 +62,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.title:SetString(TextStrings.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
 
+	----------------------------------- creating the base interactions
 	-- Input
 	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
 	self.name_input:SetPosition(180, 245, 0)
@@ -73,6 +75,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
 	self.name_add:SetPosition(315, 245, 0)
 
+	----------------------------------- creating cell specific features
 	-- Tooltip text, for my cells
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.tooltip:Hide()
@@ -90,6 +93,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self:LoadSavedEntities()
 end)
 
+-- maybe create new entitiyhandler.lua for this
 -- Persistent data functions
 function WhereIsItMenuScreen:LoadSavedEntities()
 	TheSim:GetPersistentString("tian_whereisit_persist_custom_entities", function(success, str)
@@ -107,10 +111,12 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 	end)
 end
 
+-- maybe create new entitiyhandler.lua for this
 function WhereIsItMenuScreen:SaveEntities()
 	SavePersistentString("tian_whereisit_persist_custom_entities", json.encode(self.saved_entities), false)
 end
 
+-- maybe create new entitiyhandler.lua for this
 function WhereIsItMenuScreen:RefreshEntityList()
 	-- Combine default and saved entities
 	self.master_entity_list = {}
@@ -152,6 +158,7 @@ function WhereIsItMenuScreen:RefreshEntityList()
 	self:CreateEntityList()
 end
 
+-- This needs to be moved to entityadd.lua
 function WhereIsItMenuScreen:AddToEntityList(entity_name)
 	if not entity_name or entity_name:match("^%s*$") then
 		return
@@ -183,6 +190,7 @@ function WhereIsItMenuScreen:AddToEntityList(entity_name)
 	self.name_input.textinput.textbox:SetString("")
 end
 
+-- This needs to be moved to entityremove.lua
 function WhereIsItMenuScreen:RemoveEntity(entity_name)
 	if not entity_name then
 		return
@@ -199,6 +207,7 @@ function WhereIsItMenuScreen:RemoveEntity(entity_name)
 	self:RefreshEntityList()
 end
 
+-- This needs to be moved to entity.lua
 function WhereIsItMenuScreen:FilterEntityList(search)
 	local search_lower = search:lower():gsub("^%s*(.-)%s*$", "%1")
 	self.entity_list = {}
@@ -219,6 +228,7 @@ function WhereIsItMenuScreen:FilterEntityList(search)
 	self:CreateEntityList()
 end
 
+-- this is fine here as this is the actual initializer of grid cells
 function WhereIsItMenuScreen:CreateEntityList()
 	if self.scroll_list then
 		self.scroll_list:Kill()
@@ -255,6 +265,7 @@ function WhereIsItMenuScreen:CreateEntityList()
 	self.scroll_list:SetPosition(0, 0, 0)
 end
 
+-- this is fine too
 function WhereIsItMenuScreen:OnClose()
 	if self.name_input.is_focus then
 		return -- end function when its input focus
@@ -274,6 +285,7 @@ function WhereIsItMenuScreen:OnClose()
 	end
 end
 
+-- this is fine too
 function WhereIsItMenuScreen:OnControl(control, down)
 	-- Sends clicks to the screen
 	if WhereIsItMenuScreen._base.OnControl(self, control, down) then
