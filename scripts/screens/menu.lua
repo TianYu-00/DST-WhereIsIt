@@ -124,9 +124,27 @@ function WhereIsItMenuScreen:RefreshEntityList()
 		table.insert(self.master_entity_list, e)
 	end
 
-	-- Initially, entity_list is the full master list
 	self.entity_list = {}
+
+	-- Separate favourites and non-favourites
+	local favourites = {}
+	local non_favourites = {}
+
 	for _, e in ipairs(self.master_entity_list) do
+		if self.favourite_persist_data and self.favourite_persist_data[e.name] then
+			table.insert(favourites, e)
+		else
+			table.insert(non_favourites, e)
+		end
+	end
+
+	-- Put favourites first
+	for _, e in ipairs(favourites) do
+		table.insert(self.entity_list, e)
+	end
+
+	-- Then the rest
+	for _, e in ipairs(non_favourites) do
 		table.insert(self.entity_list, e)
 	end
 
