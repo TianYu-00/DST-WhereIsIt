@@ -99,6 +99,11 @@ end
 
 function EntityCell:ShowTooltip()
 	local function UpdateTooltipPosition()
+		if not self.data then
+			self:HideTooltip()
+			return
+		end
+
 		local x, y = self:GetPosition():Get()
 		local parent = self:GetParent()
 		while parent and parent ~= self.parent_screen.proot do

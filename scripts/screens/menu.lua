@@ -77,6 +77,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	----------------------------------- creating cell specific features
 	-- Tooltip text, for my cells
+	-- Maybe dont make it specific to cells but as a global tooltip
 	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.tooltip:Hide()
 
@@ -156,38 +157,6 @@ function WhereIsItMenuScreen:RefreshEntityList()
 	end
 
 	self:CreateEntityList()
-end
-
--- This needs to be moved to entityadd.lua
-function WhereIsItMenuScreen:AddToEntityList(entity_name)
-	if not entity_name or entity_name:match("^%s*$") then
-		return
-	end
-
-	-- Clean up the input
-	-- "^%s*(.-)%s*$" clears front and back whitespaces and keeps middle content
-	entity_name = entity_name:lower():gsub("^%s*(.-)%s*$", "%1")
-
-	-- Check for duplicates in saved entities
-	for _, e in ipairs(self.saved_entities) do
-		if e.name == entity_name then
-			return
-		end
-	end
-
-	-- new entity
-	table.insert(self.saved_entities, {
-		name = entity_name,
-		icon_atlas = "images/scrapbook_icons3.xml",
-		icon_tex = "unknown.tex",
-		is_custom = true,
-	})
-
-	self:SaveEntities() -- save entity
-	self:RefreshEntityList() -- refresh it
-
-	-- Clear the input field
-	self.name_input.textinput.textbox:SetString("")
 end
 
 -- This needs to be moved to entityremove.lua
