@@ -5,6 +5,8 @@ local EntityRemove = require("widgets/entityremove")
 local EntitySelected = require("widgets/entityselected")
 local EntityFavourite = require("widgets/entityfavourite")
 local Text = require("widgets/text")
+local GetTextStrings = require("strings/stringloader")
+local TextStrings = GetTextStrings()
 
 local EntityCell = Class(Widget, function(self, context, index)
 	Widget._ctor(self, "tian_whereisit_widget_entity_cell_" .. index)
@@ -109,9 +111,9 @@ function EntityCell:OnControl(control, down)
 				self.entity_favourite_root:ToggleFavourite(self.data.name)
 				local favourite_state = self.entity_favourite_root:CheckFavourite(self.data.name)
 				if favourite_state then
-					self.parent_screen.tooltip_root.tooltip:SetString("Pinned")
+					self.parent_screen.tooltip_root.tooltip:SetString(TextStrings.PINNED)
 				else
-					self.parent_screen.tooltip_root.tooltip:SetString("Unpinned")
+					self.parent_screen.tooltip_root.tooltip:SetString(TextStrings.UNPINNED)
 				end
 			end
 			return true

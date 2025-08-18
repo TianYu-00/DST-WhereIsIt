@@ -80,7 +80,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 20))
 	self.title:SetPosition(0, -250, 0)
-	self.title:SetString("Ctrl + Right Click = Toggle Favourite | Alt + Right Click = Remove")
+	self.title:SetString(TextStrings.INTERACTION_HELPER)
 
 	----------------------------------- creating cell specific features
 	-- Initialize favourite list
