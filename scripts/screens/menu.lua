@@ -78,6 +78,10 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
 
+	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 20))
+	self.title:SetPosition(0, -250, 0)
+	self.title:SetString("Ctrl + Right Click = Toggle Favourite | Alt + Right Click = Remove")
+
 	----------------------------------- creating cell specific features
 	-- Initialize favourite list
 	EntityFavourite:GetFavouritePersistentData(function(data)

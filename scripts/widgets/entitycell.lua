@@ -46,16 +46,16 @@ end)
 function EntityCell:SetData(data)
 	self.data = data
 
-	-- -- Clean up old buttons
-	-- if self.entity_remove then
-	-- 	self.entity_remove:Kill()
-	-- 	self.entity_remove = nil
-	-- end
+	-- Clean up old roots
+	if self.entity_remove_root then
+		self.entity_remove_root:Kill()
+		self.entity_remove_root = nil
+	end
 
-	-- if self.entity_favourite_root then
-	-- 	self.entity_favourite_root:Kill()
-	-- 	self.entity_favourite_root = nil
-	-- end
+	if self.entity_favourite_root then
+		self.entity_favourite_root:Kill()
+		self.entity_favourite_root = nil
+	end
 
 	if self.custom_name then
 		self.custom_name:Kill()
@@ -84,7 +84,7 @@ function EntityCell:SetData(data)
 		self.cell_root.image:SetTint(1, 1, 1, 1)
 	end
 
-	-- Remove button for custom entities
+	-- Remove
 	if data.is_custom then
 		self.custom_name = self:AddChild(Text(NEWFONT_OUTLINE, 20))
 		self.custom_name:SetRegionSize(60, 60)
@@ -92,25 +92,51 @@ function EntityCell:SetData(data)
 		self.custom_name:EnableWordWrap(true)
 		self.custom_name:SetString(data.name)
 
-		-- self.entity_remove = self:AddChild(EntityRemove({
-		-- 	screen = self,
-		-- 	data = data,
-		-- 	main_parent_screen = self.parent_screen,
-		-- 	index = self.entity_index,
-		-- }))
-		-- self.entity_remove:SetPosition(20, -18, 0)
+		self.entity_remove_root = self:AddChild(EntityRemove({
+			screen = self,
+			main_parent_screen = self.parent_screen,
+			index = self.entity_index,
+		}))
 	end
 
-	-- -- Favourite button
-	-- self.entity_favourite_root = self:AddChild(EntityFavourite({
-	-- 	screen = self,
-	-- 	data = data,
-	-- 	main_parent_screen = self.parent_screen,
-	-- 	index = self.entity_index,
-	-- }))
-	-- self.entity_favourite_root:SetPosition(20, 18, 0)
+	-- Favourite
+	self.entity_favourite_root = self:AddChild(EntityFavourite({
+		screen = self,
+		main_parent_screen = self.parent_screen,
+		index = self.entity_index,
+	}))
 
 	self:Enable()
+end
+
+function EntityCell:OnControl(control, down)
+	if Widget.OnControl(self, control, down) then
+		return true
+	end
+
+	-- Favourite
+	if down and control == CONTROL_SECONDARY then
+		if TheInput:IsKeyDown(KEY_LCTRL) or TheInput:IsKeyDown(KEY_RCTRL) then
+			if self.data and self.data.name and self.entity_favourite_root then
+				print("Ctrl+Right Click on:", self.data.name)
+				self.entity_favourite_root:ToggleFavourite(self.data.name)
+			end
+			return true
+		end
+	end
+
+	-- Remove
+	if down and control == CONTROL_SECONDARY then
+		if TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_LALT) then
+			if self.data and self.data.name and self.entity_remove_root then
+				print("Alt+Right Click on:", self.data.name)
+				self.entity_remove_root:RemoveEntity(self.data.name)
+			end
+			return true
+		end
+	end
+
+	return false
 end
 
 return EntityCell

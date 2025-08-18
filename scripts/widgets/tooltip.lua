@@ -20,7 +20,7 @@ function Tooltip:UpdatePosition(widget, x_offset, y_offset)
 		y = y + py
 		parent = parent:GetParent()
 	end
-	print("updating tooltip x:" .. x .. "updating tooltip y:" .. y)
+	-- print("updating tooltip x:" .. x .. "updating tooltip y:" .. y)
 	self.tooltip:SetPosition(x + x_offset, y + y_offset, 0)
 	self:ShowTooltip(widget)
 end
