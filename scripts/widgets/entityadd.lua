@@ -13,6 +13,15 @@ local EntityAdd = Class(Widget, function(self, context)
 	-- IconButton(iconAtlas, iconTexture, labelText, sideLabel, alwaysShowLabel, onclick, textinfo, defaultTexture)
 	self.entity_add_button = self:AddChild(Templates2.IconButton(button_atlas, button_tex, "", "", "", button_onclick))
 	self.entity_add_button:SetScale(0.5)
+
+	self.entity_add_button:SetOnGainFocus(function()
+		self.parent_screen.tooltip_root:UpdatePosition(self.entity_add_button, 0, -25)
+		self.parent_screen.tooltip_root.tooltip:SetString("Add entity")
+	end)
+
+	self.entity_add_button:SetOnLoseFocus(function()
+		self.parent_screen.tooltip_root:HideTooltip(self.entity_add_button)
+	end)
 end)
 
 function EntityAdd:AddToEntityList(entity_name)

@@ -15,6 +15,15 @@ local EntitySearch = Class(Widget, function(self, context)
 	-- IconButton(iconAtlas, iconTexture, labelText, sideLabel, alwaysShowLabel, onclick, textinfo, defaultTexture)
 	self.search_button = self:AddChild(Templates2.IconButton(button_atlas, button_tex, "", "", "", button_onclick))
 	self.search_button:SetScale(0.5)
+
+	self.search_button:SetOnGainFocus(function()
+		self.parent_screen.tooltip_root:UpdatePosition(self.search_button, 0, -25)
+		self.parent_screen.tooltip_root.tooltip:SetString("Search entity")
+	end)
+
+	self.search_button:SetOnLoseFocus(function()
+		self.parent_screen.tooltip_root:HideTooltip(self.search_button)
+	end)
 end)
 
 -- This needs to be moved to entitysearch.lua

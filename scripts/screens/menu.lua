@@ -12,6 +12,7 @@ local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
 local EntityFavourite = require("widgets/entityfavourite")
+local Tooltip = require("widgets/tooltip")
 local GetTextStrings = require("strings/stringloader")
 local TextStrings = GetTextStrings()
 
@@ -75,12 +76,9 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
 	self.name_add:SetPosition(315, 245, 0)
 
-	----------------------------------- creating cell specific features
-	-- Tooltip text, for my cells
-	-- Maybe dont make it specific to cells but as a global tooltip
-	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
-	self.tooltip:Hide()
+	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
 
+	----------------------------------- creating cell specific features
 	-- Initialize favourite list
 	EntityFavourite:GetFavouritePersistentData(function(data)
 		self.favourite_persist_data = data
@@ -94,8 +92,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self:LoadSavedEntities()
 end)
 
--- maybe create new entitiyhandler.lua for this
--- Persistent data functions
 function WhereIsItMenuScreen:LoadSavedEntities()
 	TheSim:GetPersistentString("tian_whereisit_persist_custom_entities", function(success, str)
 		if success and str ~= nil and str ~= "" then
@@ -112,12 +108,10 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 	end)
 end
 
--- maybe create new entitiyhandler.lua for this
 function WhereIsItMenuScreen:SaveEntities()
 	SavePersistentString("tian_whereisit_persist_custom_entities", json.encode(self.saved_entities), false)
 end
 
--- maybe create new entitiyhandler.lua for this
 function WhereIsItMenuScreen:RefreshEntityList()
 	-- Combine default and saved entities
 	self.master_entity_list = {}
@@ -170,9 +164,6 @@ function WhereIsItMenuScreen:CreateEntityList()
 	local base_size = 70
 	local row_spacing = 10
 	local col_spacing = 10
-
-	-- print("WhereIsIt: Create entity list Loaded entities (table dump) ->")
-	-- dumptable(self.entity_list, 1, 1)
 
 	-- Create scrolling grid
 	-- refer to redux templates.lua line 1961 and cookbookpage_crockpot.lua line 540

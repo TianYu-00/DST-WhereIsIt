@@ -24,12 +24,13 @@ local EntityCell = Class(Widget, function(self, context, index)
 	-- Tooltip handling
 	self.cell_root:SetOnGainFocus(function()
 		if self.data then
-			self:ShowTooltip()
+			self.parent_screen.tooltip_root:UpdatePosition(self.cell_root, 0, -40)
+			self.parent_screen.tooltip_root.tooltip:SetString(self.data.name)
 		end
 	end)
 
 	self.cell_root:SetOnLoseFocus(function()
-		self:HideTooltip()
+		self.parent_screen.tooltip_root:HideTooltip(self.cell_root)
 	end)
 
 	-- Click behavior
@@ -95,39 +96,6 @@ function EntityCell:SetData(data)
 	self.entity_favourite_root:SetPosition(20, 18, 0)
 
 	self:Enable()
-end
-
-function EntityCell:ShowTooltip()
-	local function UpdateTooltipPosition()
-		if not self.data then
-			self:HideTooltip()
-			return
-		end
-
-		local x, y = self:GetPosition():Get()
-		local parent = self:GetParent()
-		while parent and parent ~= self.parent_screen.proot do
-			local px, py = parent:GetPosition():Get()
-			x = x + px
-			y = y + py
-			parent = parent:GetParent()
-		end
-		self.parent_screen.tooltip:SetString(self.data.name)
-		self.parent_screen.tooltip:SetPosition(x, y - 40, 0)
-		self.parent_screen.tooltip:MoveToFront()
-		self.parent_screen.tooltip:Show()
-	end
-
-	UpdateTooltipPosition()
-	self.tooltip_task = self.parent_screen.inst:DoPeriodicTask(0.05, UpdateTooltipPosition)
-end
-
-function EntityCell:HideTooltip()
-	self.parent_screen.tooltip:Hide()
-	if self.tooltip_task then
-		self.tooltip_task:Cancel()
-		self.tooltip_task = nil
-	end
 end
 
 return EntityCell
