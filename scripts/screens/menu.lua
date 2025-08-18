@@ -12,6 +12,9 @@ local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
 local EntityFavourite = require("widgets/entityfavourite")
+local Tooltip = require("widgets/tooltip")
+local GetTextStrings = require("strings/stringloader")
+local TextStrings = GetTextStrings()
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -32,9 +35,8 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.inst = inst
 	self.tasks = {}
 	Screen._ctor(self, "tian_whereisit_screen_mainmenu") -- screen name
-	local GetTextStrings = require("strings/stringloader")
-	local TextStrings = GetTextStrings()
 
+	----------------------------------- creating the base menu ui
 	-- Dark background
 	self.black = self:AddChild(Image("images/global.xml", "square.tex"))
 	self.black:SetVRegPoint(ANCHOR_MIDDLE)
@@ -53,6 +55,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	-- Main Background UI
 	self.bg = self.proot:AddChild(Templates.CurlyWindow(400, 450, 1, 1, 68, -40)) -- sizeX, sizeY, scaleX, scaleY, topCrownOffset, bottomCrownOffset, xOffset
+	self.bg:SetTint(1, 1, 1, 0.7)
 
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
@@ -60,6 +63,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.title:SetString(TextStrings.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
 
+	----------------------------------- creating the base interactions
 	-- Input
 	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
 	self.name_input:SetPosition(180, 245, 0)
@@ -72,10 +76,13 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
 	self.name_add:SetPosition(315, 245, 0)
 
-	-- Tooltip text, for my cells
-	self.tooltip = self.proot:AddChild(Text(NEWFONT_OUTLINE, 15))
-	self.tooltip:Hide()
+	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
 
+	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 20))
+	self.title:SetPosition(0, -250, 0)
+	self.title:SetString(TextStrings.INTERACTION_HELPER)
+
+	----------------------------------- creating cell specific features
 	-- Initialize favourite list
 	EntityFavourite:GetFavouritePersistentData(function(data)
 		self.favourite_persist_data = data
@@ -89,7 +96,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self:LoadSavedEntities()
 end)
 
--- Persistent data functions
 function WhereIsItMenuScreen:LoadSavedEntities()
 	TheSim:GetPersistentString("tian_whereisit_persist_custom_entities", function(success, str)
 		if success and str ~= nil and str ~= "" then
@@ -151,73 +157,6 @@ function WhereIsItMenuScreen:RefreshEntityList()
 	self:CreateEntityList()
 end
 
-function WhereIsItMenuScreen:AddToEntityList(entity_name)
-	if not entity_name or entity_name:match("^%s*$") then
-		return
-	end
-
-	-- Clean up the input
-	-- "^%s*(.-)%s*$" clears front and back whitespaces and keeps middle content
-	entity_name = entity_name:lower():gsub("^%s*(.-)%s*$", "%1")
-
-	-- Check for duplicates in saved entities
-	for _, e in ipairs(self.saved_entities) do
-		if e.name == entity_name then
-			return
-		end
-	end
-
-	-- new entity
-	table.insert(self.saved_entities, {
-		name = entity_name,
-		icon_atlas = "images/scrapbook_icons3.xml",
-		icon_tex = "unknown.tex",
-		is_custom = true,
-	})
-
-	self:SaveEntities() -- save entity
-	self:RefreshEntityList() -- refresh it
-
-	-- Clear the input field
-	self.name_input.textinput.textbox:SetString("")
-end
-
-function WhereIsItMenuScreen:RemoveEntity(entity_name)
-	if not entity_name then
-		return
-	end
-
-	for i, e in ipairs(self.saved_entities) do
-		if e.name == entity_name then
-			table.remove(self.saved_entities, i)
-			break
-		end
-	end
-
-	self:SaveEntities()
-	self:RefreshEntityList()
-end
-
-function WhereIsItMenuScreen:FilterEntityList(search)
-	local search_lower = search:lower():gsub("^%s*(.-)%s*$", "%1")
-	self.entity_list = {}
-
-	if search_lower == "" then
-		-- Reset to full list
-		for _, e in ipairs(self.master_entity_list) do
-			table.insert(self.entity_list, e)
-		end
-	else
-		for _, entity in ipairs(self.master_entity_list) do
-			if entity.name:lower():find(search_lower, 1, true) then
-				table.insert(self.entity_list, entity)
-			end
-		end
-	end
-
-	self:CreateEntityList()
-end
-
 function WhereIsItMenuScreen:CreateEntityList()
 	if self.scroll_list then
 		self.scroll_list:Kill()
@@ -229,9 +168,6 @@ function WhereIsItMenuScreen:CreateEntityList()
 	local base_size = 70
 	local row_spacing = 10
 	local col_spacing = 10
-
-	-- print("WhereIsIt: Create entity list Loaded entities (table dump) ->")
-	-- dumptable(self.entity_list, 1, 1)
 
 	-- Create scrolling grid
 	-- refer to redux templates.lua line 1961 and cookbookpage_crockpot.lua line 540

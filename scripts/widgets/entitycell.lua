@@ -4,6 +4,9 @@ local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
 local EntitySelected = require("widgets/entityselected")
 local EntityFavourite = require("widgets/entityfavourite")
+local Text = require("widgets/text")
+local GetTextStrings = require("strings/stringloader")
+local TextStrings = GetTextStrings()
 
 local EntityCell = Class(Widget, function(self, context, index)
 	Widget._ctor(self, "tian_whereisit_widget_entity_cell_" .. index)
@@ -13,116 +16,127 @@ local EntityCell = Class(Widget, function(self, context, index)
 	local base_size = context.base_size
 	self.entity_index = index
 
-	-- Root background with the white square
+	-- Root background
 	self.cell_root = self:AddChild(ImageButton("images/global.xml", "square.tex"))
 	self.cell_root:SetFocusScale(cell_size / base_size + 0.05, cell_size / base_size + 0.05)
 	self.cell_root:SetNormalScale(cell_size / base_size, cell_size / base_size)
 
-	-- Icon image
-	self.icon = self.cell_root:AddChild(Image())
-
-	-- Tooltip handling
+	-- Tooltip
 	self.cell_root:SetOnGainFocus(function()
 		if self.data then
-			self:ShowTooltip()
+			self.parent_screen.tooltip_root:UpdatePosition(self.cell_root, 0, -40)
+			self.parent_screen.tooltip_root.tooltip:SetString(self.data.name)
 		end
 	end)
-
 	self.cell_root:SetOnLoseFocus(function()
-		self:HideTooltip()
+		self.parent_screen.tooltip_root:HideTooltip(self.cell_root)
 	end)
 
-	-- Click behavior
+	-- Click
 	self.cell_root:SetOnClick(function()
 		if self.data then
-			print("Image clicked! Index:", index, "name:", self.data.name)
 			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.is_single)
 			EntitySelected.name = self.data.name
 			EntitySelected.is_single = self.data.is_single
 			self.parent_screen:OnClose()
 		end
 	end)
+
+	-- Allocate children ONCE
+	self.icon = self.cell_root:AddChild(Image())
+	self.icon:Hide()
+
+	self.custom_name = self:AddChild(Text(NEWFONT_OUTLINE, 20))
+	self.custom_name:SetRegionSize(60, 60)
+	self.custom_name:SetPosition(1, 0, 0)
+	self.custom_name:EnableWordWrap(true)
+	self.custom_name:Hide()
+
+	self.entity_remove_root = self:AddChild(EntityRemove({
+		screen = self,
+		main_parent_screen = self.parent_screen,
+		index = self.entity_index,
+	}))
+
+	self.entity_favourite_root = self:AddChild(EntityFavourite({
+		screen = self,
+		main_parent_screen = self.parent_screen,
+		index = self.entity_index,
+	}))
 end)
 
 function EntityCell:SetData(data)
 	self.data = data
 
-	-- Clean up old buttons
-	if self.entity_remove then
-		self.entity_remove:Kill()
-		self.entity_remove = nil
-	end
-
-	if self.entity_favourite_root then
-		self.entity_favourite_root:Kill()
-		self.entity_favourite_root = nil
-	end
-
 	if not data then
-		self.icon:SetScale(0, 0)
 		if self.cell_root.image then
 			self.cell_root.image:SetTint(0.3, 0.3, 0.3, 0.3)
 		end
+		self.icon:Hide()
+		self.custom_name:Hide()
 		self:Disable()
 		return
 	end
 
-	-- Valid data
-	self.icon:SetTexture(data.icon_atlas or "images/global.xml", data.icon_tex or "square.tex")
-	self.icon:SetScale(0.52)
 	if self.cell_root.image then
 		self.cell_root.image:SetTint(1, 1, 1, 1)
 	end
 
-	-- Remove button for custom entities
+	-- Icon
+	self.icon:SetTexture(data.icon_atlas or "images/global.xml", data.icon_tex or "square.tex")
+	self.icon:ScaleToSize(63, 63)
+	self.icon:Show()
+
+	-- Custom name/remove
 	if data.is_custom then
-		self.entity_remove = self:AddChild(EntityRemove({
-			screen = self,
-			data = data,
-			main_parent_screen = self.parent_screen,
-			index = self.entity_index,
-		}))
-		self.entity_remove:SetPosition(20, -18, 0)
+		self.custom_name:SetString(data.name)
+		self.custom_name:Show()
+	else
+		self.custom_name:Hide()
 	end
 
-	-- Favourite button
-	self.entity_favourite_root = self:AddChild(EntityFavourite({
-		screen = self,
-		data = data,
-		main_parent_screen = self.parent_screen,
-		index = self.entity_index,
-	}))
-	self.entity_favourite_root:SetPosition(20, 18, 0)
+	local favourite_state = self.entity_favourite_root:CheckFavourite(self.data.name)
+	if favourite_state then
+		self.cell_root.image:SetTint(unpack(UICOLOURS.HIGHLIGHT_GOLD))
+	end
 
 	self:Enable()
 end
 
-function EntityCell:ShowTooltip()
-	local function UpdateTooltipPosition()
-		local x, y = self:GetPosition():Get()
-		local parent = self:GetParent()
-		while parent and parent ~= self.parent_screen.proot do
-			local px, py = parent:GetPosition():Get()
-			x = x + px
-			y = y + py
-			parent = parent:GetParent()
+function EntityCell:OnControl(control, down)
+	if Widget.OnControl(self, control, down) then
+		return true
+	end
+
+	-- Favourite
+	if down and control == CONTROL_SECONDARY then
+		if TheInput:IsKeyDown(KEY_LCTRL) or TheInput:IsKeyDown(KEY_RCTRL) then
+			if self.data and self.data.name and self.entity_favourite_root then
+				print("Ctrl+Right Click on:", self.data.name)
+				self.entity_favourite_root:ToggleFavourite(self.data.name)
+				local favourite_state = self.entity_favourite_root:CheckFavourite(self.data.name)
+				if favourite_state then
+					self.parent_screen.tooltip_root.tooltip:SetString(TextStrings.PINNED)
+				else
+					self.parent_screen.tooltip_root.tooltip:SetString(TextStrings.UNPINNED)
+				end
+			end
+			return true
 		end
-		self.parent_screen.tooltip:SetString(self.data.name)
-		self.parent_screen.tooltip:SetPosition(x, y - 40, 0)
-		self.parent_screen.tooltip:MoveToFront()
-		self.parent_screen.tooltip:Show()
 	end
 
-	UpdateTooltipPosition()
-	self.tooltip_task = self.parent_screen.inst:DoPeriodicTask(0.05, UpdateTooltipPosition)
-end
-
-function EntityCell:HideTooltip()
-	self.parent_screen.tooltip:Hide()
-	if self.tooltip_task then
-		self.tooltip_task:Cancel()
-		self.tooltip_task = nil
+	-- Remove
+	if down and control == CONTROL_SECONDARY then
+		if TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_LALT) then
+			if self.data and self.data.name and self.entity_remove_root then
+				print("Alt+Right Click on:", self.data.name)
+				self.entity_remove_root:RemoveEntity(self.data.name)
+			end
+			return true
+		end
 	end
+
+	return false
 end
 
 return EntityCell
