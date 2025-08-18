@@ -19,9 +19,6 @@ function EntityRemove:RemoveEntity(entity_name)
 		end
 	end
 
-	self.parent_screen:SaveEntities()
-	self.parent_screen:RefreshEntityList()
-
 	-- Remove from favourites table if exists
 	if self.parent_screen.favourite_persist_data and self.parent_screen.favourite_persist_data[entity_name] ~= nil then
 		self.parent_screen.favourite_persist_data[entity_name] = nil
@@ -30,6 +27,9 @@ function EntityRemove:RemoveEntity(entity_name)
 		SavePersistentString(persist_naming, json.encode(self.parent_screen.favourite_persist_data), false)
 	end
 	print(entity_name, "deleted")
+
+	self.parent_screen:SaveEntities()
+	self.parent_screen:RefreshEntityList()
 end
 
 return EntityRemove

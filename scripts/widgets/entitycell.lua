@@ -95,6 +95,11 @@ function EntityCell:SetData(data)
 		self.custom_name:Hide()
 	end
 
+	local favourite_state = self.entity_favourite_root:CheckFavourite(self.data.name)
+	if favourite_state then
+		self.cell_root.image:SetTint(unpack(UICOLOURS.HIGHLIGHT_GOLD))
+	end
+
 	self:Enable()
 end
 
