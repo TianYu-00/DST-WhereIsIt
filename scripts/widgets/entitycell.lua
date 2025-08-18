@@ -4,6 +4,7 @@ local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
 local EntitySelected = require("widgets/entityselected")
 local EntityFavourite = require("widgets/entityfavourite")
+local Text = require("widgets/text")
 
 local EntityCell = Class(Widget, function(self, context, index)
 	Widget._ctor(self, "tian_whereisit_widget_entity_cell_" .. index)
@@ -17,9 +18,6 @@ local EntityCell = Class(Widget, function(self, context, index)
 	self.cell_root = self:AddChild(ImageButton("images/global.xml", "square.tex"))
 	self.cell_root:SetFocusScale(cell_size / base_size + 0.05, cell_size / base_size + 0.05)
 	self.cell_root:SetNormalScale(cell_size / base_size, cell_size / base_size)
-
-	-- Icon image
-	self.icon = self.cell_root:AddChild(Image())
 
 	-- Tooltip handling
 	self.cell_root:SetOnGainFocus(function()
@@ -48,19 +46,28 @@ end)
 function EntityCell:SetData(data)
 	self.data = data
 
-	-- Clean up old buttons
-	if self.entity_remove then
-		self.entity_remove:Kill()
-		self.entity_remove = nil
+	-- -- Clean up old buttons
+	-- if self.entity_remove then
+	-- 	self.entity_remove:Kill()
+	-- 	self.entity_remove = nil
+	-- end
+
+	-- if self.entity_favourite_root then
+	-- 	self.entity_favourite_root:Kill()
+	-- 	self.entity_favourite_root = nil
+	-- end
+
+	if self.custom_name then
+		self.custom_name:Kill()
+		self.custom_name = nil
 	end
 
-	if self.entity_favourite_root then
-		self.entity_favourite_root:Kill()
-		self.entity_favourite_root = nil
+	if self.icon then
+		self.icon:Kill()
+		self.icon = nil
 	end
 
 	if not data then
-		self.icon:SetScale(0, 0)
 		if self.cell_root.image then
 			self.cell_root.image:SetTint(0.3, 0.3, 0.3, 0.3)
 		end
@@ -69,31 +76,39 @@ function EntityCell:SetData(data)
 	end
 
 	-- Valid data
+	self.icon = self.cell_root:AddChild(Image())
 	self.icon:SetTexture(data.icon_atlas or "images/global.xml", data.icon_tex or "square.tex")
-	self.icon:SetScale(0.52)
+	self.icon:ScaleToSize(63, 63)
+	-- self.icon:SetScale(0.52)
 	if self.cell_root.image then
 		self.cell_root.image:SetTint(1, 1, 1, 1)
 	end
 
 	-- Remove button for custom entities
 	if data.is_custom then
-		self.entity_remove = self:AddChild(EntityRemove({
-			screen = self,
-			data = data,
-			main_parent_screen = self.parent_screen,
-			index = self.entity_index,
-		}))
-		self.entity_remove:SetPosition(20, -18, 0)
+		self.custom_name = self:AddChild(Text(NEWFONT_OUTLINE, 20))
+		self.custom_name:SetRegionSize(60, 60)
+		self.custom_name:SetPosition(1, 0, 0)
+		self.custom_name:EnableWordWrap(true)
+		self.custom_name:SetString(data.name)
+
+		-- self.entity_remove = self:AddChild(EntityRemove({
+		-- 	screen = self,
+		-- 	data = data,
+		-- 	main_parent_screen = self.parent_screen,
+		-- 	index = self.entity_index,
+		-- }))
+		-- self.entity_remove:SetPosition(20, -18, 0)
 	end
 
-	-- Favourite button
-	self.entity_favourite_root = self:AddChild(EntityFavourite({
-		screen = self,
-		data = data,
-		main_parent_screen = self.parent_screen,
-		index = self.entity_index,
-	}))
-	self.entity_favourite_root:SetPosition(20, 18, 0)
+	-- -- Favourite button
+	-- self.entity_favourite_root = self:AddChild(EntityFavourite({
+	-- 	screen = self,
+	-- 	data = data,
+	-- 	main_parent_screen = self.parent_screen,
+	-- 	index = self.entity_index,
+	-- }))
+	-- self.entity_favourite_root:SetPosition(20, 18, 0)
 
 	self:Enable()
 end
