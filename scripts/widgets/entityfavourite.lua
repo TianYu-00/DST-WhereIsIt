@@ -46,4 +46,9 @@ function EntityFavouriteState:ToggleFavourite(entity_name)
 	self.favourite_persist_data = favourites
 end
 
+function EntityFavouriteState:CheckFavourite(entity_name)
+	local favourites = self.parent_screen.favourite_persist_data or {}
+	return favourites[entity_name] or false
+end
+
 return EntityFavouriteState
