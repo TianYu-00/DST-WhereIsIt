@@ -6,6 +6,9 @@ The mod also features fully customizable hotkeys that can be changed at any time
 
 Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url], but mod was coded from scratch.
 
+[h2] v1.4.0 Update Notice [/h2]
+All key binds are now moved to in game.
+The default key to open the menu is "O".
 
 [h1]在哪里[/h1]
 
@@ -14,6 +17,10 @@ Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=28239635
 模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
 
 受[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url]启发，可是模组是从零开始编写的。
+
+[h2] v1.4.0 更新公告 [/h2]
+所有快建现已移至游戏内。
+默认打开菜单的键位为“O”。
 
 
 [h1]TO DO LIST[/h1]
