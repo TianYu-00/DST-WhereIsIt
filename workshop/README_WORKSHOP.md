@@ -1,28 +1,19 @@
 [h1]Where Is It[/h1]
 
-[b]Where Is It[/b] is a utility mod for [b]Don't Starve Together[/b] tthat helps players quickly locate creatures, resources, and other entities in the game world. The mod provides a menu interface with a smooth scroll bar, allowing players to freely browse, search, add, remove or favourite entities. Once a target is selected, a directional beam will point towards the specified location. Any entities that the player add will persist across different servers if the "Where Is It" mod is installed.
+Where Is It is a quality-of-life mod for Don't Starve Together that makes finding entities much easier. It adds a searchable entity menu with fuzzy search, lets you add and remove custom entities, and gives you the ability to pin important ones so they always appear first. Selecting an entity highlights its location with a directional arrow, helping you quickly track it down in the world.
+
+The mod also features fully customizable hotkeys that can be changed at any time during gameplay. All of your settings, including hotkeys and custom entities, are saved persistently between servers, so your preferences carry over seamlessly across different worlds and sessions.
 
 Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url], but mod was coded from scratch.
 
-[h2]v1.2.0 Update Notice[/h2]
-Persistent string naming has changed for custom entities due to naming convention refactor. 
-As a result, your previous custom entity list will be replaced with empty entity list.
-If you wish to transfer your old custom entity list to new, please do the following:
-1. Navigate to:  
-   %DOCUMENTS%\Klei\DoNotStarveTogether\<id>\client_save
-2. Rename the file: "tian_whereisit_custom_entities" to "tian_whereisit_persist_custom_entities"
 
 [h1]在哪里[/h1]
 
-[b]Where Is It[/b] 是一款适用于[b]饥荒联机版[/b]的实用模组，可帮助玩家快速定位游戏世界中的生物、资源及其他实体。该模组提供带平滑滚动条的菜单界面，允许玩家自由浏览、搜索、添加、删除或标记实体。当选中目标后，方向光束将指向指定位置。玩家添加的实体在安装了“Where Is It”模组的服务器间可同步显示。
+《Where Is It》是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
+
+模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
 
 受[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url]启发，可是模组是从零开始编写的。
-
-[h2]v1.2.0 更新通知[/h2]
-由于命名规范重构，自定义实体的字符串命名已更改。。
-因此，您之前的自定义实体列表将被替换为空实体列表。
-如果您希望将旧的自定义实体列表转移到新的列表，请按照以下步骤操作：
-导航至：%DOCUMENTS%\Klei\DoNotStarveTogether\<id>\client_save 将文件 “tian_whereisit_custom_entities” 重命名为 “tian_whereisit_persist_custom_entities”
 
 
 [h1]TO DO LIST[/h1]
@@ -45,7 +36,7 @@ If you wish to transfer your old custom entity list to new, please do the follow
         [*][✔]Repeat previous entity search
         [*][✔]Clear old directional beam when new beam is generated
         [*][✔]Pin/Favourite entity
-        [*][✘]Allow players to have their own keybinds
+        [*][✔]Allow players to have their own keybinds
     [/list]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]

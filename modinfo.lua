@@ -8,25 +8,21 @@ end
 name = not isCN and "Where Is It" or "在哪里"
 description = not isCN and [[
 󰀅 Where Is It 󰀅
-Where Is It is a utility mod for Don't Starve Together that helps players quickly locate creatures, resources, and other entities in the game world. 
+Where Is It is a quality-of-life mod for Don't Starve Together that makes finding entities much easier. It adds a searchable entity menu with fuzzy search, lets you add and remove custom entities, and gives you the ability to pin important ones so they always appear first. Selecting an entity highlights its location with a directional arrow, helping you quickly track it down in the world.
 
-The mod provides a menu interface with a smooth scroll bar, allowing players to freely browse, search, add, remove or favourite entities. 
-
-Once a target is selected, a directional beam will point towards the specified location. Any entities that the player add will persist across different servers if the "Where Is It" mod is installed.
+The mod also features fully customizable hotkeys that can be changed at any time during gameplay. All of your settings, including hotkeys and custom entities, are saved persistently between servers, so your preferences carry over seamlessly across different worlds and sessions.
 
 ]]
 or
 [[
 󰀅 在哪里 󰀅
-Where Is It 是一款适用于饥荒联机版的实用模组，可帮助玩家快速定位游戏世界中的生物、资源及其他实体。
+《Where Is It》 是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
 
-该模组提供带平滑滚动条的菜单界面，允许玩家自由浏览、搜索、添加、删除或标记实体。
-
-当选中目标后，方向光束将指向指定位置。玩家添加的实体在安装了“Where Is It”模组的服务器间可同步显示。
+模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
 
 ]]
 author = "Tian || TianYu"
-version = "1.3.0"
+version = "1.4.0"
 forumthread = ""
 
 -- Mod Icon
@@ -52,52 +48,6 @@ server_filter_tags = {
    "where is it", "utility"
 }
 
--- Key Options
--- local key_options = {}
--- local keys = {
---     "None",
---     -- Numbers
---     "0","1","2","3","4","5","6","7","8","9",
---     "None",
---     -- Letters
---     "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
---     "None",
---     -- Function keys
---     "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",
---     "None",
---     -- Numpad
---     "KP_0","KP_1","KP_2","KP_3","KP_4","KP_5","KP_6","KP_7","KP_8","KP_9",
---     "KP_PERIOD","KP_DIVIDE","KP_MULTIPLY","KP_MINUS","KP_PLUS",
---     "KP_ENTER","KP_EQUALS",
---     "None",
---     -- Control & Modifier keys
---     "TAB","SPACE","ENTER","ESCAPE","BACKSPACE","INSERT","DELETE","HOME","END","PAGEUP","PAGEDOWN",
---     "PAUSE","PRINT","CAPSLOCK","SCROLLOCK","LSHIFT","RSHIFT","LCTRL","RCTRL","LALT","RALT",
---     "LSUPER","RSUPER",
---     "None",
---     -- Symbols / Punctuation
---     "MINUS","EQUALS","PERIOD","SLASH","SEMICOLON","LEFTBRACKET","RIGHTBRACKET","BACKSLASH","TILDE",
---     "None",
---     -- Arrows
---     "UP","DOWN","RIGHT","LEFT",
---     -- Mouse Buttons -- strings.lua, line 13640
---     "\238\132\128", "\238\132\129", "\238\132\130","\238\132\133","\238\132\134","\238\132\131","\238\132\132"
--- }
--- for i = 1, #keys do
---     key_options[i] = {description = keys[i], data = keys[i]}
--- end
-
--- -- Value Options
--- local function GenerateValueOptions(min, max, step)
---     local options = {}
---     local i = 1
---     for v = min, max, step or 1 do
---         options[i] = { description = v, data = v }
---         i = i + 1
---     end
---     return options
--- end
-
 -- Mod Config Helper
 local function AddSection(lang_en, lang_cn)
     local tempName = "temp_"..lang_en:gsub("%s+", "_"):lower()
@@ -116,20 +66,7 @@ end
 -- Mod Config
 configuration_options = {
     AddSection("Settings", "设置"),
-    -- {
-    --     name = "Menu_Key",
-    --     label = localize("Menu Key", "菜单键"),
-    --     hover = localize("Used to open/close the mod menu", "用于打开/关闭模组菜单"),
-    --     options = key_options,
-    --     default = "O",
-    -- },
-    -- {
-    --     name = "Repeat_Lookup_Key",
-    --     label = localize("Repeat Last Lookup", "重复定位"),
-    --     hover = localize("", ""),
-    --     options = key_options,
-    --     default = "V",
-    -- },
+
     AddSection("Debug", "调试"),
     {
         name = "Debug_Mode",
