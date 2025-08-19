@@ -92,7 +92,4 @@ return {
     {name="pighouse", icon_atlas="images/scrapbook_icons2.xml", icon_tex="pighouse.tex"},
     {name="rabbithouse", icon_atlas="images/scrapbook_icons2.xml", icon_tex="rabbithouse.tex"},
     {name="mermhouse", icon_atlas="images/scrapbook_icons2.xml", icon_tex="mermhouse.tex"},
-
-    
-
 }
