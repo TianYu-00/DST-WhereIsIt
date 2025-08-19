@@ -16,6 +16,7 @@ local Tooltip = require("widgets/tooltip")
 local Settings = require("widgets/settings")
 local GetTextStrings = require("strings/stringloader")
 local TextStrings = GetTextStrings()
+local Image = require("widgets/image")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -104,8 +105,8 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
 
-	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 20))
-	self.title:SetPosition(0, -250, 0)
+	self.title = self.proot:AddChild(Text(NEWFONT, 20))
+	self.title:SetPosition(0, -240, 0)
 	self.title:SetString(TextStrings.INTERACTION_HELPER)
 
 	----------------------------------- Settings menu

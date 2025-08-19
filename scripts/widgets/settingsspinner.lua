@@ -2,12 +2,14 @@ local Widget = require("widgets/widget")
 local Templates2 = require("widgets/redux/templates")
 local Text = require("widgets/text")
 
-local ReusableSpinner = Class(Widget, function(self, context, config)
+local SettingsSpinner = Class(Widget, function(self, context, config)
 	Widget._ctor(self, "Reusable Spinner")
-	self.parent = context.screen
+	self.parent_screen = context.screen
 	self.config = config or {}
 
 	self.config.label = self.config.label or "Option"
+	self.config.description = self.config.description or ""
+	self.config.description_widget = self.config.description_widget
 	self.config.options = self.config.options or { "Option 1", "Option 2" }
 	self.config.default = self.config.default or self.config.options[1]
 	self.config.on_changed = self.config.on_changed or function() end
@@ -35,11 +37,16 @@ local ReusableSpinner = Class(Widget, function(self, context, config)
 		0 -- horiz_offset
 	))
 
+	local old_description = "All settings are saved across servers, remember to press save to save your new key binds"
 	-- styling
 	self.widget.label:SetColour(1, 1, 1, 1)
 	self.widget.spinner:SetTextColour(1, 1, 1, 1)
-	self.widget:SetOnGainFocus(function() end) -- work on this later
-	self.widget:SetOnLoseFocus(function() end) -- work on this later
+	self.widget:SetOnGainFocus(function()
+		self.config.description_widget:SetString(self.config.description)
+	end)
+	self.widget:SetOnLoseFocus(function()
+		self.config.description_widget:SetString(old_description)
+	end)
 
 	-- text
 	local center_text = self.widget.spinner:AddChild(Text(NEWFONT, 20))
@@ -58,16 +65,16 @@ local ReusableSpinner = Class(Widget, function(self, context, config)
 	end)
 end)
 
-function ReusableSpinner:SetValue(value)
+function SettingsSpinner:SetValue(value)
 	self.widget.spinner:SetSelectedIndex(value)
 end
 
-function ReusableSpinner:GetValue()
+function SettingsSpinner:GetValue()
 	return self.widget.spinner:GetSelectedIndex()
 end
 
-function ReusableSpinner:GetIndexString()
+function SettingsSpinner:GetIndexString()
 	return self.widget.spinner:GetSelected()
 end
 
-return ReusableSpinner
+return SettingsSpinner

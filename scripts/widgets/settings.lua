@@ -7,6 +7,7 @@ local CustomKeyList = require("keylist")
 local SettingsSpinner = require("widgets/settingsspinner")
 local DefaultSettings = require("defaultsettings")
 local json = require("json")
+local Image = require("widgets/image")
 
 local Settings = Class(Widget, function(self, context)
 	Widget._ctor(self, "tian_whereisit_widget_settings")
@@ -45,6 +46,20 @@ function Settings:CreateMenu()
 	self.title:SetPosition(0, 250, 0)
 	self.title:SetString("Settings")
 	self.title:SetColour(unpack(GOLD))
+
+	self.description_background = self.menu_container:AddChild(Image("images/ui.xml", "line_horizontal_5.tex"))
+	self.description_background:SetPosition(0, 130, 0)
+	self.description_background:SetScale(0.5, 1)
+	self.description_background:SetTint(1, 1, 1, 1)
+
+	self.description = self.menu_container:AddChild(Text(NEWFONT, 20))
+	self.description:SetPosition(0, 180, 0)
+	self.description:SetString(
+		"All settings are saved across servers, remember to press save to save your new key binds"
+	)
+	self.description:SetColour(unpack(WHITE))
+	self.description:SetRegionSize(400, 90)
+	self.description:EnableWordWrap(true)
 
 	self:CreateSpinner()
 end
@@ -87,11 +102,13 @@ function Settings:CreateSpinner()
 	self:GetSettings()
 
 	self.spinner_container = self.menu_container:AddChild(Widget("spinner_container"))
-	self.spinner_container:SetPosition(0, 170, 0)
+	self.spinner_container:SetPosition(0, 100, 0)
 
 	-- Menu Key
 	self.menu_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
 		label = "Menu Key",
+		description = "Used to open/close the mod menu",
+		description_widget = self.description,
 		options = CustomKeyList,
 		default = self.settings_data.MENU_KEY,
 		on_changed = function(value)
@@ -106,6 +123,8 @@ function Settings:CreateSpinner()
 	-- Repeat Key
 	self.repeat_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
 		label = "Repeat Key",
+		description = "Repeat Last Lookup",
+		description_widget = self.description,
 		options = CustomKeyList,
 		default = self.settings_data.REPEAT_LOOKUP_KEY,
 		on_changed = function(value)
