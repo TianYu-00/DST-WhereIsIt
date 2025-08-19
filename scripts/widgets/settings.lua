@@ -28,7 +28,7 @@ function Settings:CreateMenu()
 	self.save_button:SetPosition(-150, -200, 0)
 
 	self.reset_button = self.menu_container:AddChild(Templates2.StandardButton(function()
-		self.settings_data = deepcopy(DefaultSettings)
+		self.settings_data = nil
 		self.spinner_container:Kill()
 		self:CreateSpinner()
 	end, "Reset"))
@@ -85,6 +85,7 @@ end
 
 function Settings:CreateSpinner()
 	self:GetSettings()
+
 	self.spinner_container = self.menu_container:AddChild(Widget("spinner_container"))
 	self.spinner_container:SetPosition(0, 170, 0)
 
