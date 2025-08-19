@@ -1,4 +1,4 @@
 return {
-	TOGGLE_MENU = "O",
-	REPEAT_SEARCH = "V",
+	MENU_KEY = "O",
+	REPEAT_LOOKUP_KEY = "V",
 }

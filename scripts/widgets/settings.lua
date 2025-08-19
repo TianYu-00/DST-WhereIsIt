@@ -72,6 +72,10 @@ end
 function Settings:SaveSettings()
 	if self.settings_data then
 		SavePersistentString("tian_whereisit_persist_settings", json.encode(self.settings_data), false)
+		-- local inspect = require("inspect")
+		-- print("Current settings:", inspect(self.settings_data))
+		TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS = self.settings_data
+		TIAN_WHEREISIT_GLOBAL_FUNCTION.UpdateKeyBindings()
 	else
 		print("No settings_data to save, writing defaults")
 		self.settings_data = deepcopy(DefaultSettings)
@@ -88,10 +92,10 @@ function Settings:CreateSpinner()
 	self.menu_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
 		label = "Menu Key",
 		options = CustomKeyList,
-		default = self.settings_data.TOGGLE_MENU,
+		default = self.settings_data.MENU_KEY,
 		on_changed = function(value)
 			print("Menu key changed to:", value)
-			self.settings_data.TOGGLE_MENU = value
+			self.settings_data.MENU_KEY = value
 		end,
 		width = 300,
 		height = 30,
@@ -102,10 +106,10 @@ function Settings:CreateSpinner()
 	self.repeat_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
 		label = "Repeat Key",
 		options = CustomKeyList,
-		default = self.settings_data.REPEAT_SEARCH,
+		default = self.settings_data.REPEAT_LOOKUP_KEY,
 		on_changed = function(value)
 			print("Repeat key changed to:", value)
-			self.settings_data.REPEAT_SEARCH = value
+			self.settings_data.REPEAT_LOOKUP_KEY = value
 		end,
 	}))
 	self.repeat_key_spinner:SetPosition(0, -50)

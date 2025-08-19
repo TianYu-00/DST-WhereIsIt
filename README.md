@@ -33,10 +33,6 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [ ] Allow players to have their own keybinds
 
 
-### Code refactor
-Ok lets refactor some of the codes first before player in game key binds. 
-Player in game key binds would prob gonna be a lot of logic so its best to do refactor before it.
-
 ### Allow users to have their own keybinds
 
 - Move all keybinds to in game instead of mod config.

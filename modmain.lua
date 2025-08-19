@@ -2,17 +2,48 @@ local G = GLOBAL
 local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
 local EntitySelected = require("widgets/entityselected")
+local json = require("json")
 
 -- Language Strings
 local GetTextStrings = require("strings/stringloader")
 local TextStrings = GetTextStrings()
 
 ---- Mod config data
--- Settings
-local menu_key = GetModConfigData("Menu_Key") or "O"
-local repeat_lookup_key = GetModConfigData("Repeat_Lookup_Key") or "V"
 -- Debug settings
 local debug_mode = GetModConfigData("Debug_Mode") or false
+
+GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
+	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V" },
+}
+
+GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
+
+GLOBAL.TIAN_WHEREISIT_GLOBAL_FUNCTION = {}
+
+local function InGameSettingsInit()
+	G.TheSim:GetPersistentString("tian_whereisit_persist_settings", function(success, str)
+		if success and str ~= nil and str ~= "" then
+			local ok, data = G.pcall(json.decode, str)
+			if ok and data then
+				print("Key logging", data.MENU_KEY)
+				print("Key logging", data.REPEAT_LOOKUP_KEY)
+				G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_KEY = data.MENU_KEY
+					or G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_KEY
+				G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.REPEAT_LOOKUP_KEY = data.REPEAT_LOOKUP_KEY
+					or G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.REPEAT_LOOKUP_KEY
+			else
+				DebugLog("Failed to decode saved entities")
+			end
+		else
+			print("No persistent string found")
+		end
+		G.TIAN_WHEREISIT_GLOBAL_FUNCTION.UpdateKeyBindings()
+	end)
+end
+
+AddSimPostInit(function()
+	InGameSettingsInit()
+end)
 
 ----------------------------------- Debug Mode -----------------------------------
 
@@ -187,58 +218,50 @@ end)
 
 ----------------------------------- KEY HANDLERS -----------------------------------
 
-local mouse_map = {
-	-- strings.lua, line 13640
-	["\238\132\128"] = 1000, -- MOUSEBUTTON_LEFT
-	["\238\132\129"] = 1001, -- MOUSEBUTTON_RIGHT
-	["\238\132\130"] = 1002, -- MOUSEBUTTON_MIDDLE
-	["\238\132\133"] = 1003, -- MOUSEBUTTON_SCROLLUP
-	["\238\132\134"] = 1004, -- MOUSEBUTTON_SCROLLDOWN
-	["\238\132\131"] = 1005, -- MOUSEBUTTON_4
-	["\238\132\132"] = 1006, -- MOUSEBUTTON_5
-}
-
-local function InputHelper(key, on_down_fn, on_up_fn)
+local function InputHelper(key, on_down_fn, on_up_fn, handler_type)
 	if not key or key == "None" then
 		return
 	end
 
-	local code = mouse_map[key] or G["KEY_" .. key]
-
+	local code = G["KEY_" .. key]
 	if not code then
 		return
 	end
 
-	DebugLog("CODE for key: " .. key .. " is: " .. tostring(code))
-
-	if code >= 1000 and code <= 1006 then
-		-- Mouse key
-		G.TheInput:AddMouseButtonHandler(function(button, down, x, y)
-			if button == code then
-				if down and on_down_fn then
-					on_down_fn()
-				elseif (not down) and on_up_fn then
-					on_up_fn()
-				end
-			end
-		end)
-	else
-		-- Keyboard key
-		if on_down_fn then
-			G.TheInput:AddKeyDownHandler(code, on_down_fn)
+	if GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] then
+		local old = GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type]
+		if old.down_handler then
+			G.TheInput.onkeydown:RemoveHandler(old.down_handler)
 		end
-		if on_up_fn then
-			G.TheInput:AddKeyUpHandler(code, on_up_fn)
+		if old.up_handler then
+			G.TheInput.onkeyup:RemoveHandler(old.up_handler)
 		end
+		GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = nil
 	end
+
+	-- Add new handlers
+	local handler_data = { down_handler = nil, up_handler = nil }
+
+	if on_down_fn then
+		local h = G.TheInput:AddKeyDownHandler(code, on_down_fn)
+		handler_data.down_handler = h
+	end
+	if on_up_fn then
+		local h = G.TheInput:AddKeyUpHandler(code, on_up_fn)
+		handler_data.up_handler = h
+	end
+
+	GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = handler_data
 end
 
-AddSimPostInit(function()
-	InputHelper(menu_key, ToggleMenu, nil)
-	InputHelper(repeat_lookup_key, nil, RepeatLookUp)
-end)
+function G.TIAN_WHEREISIT_GLOBAL_FUNCTION.UpdateKeyBindings()
+	InputHelper(G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_KEY, ToggleMenu, nil, "MENU")
+	InputHelper(G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.REPEAT_LOOKUP_KEY, nil, RepeatLookUp, "REPEAT")
+end
 
 ----------------------------------- Comments -----------------------------------
+
+-- Globals please use "TIAN_WHEREISIT_GLOBAL_XXX", try and not set globals unless its a must
 
 -- Persistent Strings Please Follow This Format "tian_whereisit_persist_xxx"
 -- Screens please follow this format "tian_whereisit_screen_xxx"
