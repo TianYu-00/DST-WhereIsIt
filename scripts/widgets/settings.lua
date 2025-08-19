@@ -13,7 +13,7 @@ local Settings = Class(Widget, function(self, context)
 	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_SETTINGS)
 	self.parent_screen = context.screen
 	self.is_open = false
-	self.settings_data = nil
+	self.settings_data = deepcopy(DefaultSettings)
 	self.menu_container = self:AddChild(Widget("settings_menu_container"))
 	self.menu_container:Hide()
 end)
@@ -29,9 +29,7 @@ function Settings:CreateMenu()
 	self.save_button:SetPosition(-150, -200, 0)
 
 	self.reset_button = self.menu_container:AddChild(Templates2.StandardButton(function()
-		self.settings_data = nil
-		self.spinner_container:Kill()
-		self:CreateSpinner()
+		self:ResetToDefaults()
 	end, TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.RESET))
 	self.reset_button:SetScale(0.4)
 	self.reset_button:SetPosition(0, -200, 0)
@@ -62,11 +60,11 @@ function Settings:CreateMenu()
 	self:CreateSpinner()
 end
 
-function Settings:GetSettings()
+function Settings:GetSettings(callback)
 	TheSim:GetPersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS, function(success, str)
 		if not success or str == nil or str == "" then
-			-- No file or empty, write defaults
-			self.settings_data = deepcopy(DefaultSettings) -- deepcopy check util.lua line 905
+			-- No file or empty, use defaults
+			self.settings_data = deepcopy(DefaultSettings)
 			SavePersistentString(
 				TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS,
 				json.encode(self.settings_data),
@@ -87,6 +85,10 @@ function Settings:GetSettings()
 				)
 			end
 		end
+
+		if callback then
+			callback()
+		end
 	end)
 end
 
@@ -97,8 +99,6 @@ function Settings:SaveSettings()
 			json.encode(self.settings_data),
 			false
 		)
-		-- local inspect = require("inspect")
-		-- print("Current settings:", inspect(self.settings_data))
 		TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS = self.settings_data
 		TIAN_WHEREISIT_GLOBAL_FUNCTION.UpdateKeyBindings()
 	else
@@ -112,9 +112,15 @@ function Settings:SaveSettings()
 	end
 end
 
-function Settings:CreateSpinner()
-	self:GetSettings()
+function Settings:ResetToDefaults()
+	self.settings_data = deepcopy(DefaultSettings)
+	if self.spinner_container then
+		self.spinner_container:Kill()
+	end
+	self:CreateSpinner()
+end
 
+function Settings:CreateSpinner()
 	self.spinner_container = self.menu_container:AddChild(Widget("spinner_container"))
 	self.spinner_container:SetPosition(0, 100, 0)
 
@@ -159,7 +165,11 @@ function Settings:OpenMenu()
 	if self.spinner_container then
 		self.spinner_container:Kill()
 	end
-	self:CreateSpinner()
+
+	-- Load settings and then create spinner
+	self:GetSettings(function()
+		self:CreateSpinner()
+	end)
 end
 
 function Settings:CloseMenu()
