@@ -207,9 +207,11 @@ configuration_options = {
 
 -- Looking through my code and wanting to mod yourself? have a look at the below links.
 -- Links
+-- https://dst-api-docs.fandom.com/wiki/Home
 -- https://dst-api-docs.fandom.com/wiki/Modinfo.lua
 -- https://forums.kleientertainment.com/forums/topic/116302-ultromans-tutorial-collection-newcomer-intro/
 -- https://forums.kleientertainment.com/forums/topic/126774-documentation-list-of-all-engine-functions/
 -- https://dst-api-docs.fandom.com/wiki/AddKeyDownHandler
 -- https://forums.kleientertainment.com/forums/topic/118009-tutorial-custom-user-interfaces/
 -- https://dst-api-docs.fandom.com/wiki/Persistent_Strings
+-- https://dst-api-docs.fandom.com/wiki/TheSim
