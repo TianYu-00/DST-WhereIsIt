@@ -14,8 +14,6 @@ local EntityAdd = require("widgets/entityadd")
 local EntityFavourite = require("widgets/entityfavourite")
 local Tooltip = require("widgets/tooltip")
 local Settings = require("widgets/settings")
-local GetTextStrings = require("strings/stringloader")
-local TextStrings = GetTextStrings()
 local Image = require("widgets/image")
 
 -- Assets
@@ -69,7 +67,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
 	self.title:SetPosition(0, 250, 0)
-	self.title:SetString(TextStrings.MOD_NAME)
+	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
 
 	----------------------------------- create scroll list
@@ -107,7 +105,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	self.title = self.proot:AddChild(Text(NEWFONT, 20))
 	self.title:SetPosition(0, -240, 0)
-	self.title:SetString(TextStrings.INTERACTION_HELPER)
+	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.INTERACTION_HELPER)
 
 	----------------------------------- Settings menu
 	self.sroot:Hide()

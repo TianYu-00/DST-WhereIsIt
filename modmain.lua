@@ -1,7 +1,6 @@
 local G = GLOBAL
 local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
-local EntitySelected = require("widgets/entityselected")
 local json = require("json")
 
 -- Language Strings
@@ -15,6 +14,7 @@ local debug_mode = GetModConfigData("Debug_Mode") or false
 GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
 	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V" },
 	STRINGS = TextStrings,
+	CURRENT_ENTITY = { name = "", is_single = false },
 }
 
 GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
@@ -150,14 +150,18 @@ local function RepeatLookUp()
 		return true
 	end
 
-	if EntitySelected.name == "" then
+	if G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name == "" then
 		if player.components.talker then
-			player.components.talker:Say(TextStrings.NO_ENTITY_SELECTED)
+			player.components.talker:Say(GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.NO_ENTITY_SELECTED)
 		end
 		return
 	end
 
-	SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), EntitySelected.name, EntitySelected.is_single)
+	SendModRPCToServer(
+		GetModRPC("WhereIsIt", "LocateEntity"),
+		G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name,
+		G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.is_single
+	)
 end
 
 ----------------------------------- Volt Goat Herd Spawn point -----------------------------------
@@ -212,7 +216,9 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 		player.SoundEmitter:PlaySound("grotto/common/archive_resonator/beam")
 	else
 		if player.components.talker then
-			player.components.talker:Say(string.format(TextStrings.FAILED_TO_FIND .. " " .. prefab_name))
+			player.components.talker:Say(
+				string.format(GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAILED_TO_FIND .. " " .. prefab_name)
+			)
 		end
 	end
 end)
