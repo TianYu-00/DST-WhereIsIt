@@ -34,7 +34,7 @@ local Image = require("widgets/image")
 local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.inst = inst
 	self.tasks = {}
-	Screen._ctor(self, "tian_whereisit_screen_mainmenu") -- screen name
+	Screen._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.SCREEN_MAIN) -- screen name
 
 	----------------------------------- creating the base menu ui
 	-- Dark background
@@ -116,7 +116,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 end)
 
 function WhereIsItMenuScreen:LoadSavedEntities()
-	TheSim:GetPersistentString("tian_whereisit_persist_custom_entities", function(success, str)
+	TheSim:GetPersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_CUSTOM_ENTITIES, function(success, str)
 		if success and str ~= nil and str ~= "" then
 			local ok, data = pcall(json.decode, str)
 			if ok and data then
@@ -132,7 +132,11 @@ function WhereIsItMenuScreen:LoadSavedEntities()
 end
 
 function WhereIsItMenuScreen:SaveEntities()
-	SavePersistentString("tian_whereisit_persist_custom_entities", json.encode(self.saved_entities), false)
+	SavePersistentString(
+		TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_CUSTOM_ENTITIES,
+		json.encode(self.saved_entities),
+		false
+	)
 end
 
 function WhereIsItMenuScreen:RefreshEntityList()

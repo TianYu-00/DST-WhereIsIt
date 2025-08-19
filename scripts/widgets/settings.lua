@@ -10,7 +10,7 @@ local json = require("json")
 local Image = require("widgets/image")
 
 local Settings = Class(Widget, function(self, context)
-	Widget._ctor(self, "tian_whereisit_widget_settings")
+	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_SETTINGS)
 	self.parent_screen = context.screen
 	self.is_open = false
 	self.settings_data = nil
@@ -63,11 +63,15 @@ function Settings:CreateMenu()
 end
 
 function Settings:GetSettings()
-	TheSim:GetPersistentString("tian_whereisit_persist_settings", function(success, str)
+	TheSim:GetPersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS, function(success, str)
 		if not success or str == nil or str == "" then
 			-- No file or empty, write defaults
 			self.settings_data = deepcopy(DefaultSettings) -- deepcopy check util.lua line 905
-			SavePersistentString("tian_whereisit_persist_settings", json.encode(self.settings_data), false)
+			SavePersistentString(
+				TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS,
+				json.encode(self.settings_data),
+				false
+			)
 		else
 			-- Try decode
 			local ok, data = pcall(json.decode, str)
@@ -76,7 +80,11 @@ function Settings:GetSettings()
 			else
 				print("Failed to decode settings, resetting to defaults")
 				self.settings_data = deepcopy(DefaultSettings)
-				SavePersistentString("tian_whereisit_persist_settings", json.encode(self.settings_data), false)
+				SavePersistentString(
+					TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS,
+					json.encode(self.settings_data),
+					false
+				)
 			end
 		end
 	end)
@@ -84,7 +92,11 @@ end
 
 function Settings:SaveSettings()
 	if self.settings_data then
-		SavePersistentString("tian_whereisit_persist_settings", json.encode(self.settings_data), false)
+		SavePersistentString(
+			TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS,
+			json.encode(self.settings_data),
+			false
+		)
 		-- local inspect = require("inspect")
 		-- print("Current settings:", inspect(self.settings_data))
 		TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS = self.settings_data
@@ -92,7 +104,11 @@ function Settings:SaveSettings()
 	else
 		print("No settings_data to save, writing defaults")
 		self.settings_data = deepcopy(DefaultSettings)
-		SavePersistentString("tian_whereisit_persist_settings", json.encode(self.settings_data), false)
+		SavePersistentString(
+			TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS,
+			json.encode(self.settings_data),
+			false
+		)
 	end
 end
 

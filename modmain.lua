@@ -15,6 +15,23 @@ GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same e
 	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V" },
 	STRINGS = TextStrings,
 	CURRENT_ENTITY = { name = "", is_single = false },
+	IDENTIFIER = {
+		-- Screens
+		SCREEN_MAIN = "tian_whereisit_screen_mainmenu",
+		-- Persistent Storage
+		PERSIST_SETTINGS = "tian_whereisit_persist_settings",
+		PERSIST_CUSTOM_ENTITIES = "tian_whereisit_persist_custom_entities",
+		PERSIST_FAVOURITES = "tian_whereisit_persist_entity_favourite_states",
+		-- Widgets
+		WIDGET_ENTITY_ADD = "tian_whereisit_widget_entity_add",
+		WIDGET_ENTITY_CELL = "tian_whereisit_widget_entity_cell_",
+		WIDGET_ENTITY_FAVOURITE_STATE = "tian_whereisit_widget_entity_favourite_state_",
+		WIDGET_ENTITY_INPUT = "tian_whereisit_widget_entity_input",
+		WIDGET_ENTITY_REMOVE = "tian_whereisit_widget_entity_remove_",
+		WIDGET_ENTITY_SEARCH = "tian_whereisit_widget_entity_search",
+		WIDGET_SETTINGS = "tian_whereisit_widget_settings",
+		WIDGET_TOOLTIP = "tian_whereisit_widget_tooltip",
+	},
 }
 
 GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
@@ -22,7 +39,7 @@ GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
 GLOBAL.TIAN_WHEREISIT_GLOBAL_FUNCTION = {}
 
 local function InGameSettingsInit()
-	G.TheSim:GetPersistentString("tian_whereisit_persist_settings", function(success, str)
+	G.TheSim:GetPersistentString(G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS, function(success, str)
 		if success and str ~= nil and str ~= "" then
 			local ok, data = G.pcall(json.decode, str)
 			if ok and data then
@@ -91,7 +108,7 @@ local function IsInteractionAllowed()
 		and not G.ThePlayer.HUD:IsCraftingOpen()
 		and not G.ThePlayer.HUD:IsChatInputScreenOpen()
 		and not G.ThePlayer.HUD:IsConsoleScreenOpen()
-		and (active_screen.name == "HUD" or active_screen.name == "tian_whereisit_screen_mainmenu")
+		and (active_screen.name == "HUD" or active_screen.name == G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.SCREEN_MAIN)
 end
 
 ----------------------------------- AddClassPostConstruct -----------------------------------
@@ -123,7 +140,7 @@ local function ToggleMenu()
 		return true
 	else
 		-- If the screen is already open, close it
-		if screen.name == "tian_whereisit_screen_mainmenu" then
+		if screen.name == G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.SCREEN_MAIN then
 			screen:OnClose()
 			DebugLog("Closed Menu")
 		end

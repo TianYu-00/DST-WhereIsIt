@@ -2,7 +2,7 @@ local Widget = require("widgets/widget")
 local ImageButton = require("widgets/imagebutton")
 
 local EntityRemove = Class(Widget, function(self, context)
-	Widget._ctor(self, "tian_whereisit_widget_entity_remove_" .. context.index)
+	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_ENTITY_REMOVE .. context.index)
 	self.parent_screen = context.main_parent_screen
 	self.screen = context.screen
 end)
@@ -23,8 +23,11 @@ function EntityRemove:RemoveEntity(entity_name)
 	if self.parent_screen.favourite_persist_data and self.parent_screen.favourite_persist_data[entity_name] ~= nil then
 		self.parent_screen.favourite_persist_data[entity_name] = nil
 		-- Save updated favourites persistently
-		local persist_naming = "tian_whereisit_persist_entity_favourite_states"
-		SavePersistentString(persist_naming, json.encode(self.parent_screen.favourite_persist_data), false)
+		SavePersistentString(
+			TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_FAVOURITES,
+			json.encode(self.parent_screen.favourite_persist_data),
+			false
+		)
 	end
 	print(entity_name, "deleted")
 

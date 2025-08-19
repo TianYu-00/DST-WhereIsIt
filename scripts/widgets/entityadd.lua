@@ -2,7 +2,7 @@ local Widget = require("widgets/widget")
 local Templates2 = require("widgets/redux/templates")
 
 local EntityAdd = Class(Widget, function(self, context)
-	Widget._ctor(self, "tian_whereisit_widget_entity_add")
+	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_ENTITY_ADD)
 	self.parent_screen = context.screen
 	local button_atlas = "images/button_icons.xml"
 	local button_tex = "save.tex"

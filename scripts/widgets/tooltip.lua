@@ -3,7 +3,7 @@ local Templates2 = require("widgets/redux/templates")
 local Text = require("widgets/text")
 
 local Tooltip = Class(Widget, function(self, context)
-	Widget._ctor(self, "tian_whereisit_widget_tooltip")
+	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_TOOLTIP)
 	self.parent_screen = context.screen
 	self.tooltip = self:AddChild(Text(NEWFONT_OUTLINE, 15))
 	self.current_focus_widget = nil

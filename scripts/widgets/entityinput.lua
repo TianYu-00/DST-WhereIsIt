@@ -3,7 +3,7 @@ local Templates2 = require("widgets/redux/templates")
 local EntitySearch = require("widgets/entitysearch")
 
 local EntityInput = Class(Widget, function(self, context)
-	Widget._ctor(self, "tian_whereisit_widget_entity_input")
+	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_ENTITY_INPUT)
 	self.parent_screen = context.screen
 
 	local textbox_width = 150
