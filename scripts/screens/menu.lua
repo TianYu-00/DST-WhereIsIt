@@ -13,8 +13,8 @@ local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
 local EntityFavourite = require("widgets/entityfavourite")
 local Tooltip = require("widgets/tooltip")
-local GetTextStrings = require("strings/stringloader")
-local TextStrings = GetTextStrings()
+local Settings = require("widgets/settings")
+local Image = require("widgets/image")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -53,6 +53,13 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.proot:SetPosition(0, 0, 0)
 	self.proot:SetScaleMode(SCALEMODE_PROPORTIONAL)
 
+	-- Settings menu container
+	self.sroot = self:AddChild(Widget("SETTINGS_ROOT"))
+	self.sroot:SetVAnchor(ANCHOR_MIDDLE)
+	self.sroot:SetHAnchor(ANCHOR_MIDDLE)
+	self.sroot:SetPosition(0, 0, 0)
+	self.sroot:SetScaleMode(SCALEMODE_PROPORTIONAL)
+
 	-- Main Background UI
 	self.bg = self.proot:AddChild(Templates.CurlyWindow(400, 450, 1, 1, 68, -40)) -- sizeX, sizeY, scaleX, scaleY, topCrownOffset, bottomCrownOffset, xOffset
 	self.bg:SetTint(1, 1, 1, 0.7)
@@ -60,29 +67,12 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
 	self.title:SetPosition(0, 250, 0)
-	self.title:SetString(TextStrings.MOD_NAME)
+	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
 
-	----------------------------------- creating the base interactions
-	-- Input
-	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
-	self.name_input:SetPosition(180, 245, 0)
+	----------------------------------- create scroll list
 
-	-- Search
-	self.name_search = self.proot:AddChild(EntitySearch({ screen = self }))
-	self.name_search:SetPosition(275, 245, 0)
-
-	-- Save
-	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
-	self.name_add:SetPosition(315, 245, 0)
-
-	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
-
-	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 20))
-	self.title:SetPosition(0, -250, 0)
-	self.title:SetString(TextStrings.INTERACTION_HELPER)
-
-	----------------------------------- creating cell specific features
+	self.scroll_list = nil
 	-- Initialize favourite list
 	EntityFavourite:GetFavouritePersistentData(function(data)
 		self.favourite_persist_data = data
@@ -94,6 +84,35 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	-- Load saved entities and build initial list
 	self:LoadSavedEntities()
+
+	----------------------------------- creating the base interactions
+
+	-- Input
+	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
+	self.name_input:SetPosition(180, 245, 0)
+
+	-- Search
+	self.name_search = self.proot:AddChild(EntitySearch({ screen = self }))
+	self.name_search:Hide()
+	-- self.name_search:SetPosition(275, 245, 0)
+
+	-- Save
+	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
+	self.name_add:SetPosition(275, 245, 0)
+	-- self.name_add:SetPosition(315, 245, 0)
+
+	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
+
+	self.title = self.proot:AddChild(Text(NEWFONT, 20))
+	self.title:SetPosition(0, -240, 0)
+	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.INTERACTION_HELPER)
+
+	----------------------------------- Settings menu
+	self.sroot:Hide()
+	self.settings_root = self.sroot:AddChild(Settings({ screen = self }))
+	self.settings_root:CreateMenu()
+	self.settings_button = self.proot:AddChild(self.settings_root:CreateSettingsButton())
+	self.settings_button:SetPosition(310, 245, 0)
 end)
 
 function WhereIsItMenuScreen:LoadSavedEntities()
@@ -188,6 +207,7 @@ function WhereIsItMenuScreen:CreateEntityList()
 		scrollbar_height_offset = -60,
 	}))
 	self.scroll_list:SetPosition(0, 0, 0)
+	-- self.scroll_list:MoveToBack()
 end
 
 function WhereIsItMenuScreen:OnClose()

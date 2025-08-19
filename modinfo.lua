@@ -53,50 +53,50 @@ server_filter_tags = {
 }
 
 -- Key Options
-local key_options = {}
-local keys = {
-    "None",
-    -- Numbers
-    "0","1","2","3","4","5","6","7","8","9",
-    "None",
-    -- Letters
-    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-    "None",
-    -- Function keys
-    "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",
-    "None",
-    -- Numpad
-    "KP_0","KP_1","KP_2","KP_3","KP_4","KP_5","KP_6","KP_7","KP_8","KP_9",
-    "KP_PERIOD","KP_DIVIDE","KP_MULTIPLY","KP_MINUS","KP_PLUS",
-    "KP_ENTER","KP_EQUALS",
-    "None",
-    -- Control & Modifier keys
-    "TAB","SPACE","ENTER","ESCAPE","BACKSPACE","INSERT","DELETE","HOME","END","PAGEUP","PAGEDOWN",
-    "PAUSE","PRINT","CAPSLOCK","SCROLLOCK","LSHIFT","RSHIFT","LCTRL","RCTRL","LALT","RALT",
-    "LSUPER","RSUPER",
-    "None",
-    -- Symbols / Punctuation
-    "MINUS","EQUALS","PERIOD","SLASH","SEMICOLON","LEFTBRACKET","RIGHTBRACKET","BACKSLASH","TILDE",
-    "None",
-    -- Arrows
-    "UP","DOWN","RIGHT","LEFT",
-    -- Mouse Buttons -- strings.lua, line 13640
-    "\238\132\128", "\238\132\129", "\238\132\130","\238\132\133","\238\132\134","\238\132\131","\238\132\132"
-}
-for i = 1, #keys do
-    key_options[i] = {description = keys[i], data = keys[i]}
-end
+-- local key_options = {}
+-- local keys = {
+--     "None",
+--     -- Numbers
+--     "0","1","2","3","4","5","6","7","8","9",
+--     "None",
+--     -- Letters
+--     "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+--     "None",
+--     -- Function keys
+--     "F1","F2","F3","F4","F5","F6","F7","F8","F9","F10","F11","F12",
+--     "None",
+--     -- Numpad
+--     "KP_0","KP_1","KP_2","KP_3","KP_4","KP_5","KP_6","KP_7","KP_8","KP_9",
+--     "KP_PERIOD","KP_DIVIDE","KP_MULTIPLY","KP_MINUS","KP_PLUS",
+--     "KP_ENTER","KP_EQUALS",
+--     "None",
+--     -- Control & Modifier keys
+--     "TAB","SPACE","ENTER","ESCAPE","BACKSPACE","INSERT","DELETE","HOME","END","PAGEUP","PAGEDOWN",
+--     "PAUSE","PRINT","CAPSLOCK","SCROLLOCK","LSHIFT","RSHIFT","LCTRL","RCTRL","LALT","RALT",
+--     "LSUPER","RSUPER",
+--     "None",
+--     -- Symbols / Punctuation
+--     "MINUS","EQUALS","PERIOD","SLASH","SEMICOLON","LEFTBRACKET","RIGHTBRACKET","BACKSLASH","TILDE",
+--     "None",
+--     -- Arrows
+--     "UP","DOWN","RIGHT","LEFT",
+--     -- Mouse Buttons -- strings.lua, line 13640
+--     "\238\132\128", "\238\132\129", "\238\132\130","\238\132\133","\238\132\134","\238\132\131","\238\132\132"
+-- }
+-- for i = 1, #keys do
+--     key_options[i] = {description = keys[i], data = keys[i]}
+-- end
 
--- Value Options
-local function GenerateValueOptions(min, max, step)
-    local options = {}
-    local i = 1
-    for v = min, max, step or 1 do
-        options[i] = { description = v, data = v }
-        i = i + 1
-    end
-    return options
-end
+-- -- Value Options
+-- local function GenerateValueOptions(min, max, step)
+--     local options = {}
+--     local i = 1
+--     for v = min, max, step or 1 do
+--         options[i] = { description = v, data = v }
+--         i = i + 1
+--     end
+--     return options
+-- end
 
 -- Mod Config Helper
 local function AddSection(lang_en, lang_cn)
@@ -116,20 +116,20 @@ end
 -- Mod Config
 configuration_options = {
     AddSection("Settings", "设置"),
-    {
-        name = "Menu_Key",
-        label = localize("Menu Key", "菜单键"),
-        hover = localize("Used to open/close the mod menu", "用于打开/关闭模组菜单"),
-        options = key_options,
-        default = "O",
-    },
-    {
-        name = "Repeat_Lookup_Key",
-        label = localize("Repeat Last Lookup", "重复定位"),
-        hover = localize("", ""),
-        options = key_options,
-        default = "V",
-    },
+    -- {
+    --     name = "Menu_Key",
+    --     label = localize("Menu Key", "菜单键"),
+    --     hover = localize("Used to open/close the mod menu", "用于打开/关闭模组菜单"),
+    --     options = key_options,
+    --     default = "O",
+    -- },
+    -- {
+    --     name = "Repeat_Lookup_Key",
+    --     label = localize("Repeat Last Lookup", "重复定位"),
+    --     hover = localize("", ""),
+    --     options = key_options,
+    --     default = "V",
+    -- },
     AddSection("Debug", "调试"),
     {
         name = "Debug_Mode",
@@ -207,9 +207,11 @@ configuration_options = {
 
 -- Looking through my code and wanting to mod yourself? have a look at the below links.
 -- Links
+-- https://dst-api-docs.fandom.com/wiki/Home
 -- https://dst-api-docs.fandom.com/wiki/Modinfo.lua
 -- https://forums.kleientertainment.com/forums/topic/116302-ultromans-tutorial-collection-newcomer-intro/
 -- https://forums.kleientertainment.com/forums/topic/126774-documentation-list-of-all-engine-functions/
 -- https://dst-api-docs.fandom.com/wiki/AddKeyDownHandler
 -- https://forums.kleientertainment.com/forums/topic/118009-tutorial-custom-user-interfaces/
 -- https://dst-api-docs.fandom.com/wiki/Persistent_Strings
+-- https://dst-api-docs.fandom.com/wiki/TheSim

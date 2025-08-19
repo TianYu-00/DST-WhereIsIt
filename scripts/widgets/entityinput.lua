@@ -4,16 +4,13 @@ local EntitySearch = require("widgets/entitysearch")
 
 local EntityInput = Class(Widget, function(self, context)
 	Widget._ctor(self, "tian_whereisit_widget_entity_input")
-	local GetTextStrings = require("strings/stringloader")
-	local TextStrings = GetTextStrings()
-
 	self.parent_screen = context.screen
 
 	local textbox_width = 150
 	local textbox_height = 30
 	local textbox_font = NEWFONT
 	local textbox_fontsize = 25
-	local textbox_placeholder = TextStrings.ENTITY_INPUT_PLACEHOLDER
+	local textbox_placeholder = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_INPUT_PLACEHOLDER
 	local textbox_textlimit = 50
 
 	-- fieldtext, width_field, height, font, font_size, prompt_text

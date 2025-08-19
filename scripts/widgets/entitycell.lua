@@ -2,11 +2,8 @@ local Widget = require("widgets/widget")
 local Image = require("widgets/image")
 local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
-local EntitySelected = require("widgets/entityselected")
 local EntityFavourite = require("widgets/entityfavourite")
 local Text = require("widgets/text")
-local GetTextStrings = require("strings/stringloader")
-local TextStrings = GetTextStrings()
 
 local EntityCell = Class(Widget, function(self, context, index)
 	Widget._ctor(self, "tian_whereisit_widget_entity_cell_" .. index)
@@ -36,8 +33,8 @@ local EntityCell = Class(Widget, function(self, context, index)
 	self.cell_root:SetOnClick(function()
 		if self.data then
 			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.is_single)
-			EntitySelected.name = self.data.name
-			EntitySelected.is_single = self.data.is_single
+			TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name = self.data.name
+			TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.is_single = self.data.is_single
 			self.parent_screen:OnClose()
 		end
 	end)
@@ -116,9 +113,9 @@ function EntityCell:OnControl(control, down)
 				self.entity_favourite_root:ToggleFavourite(self.data.name)
 				local favourite_state = self.entity_favourite_root:CheckFavourite(self.data.name)
 				if favourite_state then
-					self.parent_screen.tooltip_root.tooltip:SetString(TextStrings.PINNED)
+					self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.PINNED)
 				else
-					self.parent_screen.tooltip_root.tooltip:SetString(TextStrings.UNPINNED)
+					self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.UNPINNED)
 				end
 			end
 			return true

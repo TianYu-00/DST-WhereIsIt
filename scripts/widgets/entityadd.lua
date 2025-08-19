@@ -16,7 +16,7 @@ local EntityAdd = Class(Widget, function(self, context)
 
 	self.entity_add_button:SetOnGainFocus(function()
 		self.parent_screen.tooltip_root:UpdatePosition(self.entity_add_button, 0, -25)
-		self.parent_screen.tooltip_root.tooltip:SetString("Add entity")
+		self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ADD_ENTITY)
 	end)
 
 	self.entity_add_button:SetOnLoseFocus(function()
