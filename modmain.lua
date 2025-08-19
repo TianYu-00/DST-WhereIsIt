@@ -230,11 +230,13 @@ local function InputHelper(key, on_down_fn, on_up_fn, handler_type)
 
 	if GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] then
 		local old = GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type]
-		if old.down_handler then
-			G.TheInput.onkeydown:RemoveHandler(old.down_handler)
-		end
-		if old.up_handler then
-			G.TheInput.onkeyup:RemoveHandler(old.up_handler)
+		if old ~= nil then
+			if old.down_handler ~= nil then
+				G.TheInput.onkeydown:RemoveHandler(old.down_handler)
+			end
+			if old.up_handler ~= nil then
+				G.TheInput.onkeyup:RemoveHandler(old.up_handler)
+			end
 		end
 		GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = nil
 	end
