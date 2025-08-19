@@ -30,11 +30,6 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Repeat previous entity search
         - [x] Clear old directional beam when new beam is generated
         - [x] Favourite entity
-        - [ ] Allow players to have their own keybinds
-
-
-### Allow users to have their own keybinds
-
-- Move all keybinds to in game instead of mod config.
+        - [x] Allow players to have their own keybinds
 
     

@@ -14,6 +14,7 @@ local debug_mode = GetModConfigData("Debug_Mode") or false
 
 GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
 	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V" },
+	STRINGS = TextStrings,
 }
 
 GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }

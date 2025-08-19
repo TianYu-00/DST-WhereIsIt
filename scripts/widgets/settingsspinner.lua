@@ -37,7 +37,7 @@ local SettingsSpinner = Class(Widget, function(self, context, config)
 		0 -- horiz_offset
 	))
 
-	local old_description = "All settings are saved across servers, remember to press save to save your new key binds"
+	local old_description = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SETTINGS_BASE_DESCRIPTION
 	-- styling
 	self.widget.label:SetColour(1, 1, 1, 1)
 	self.widget.spinner:SetTextColour(1, 1, 1, 1)

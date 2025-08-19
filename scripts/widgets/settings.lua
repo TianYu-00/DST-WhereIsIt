@@ -24,7 +24,7 @@ function Settings:CreateMenu()
 
 	self.save_button = self.menu_container:AddChild(Templates2.StandardButton(function()
 		self:SaveSettings()
-	end, "Save"))
+	end, TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SAVE))
 	self.save_button:SetScale(0.4)
 	self.save_button:SetPosition(-150, -200, 0)
 
@@ -32,19 +32,19 @@ function Settings:CreateMenu()
 		self.settings_data = nil
 		self.spinner_container:Kill()
 		self:CreateSpinner()
-	end, "Reset"))
+	end, TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.RESET))
 	self.reset_button:SetScale(0.4)
 	self.reset_button:SetPosition(0, -200, 0)
 
 	self.back_button = self.menu_container:AddChild(Templates2.StandardButton(function()
 		self:CloseMenu()
-	end, "Back"))
+	end, TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.BACK))
 	self.back_button:SetScale(0.4)
 	self.back_button:SetPosition(150, -200, 0)
 
 	self.title = self.menu_container:AddChild(Text(NEWFONT_OUTLINE, 50))
 	self.title:SetPosition(0, 250, 0)
-	self.title:SetString("Settings")
+	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SETTINGS)
 	self.title:SetColour(unpack(GOLD))
 
 	self.description_background = self.menu_container:AddChild(Image("images/ui.xml", "line_horizontal_5.tex"))
@@ -54,9 +54,7 @@ function Settings:CreateMenu()
 
 	self.description = self.menu_container:AddChild(Text(NEWFONT, 20))
 	self.description:SetPosition(0, 180, 0)
-	self.description:SetString(
-		"All settings are saved across servers, remember to press save to save your new key binds"
-	)
+	self.description:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SETTINGS_BASE_DESCRIPTION)
 	self.description:SetColour(unpack(WHITE))
 	self.description:SetRegionSize(400, 90)
 	self.description:EnableWordWrap(true)
@@ -106,8 +104,8 @@ function Settings:CreateSpinner()
 
 	-- Menu Key
 	self.menu_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
-		label = "Menu Key",
-		description = "Used to open/close the mod menu",
+		label = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MENU_KEY,
+		description = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MENU_KEY_DESCRIPTION,
 		description_widget = self.description,
 		options = CustomKeyList,
 		default = self.settings_data.MENU_KEY,
@@ -122,8 +120,8 @@ function Settings:CreateSpinner()
 
 	-- Repeat Key
 	self.repeat_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
-		label = "Repeat Key",
-		description = "Repeat Last Lookup",
+		label = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.REPEAT_KEY,
+		description = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.REPEAT_KEY_DESCRIPTION,
 		description_widget = self.description,
 		options = CustomKeyList,
 		default = self.settings_data.REPEAT_LOOKUP_KEY,
@@ -171,7 +169,7 @@ function Settings:CreateSettingsButton()
 	-- Set up tooltips
 	button:SetOnGainFocus(function()
 		self.parent_screen.tooltip_root:UpdatePosition(button, 0, -25)
-		self.parent_screen.tooltip_root.tooltip:SetString("Settings")
+		self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SETTINGS)
 	end)
 
 	button:SetOnLoseFocus(function()
