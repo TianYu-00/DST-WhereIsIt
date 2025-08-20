@@ -124,10 +124,22 @@ function EntityCell:OnControl(control, down)
 
 	-- Remove
 	if down and control == CONTROL_SECONDARY then
-		if TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_LALT) then
+		if TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
 			if self.data and self.data.name and self.entity_remove_root then
 				print("Alt+Right Click on:", self.data.name)
 				self.entity_remove_root:RemoveEntity(self.data.name)
+			end
+			return true
+		end
+	end
+
+	-- Teleport
+	if down and control == CONTROL_SECONDARY then
+		if TheInput:IsKeyDown(KEY_LSHIFT) or TheInput:IsKeyDown(KEY_RSHIFT) then
+			if self.data and self.data.name and self.entity_remove_root then
+				print("Shift+Right Click on:", self.data.name)
+				SendModRPCToServer(GetModRPC("WhereIsIt", "TeleportToEntity"), self.data.name)
+				self.parent_screen:OnClose()
 			end
 			return true
 		end

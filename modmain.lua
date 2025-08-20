@@ -42,6 +42,7 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		WIDGET_TOOLTIP = "tian_whereisit_widget_tooltip",
 		-- Player Attached
 		ATTACHED_IS_ALLOW_ENTITY_LOOKUP = "tian_whereisit_attached_is_allow_entity_lookup",
+		ATTACHED_LAST_TELEPORT_TARGET_INDEX = "tian_whereisit_attached_last_teleport_target_index",
 	},
 }
 
@@ -281,6 +282,46 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 			player.components.talker:Say(
 				string.format(G.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAILED_TO_FIND .. " " .. prefab_name)
 			)
+		end
+	end
+end)
+
+AddModRPCHandler("WhereIsIt", "TeleportToEntity", function(player, prefab_name)
+	if not player or not prefab_name then
+		return
+	end
+
+	local temp_key = G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_LAST_TELEPORT_TARGET_INDEX
+
+	player[temp_key] = player[temp_key] or {}
+
+	local matches = {}
+	for _, v in pairs(G.Ents) do -- similar to the logic i previously wrote above
+		if v.prefab == prefab_name and v:IsValid() then
+			table.insert(matches, v)
+		end
+	end
+
+	if #matches == 0 then
+		if player.components.talker then
+			player.components.talker:Say("Could not find " .. prefab_name)
+		end
+		return
+	end
+
+	local index = (player[temp_key][prefab_name] or 0) + 1
+	if index > #matches then
+		index = 1
+	end
+
+	player[temp_key][prefab_name] = index
+
+	local target = matches[index]
+	if target and target:IsValid() then
+		local x, y, z = target.Transform:GetWorldPosition()
+		player.Transform:SetPosition(x, y, z)
+		if player.components.talker then
+			player.components.talker:Say("Teleported to " .. prefab_name .. " (" .. index .. "/" .. #matches .. ")")
 		end
 	end
 end)
