@@ -136,11 +136,18 @@ function EntityCell:OnControl(control, down)
 	-- Teleport
 	if down and control == CONTROL_SECONDARY then
 		if TheInput:IsKeyDown(KEY_LSHIFT) or TheInput:IsKeyDown(KEY_RSHIFT) then
-			if self.data and self.data.name and self.entity_remove_root then
-				print("Shift+Right Click on:", self.data.name)
-				SendModRPCToServer(GetModRPC("WhereIsIt", "TeleportToEntity"), self.data.name)
-				self.parent_screen:OnClose()
+			if TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.IS_ALLOW_TELEPORT then
+				if self.data and self.data.name then
+					print("Shift+Right Click on:", self.data.name)
+					SendModRPCToServer(GetModRPC("WhereIsIt", "TeleportToEntity"), self.data.name)
+					self.parent_screen:OnClose()
+				end
+			else
+				if ThePlayer.components.talker then
+					ThePlayer.components.talker:Say("Host has turned off teleport feature")
+				end
 			end
+
 			return true
 		end
 	end

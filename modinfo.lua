@@ -97,6 +97,19 @@ configuration_options = {
         options = GenerateValueOptions(0, 60),
         default = 0
     },
+    {
+        name = "Is_Allow_Teleport",
+        label = localize("Allow Teleport", "是否允许传送"),
+         hover = localize(
+            "Would you like to allow your players to use the teleport feature",
+            "是否允许服务器内玩家使用传送功能"
+        ),
+        options = {
+            { description = localize("True", "是"), data = true },
+            { description = localize("False", "否"), data = false },
+        },
+        default = false
+    },
     AddSection("Debug", "调试"),
     {
         name = "Debug_Mode",

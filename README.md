@@ -38,8 +38,8 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Allow players to have their own key binds
         - [x] Search limits - Host permission
         - [x] Search cooldown - Host permission
-        - [ ] Teleport to entity
-        - [ ] Disable teleport - Host Permission
+        - [x] Teleport to entity
+        - [x] Disable teleport - Host Permission
         - [ ] Clockwork Anenemy Placement  
 
     

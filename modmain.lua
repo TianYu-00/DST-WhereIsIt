@@ -6,6 +6,7 @@ local json = require("json")
 -- Config Settings
 local arrow_limit_per_player = GetModConfigData("Arrow_Limit_Per_Player") or 0
 local entity_location_search_cooldown = GetModConfigData("Entity_Location_Search_Cooldown") or 0
+local is_allow_teleport = GetModConfigData("Is_Allow_Teleport") or false
 
 -- Language Strings
 local GetTextStrings = require("strings/stringloader")
@@ -21,6 +22,7 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		REPEAT_LOOKUP_KEY = "V",
 		ARROW_LIMIT_PER_PLAYER = arrow_limit_per_player,
 		ENTITY_LOCATION_SEARCH_COOLDOWN = entity_location_search_cooldown,
+		IS_ALLOW_TELEPORT = is_allow_teleport,
 	},
 	STRINGS = TextStrings,
 	CURRENT_ENTITY = { name = "", is_single = false },
