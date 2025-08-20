@@ -79,12 +79,22 @@ configuration_options = {
     AddSection("Settings", "设置"),
     {
         name = "Arrow_Limit_Per_Player",
-        label = localize("Arrow Limit Per Player", "每位玩家的方向箭头上限"),
+        label = localize("Arrow Limit Per Player (Seconds)", "每位玩家的方向箭头上限 (秒)"),
          hover = localize(
             "Sets the limit of directional beams per player.\n0 = unlimited",
             "设置每个玩家的方向光束数量上限。\n0 = 无限。"
         ),
         options = GenerateValueOptions(0, 50),
+        default = 0
+    },
+    {
+        name = "Entity_Location_Search_Cooldown",
+        label = localize("Location Search Cooldown (Seconds)", "实体定位冷却时间 (秒)"),
+         hover = localize(
+            "Entity location search cooldown per player\n0 = no cooldown",
+            "每位玩家的实体定位冷却时间。\n0 = 没冷却时间。"
+        ),
+        options = GenerateValueOptions(0, 60),
         default = 0
     },
     AddSection("Debug", "调试"),
