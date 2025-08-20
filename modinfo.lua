@@ -63,10 +63,30 @@ local function AddSection(lang_en, lang_cn)
     }
 end
 
+-- Value Options
+local function GenerateValueOptions(min, max, step)
+    local options = {}
+    local i = 1
+    for v = min, max, step or 1 do
+        options[i] = { description = v, data = v }
+        i = i + 1
+    end
+    return options
+end
+
 -- Mod Config
 configuration_options = {
     AddSection("Settings", "设置"),
-
+    {
+        name = "Arrow_Limit_Per_Player",
+        label = localize("Arrow Limit Per Player", "每位玩家的方向箭头上限"),
+         hover = localize(
+            "Sets the limit of directional beams per player.\n0 = unlimited",
+            "设置每个玩家的方向光束数量上限。\n0 = 无限。"
+        ),
+        options = GenerateValueOptions(0, 50),
+        default = 0
+    },
     AddSection("Debug", "调试"),
     {
         name = "Debug_Mode",

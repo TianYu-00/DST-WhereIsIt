@@ -3,6 +3,9 @@ local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
 local json = require("json")
 
+-- Config Settings
+local arrow_limit_per_player = GetModConfigData("Arrow_Limit_Per_Player") or 0
+
 -- Language Strings
 local GetTextStrings = require("strings/stringloader")
 local TextStrings = GetTextStrings()
@@ -12,7 +15,7 @@ local TextStrings = GetTextStrings()
 local debug_mode = GetModConfigData("Debug_Mode") or false
 
 GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
-	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V" },
+	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V", ARROW_LIMIT_PER_PLAYER = arrow_limit_per_player },
 	STRINGS = TextStrings,
 	CURRENT_ENTITY = { name = "", is_single = false },
 	IDENTIFIER = {
@@ -149,15 +152,24 @@ end
 
 local function FindAllEntity(prefab_name, is_single)
 	local entities = {}
-	-- refer to consolecommands.lua line 894
-	for k, v in pairs(G.Ents) do
+	local limit = G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.ARROW_LIMIT_PER_PLAYER
+	local counter = 0
+
+	for _, v in pairs(G.Ents) do
 		if v.prefab == prefab_name then
 			table.insert(entities, v)
+
 			if is_single then
+				return entities
+			end
+
+			counter = counter + 1
+			if limit ~= 0 and counter >= limit then
 				return entities
 			end
 		end
 	end
+
 	return entities
 end
 
