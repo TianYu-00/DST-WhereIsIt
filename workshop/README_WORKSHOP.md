@@ -6,10 +6,6 @@ The mod also features fully customizable hotkeys that can be changed at any time
 
 Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url], but mod was coded from scratch.
 
-[h2] v1.4.0 Update Notice [/h2]
-All key binds are now moved to in game.
-The default key to open the menu is "O".
-
 [h1]在哪里[/h1]
 
 《Where Is It》是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
@@ -17,10 +13,6 @@ The default key to open the menu is "O".
 模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
 
 受[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url]启发，可是模组是从零开始编写的。
-
-[h2] v1.4.0 更新公告 [/h2]
-所有快建现已移至游戏内。
-默认打开菜单的键位为“O”。
 
 
 [h1]TO DO LIST[/h1]
@@ -44,6 +36,11 @@ The default key to open the menu is "O".
         [*][✔]Clear old directional beam when new beam is generated
         [*][✔]Pin/Favourite entity
         [*][✔]Allow players to have their own keybinds
+        [*][✔]Search limits - Host permission
+        [*][✔]Search cooldown - Host permission
+        [*][✔]Teleport to entity
+        [*][✔]Disable teleport - Host Permission
+        [*][✘]Clockwork Anenemy Placement
     [/list]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]
