@@ -1,5 +1,8 @@
 {
   "Lua.diagnostics.disable": ["lowercase-global", "undefined-field", "inject-field", "undefined-global"],
   "Lua.runtime.version": "Lua 5.1",
-  "[lua]": { "editor.defaultFormatter": "JohnnyMorganz.stylua" }
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
+  "cSpell.words": ["Anenemy", "whereisit"]
 }

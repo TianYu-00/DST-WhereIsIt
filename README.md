@@ -36,5 +36,10 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Clear old directional beam when new beam is generated
         - [x] Favourite entity
         - [x] Allow players to have their own key binds
+        - [ ] Search limits - Host permission
+        - [ ] Search cooldown - Host permission
+        - [ ] Teleport to entity
+        - [ ] Disable teleport - Host Permission
+        - [ ] Clockwork Anenemy Placement  
 
     
