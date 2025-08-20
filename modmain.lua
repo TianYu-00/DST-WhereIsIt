@@ -211,7 +211,7 @@ local function CheckLookUpState(player)
 
 	if player[temp_key] then
 		if player.components.talker then
-			player.components.talker:Say("Entity lookup is on cooldown!")
+			player.components.talker:Say(G.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_ON_COOLDOWN)
 		end
 		return false
 	end
@@ -306,7 +306,7 @@ AddModRPCHandler("WhereIsIt", "TeleportToEntity", function(player, prefab_name)
 
 	if #matches == 0 then
 		if player.components.talker then
-			player.components.talker:Say("Could not find " .. prefab_name)
+			player.components.talker:Say(G.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAILED_TO_FIND .. prefab_name)
 		end
 		return
 	end
@@ -323,7 +323,15 @@ AddModRPCHandler("WhereIsIt", "TeleportToEntity", function(player, prefab_name)
 		local x, y, z = target.Transform:GetWorldPosition()
 		player.Transform:SetPosition(x, y, z)
 		if player.components.talker then
-			player.components.talker:Say("Teleported to " .. prefab_name .. " (" .. index .. "/" .. #matches .. ")")
+			player.components.talker:Say(
+				G.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.TELEPORTED_TO
+					.. prefab_name
+					.. " ("
+					.. index
+					.. "/"
+					.. #matches
+					.. ")"
+			)
 		end
 	end
 end)

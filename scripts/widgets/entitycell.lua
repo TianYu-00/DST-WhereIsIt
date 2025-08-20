@@ -140,14 +140,13 @@ function EntityCell:OnControl(control, down)
 				if self.data and self.data.name then
 					print("Shift+Right Click on:", self.data.name)
 					SendModRPCToServer(GetModRPC("WhereIsIt", "TeleportToEntity"), self.data.name)
-					self.parent_screen:OnClose()
 				end
 			else
 				if ThePlayer.components.talker then
-					ThePlayer.components.talker:Say("Host has turned off teleport feature")
+					ThePlayer.components.talker:Say(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.TELEPORT_PERMISSION_OFF)
 				end
 			end
-
+			self.parent_screen:OnClose()
 			return true
 		end
 	end

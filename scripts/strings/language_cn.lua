@@ -5,7 +5,7 @@ return {
 	NO_ENTITY_SELECTED = "未选择实体",
 	PINNED = "已置顶",
 	UNPINNED = "已取消置顶",
-	INTERACTION_HELPER = "Ctrl + 右键 = 切换置顶 || Alt + 右键 = 删除",
+	INTERACTION_HELPER = "Shift + 右键 = 传送 || Ctrl + 右键 = 切换置顶 || Alt + 右键 = 删除",
 	ADD_ENTITY = "添加实体",
 	SETTINGS = "设置",
 	SETTINGS_BASE_DESCRIPTION = "所有设置会在服务器间保存，请记得点击保存以应用新的按键绑定",
@@ -16,4 +16,7 @@ return {
 	SAVE = "保存",
 	RESET = "重置",
 	BACK = "返回",
+	ENTITY_ON_COOLDOWN = "实体定位正在冷却中",
+	TELEPORTED_TO = "传送至 ",
+	TELEPORT_PERMISSION_OFF = "传送权限未开启",
 }
