@@ -3,6 +3,10 @@ local require = G.require
 local WhereIsItMenuScreen = require("screens/menu")
 local json = require("json")
 
+-- Config Settings
+local arrow_limit_per_player = GetModConfigData("Arrow_Limit_Per_Player") or 0
+local entity_location_search_cooldown = GetModConfigData("Entity_Location_Search_Cooldown") or 0
+
 -- Language Strings
 local GetTextStrings = require("strings/stringloader")
 local TextStrings = GetTextStrings()
@@ -11,8 +15,13 @@ local TextStrings = GetTextStrings()
 -- Debug settings
 local debug_mode = GetModConfigData("Debug_Mode") or false
 
-GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
-	SETTINGS = { MENU_KEY = "O", REPEAT_LOOKUP_KEY = "V" },
+G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
+	SETTINGS = {
+		MENU_KEY = "O",
+		REPEAT_LOOKUP_KEY = "V",
+		ARROW_LIMIT_PER_PLAYER = arrow_limit_per_player,
+		ENTITY_LOCATION_SEARCH_COOLDOWN = entity_location_search_cooldown,
+	},
 	STRINGS = TextStrings,
 	CURRENT_ENTITY = { name = "", is_single = false },
 	IDENTIFIER = {
@@ -31,12 +40,14 @@ GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same e
 		WIDGET_ENTITY_SEARCH = "tian_whereisit_widget_entity_search",
 		WIDGET_SETTINGS = "tian_whereisit_widget_settings",
 		WIDGET_TOOLTIP = "tian_whereisit_widget_tooltip",
+		-- Player Attached
+		ATTACHED_IS_ALLOW_ENTITY_LOOKUP = "tian_whereisit_attached_is_allow_entity_lookup",
 	},
 }
 
-GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
+G.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
 
-GLOBAL.TIAN_WHEREISIT_GLOBAL_FUNCTION = {}
+G.TIAN_WHEREISIT_GLOBAL_FUNCTION = {}
 
 local function InGameSettingsInit()
 	G.TheSim:GetPersistentString(G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS, function(success, str)
@@ -149,15 +160,24 @@ end
 
 local function FindAllEntity(prefab_name, is_single)
 	local entities = {}
-	-- refer to consolecommands.lua line 894
-	for k, v in pairs(G.Ents) do
+	local limit = G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.ARROW_LIMIT_PER_PLAYER
+	local counter = 0
+
+	for _, v in pairs(G.Ents) do
 		if v.prefab == prefab_name then
 			table.insert(entities, v)
+
 			if is_single then
+				return entities
+			end
+
+			counter = counter + 1
+			if limit ~= 0 and counter >= limit then
 				return entities
 			end
 		end
 	end
+
 	return entities
 end
 
@@ -167,9 +187,11 @@ local function RepeatLookUp()
 		return true
 	end
 
+	DebugLog("Current Entity: " .. G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name .. " For Player: " .. player.userid)
+
 	if G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name == "" then
 		if player.components.talker then
-			player.components.talker:Say(GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.NO_ENTITY_SELECTED)
+			player.components.talker:Say(G.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.NO_ENTITY_SELECTED)
 		end
 		return
 	end
@@ -179,6 +201,25 @@ local function RepeatLookUp()
 		G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name,
 		G.TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.is_single
 	)
+end
+
+local function CheckLookUpState(player)
+	local temp_key = G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_IS_ALLOW_ENTITY_LOOKUP
+
+	if player[temp_key] then
+		if player.components.talker then
+			player.components.talker:Say("Entity lookup is on cooldown!")
+		end
+		return false
+	end
+
+	player[temp_key] = true
+
+	player:DoTaskInTime(G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.ENTITY_LOCATION_SEARCH_COOLDOWN, function()
+		player[temp_key] = nil
+	end)
+
+	return true
 end
 
 ----------------------------------- Volt Goat Herd Spawn point -----------------------------------
@@ -202,6 +243,10 @@ end)
 ----------------------------------- MOD RPC -----------------------------------
 
 AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_single)
+	if not CheckLookUpState(player) then
+		return
+	end
+
 	local entities = FindAllEntity(prefab_name, is_single)
 	-- refer to archive_resonator.lua line 195-207 to get a better understanding on how to to create the directional beam
 	if #entities > 0 then
@@ -234,7 +279,7 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 	else
 		if player.components.talker then
 			player.components.talker:Say(
-				string.format(GLOBAL.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAILED_TO_FIND .. " " .. prefab_name)
+				string.format(G.TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAILED_TO_FIND .. " " .. prefab_name)
 			)
 		end
 	end
@@ -252,8 +297,8 @@ local function InputHelper(key, on_down_fn, on_up_fn, handler_type)
 		return
 	end
 
-	if GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] then
-		local old = GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type]
+	if G.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] then
+		local old = G.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type]
 		if old ~= nil then
 			if old.down_handler ~= nil then
 				G.TheInput.onkeydown:RemoveHandler(old.down_handler)
@@ -262,7 +307,7 @@ local function InputHelper(key, on_down_fn, on_up_fn, handler_type)
 				G.TheInput.onkeyup:RemoveHandler(old.up_handler)
 			end
 		end
-		GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = nil
+		G.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = nil
 	end
 
 	-- Add new handlers
@@ -277,7 +322,7 @@ local function InputHelper(key, on_down_fn, on_up_fn, handler_type)
 		handler_data.up_handler = h
 	end
 
-	GLOBAL.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = handler_data
+	G.TIAN_WHEREISIT_GLOBAL_HANDLER[handler_type] = handler_data
 end
 
 function G.TIAN_WHEREISIT_GLOBAL_FUNCTION.UpdateKeyBindings()
