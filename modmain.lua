@@ -1,6 +1,8 @@
 local G = GLOBAL
 local require = G.require
+local Widget = require("widgets/widget")
 local WhereIsItMenuScreen = require("screens/menu")
+local WhereIsItHudButton = require("widgets/hudbutton")
 local json = require("json")
 
 -- Config Settings
@@ -34,6 +36,7 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		PERSIST_CUSTOM_ENTITIES = "tian_whereisit_persist_custom_entities",
 		PERSIST_FAVOURITES = "tian_whereisit_persist_entity_favourite_states",
 		-- Widgets
+		WIDGET_HUD_BUTTON = "tian_whereisit_widget_hud_button",
 		WIDGET_ENTITY_ADD = "tian_whereisit_widget_entity_add",
 		WIDGET_ENTITY_CELL = "tian_whereisit_widget_entity_cell_",
 		WIDGET_ENTITY_FAVOURITE_STATE = "tian_whereisit_widget_entity_favourite_state_",
@@ -133,6 +136,13 @@ AddClassPostConstruct("screens/menu", function(screen)
 	screen:SetDebugMode(debug_mode)
 end)
 
+AddClassPostConstruct("screens/playerhud", function(self)
+	if self ~= nil then
+		self.whereisit_container = self:AddChild(Widget("whereisit_container"))
+		self.whereisit_button = self.whereisit_container:AddChild(WhereIsItHudButton({ screen = self }))
+	end
+end)
+
 ----------------------------------- Feature -----------------------------------
 
 local function ToggleMenu()
@@ -162,6 +172,8 @@ local function ToggleMenu()
 		end
 	end
 end
+
+G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_MENU = ToggleMenu
 
 local function FindAllEntity(prefab_name, is_single)
 	local entities = {}
