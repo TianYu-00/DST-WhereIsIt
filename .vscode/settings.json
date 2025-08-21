@@ -4,5 +4,16 @@
   "[lua]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
   },
-  "cSpell.words": ["Anenemy", "whereisit"]
+  "cSpell.words": [
+    "Anenemy",
+    "ANIM",
+    "ismastersim",
+    "lightninggoatfx",
+    "minisignfx",
+    "Mult",
+    "nightmarebishopfx",
+    "nightmareknightfx",
+    "nightmarerookfx",
+    "whereisit"
+  ]
 }
