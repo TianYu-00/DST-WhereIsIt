@@ -17,13 +17,9 @@ local function CreateLightningGoatFX()
 	inst.AnimState:SetBuild("lightning_goat_build")
 	inst.AnimState:PlayAnimation("idle_loop", true)
 	inst.AnimState:SetMultColour(1, 1, 1, 0.50)
+	inst.persists = false
 
 	inst:AddTag("FX")
-
-	if not TheWorld.ismastersim then
-		return inst
-	end
-
 	return inst
 end
 

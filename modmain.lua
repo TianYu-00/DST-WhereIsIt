@@ -45,6 +45,8 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		-- Player Attached
 		ATTACHED_IS_ALLOW_ENTITY_LOOKUP = "tian_whereisit_attached_is_allow_entity_lookup",
 		ATTACHED_LAST_TELEPORT_TARGET_INDEX = "tian_whereisit_attached_last_teleport_target_index",
+		-- Entity Attached
+		ATTACHED_ENTITY_BASE_POSITION = "tian_whereisit_attached_entity_base_position",
 	},
 }
 
@@ -225,21 +227,71 @@ local function CheckLookUpState(player)
 	return true
 end
 
------------------------------------ Volt Goat Herd Spawn point -----------------------------------
+----------------------------------- Spawn Point Handlers -----------------------------------
 
 -- ill just put it here for now since its specific to it, and i wont be using it else where
-PrefabFiles = { "lightninggoatfx" }
+PrefabFiles = { "lightninggoatfx", "minisignfx" } -- prefab file names without extension
 
+----------------------------------- Lightning Goat
 AddPrefabPostInit("lightninggoatherd", function(inst)
+	-- client code
 	inst.entity:AddNetwork()
 	inst.entity:SetPristine()
 	if not G.TheWorld.ismastersim then
 		return
 	end
 
+	-- server code
 	inst:DoTaskInTime(G.FRAMES, function()
 		local fx = G.SpawnPrefab("tian_whereisit_lightninggoatfx")
 		fx.entity:SetParent(inst.entity)
+	end)
+end)
+
+----------------------------------- Ruin Clockworks
+AddPrefabPostInit("bishop_nightmare", function(inst)
+	-- If this code is running on a client, don’t execute the rest of the function — just return the prefab now.
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		if inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] == nil then
+			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
+			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+			inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] = fx
+		end
+	end)
+end)
+
+AddPrefabPostInit("knight_nightmare", function(inst)
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		if inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] == nil then
+			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
+			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+			inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] = fx
+		end
+	end)
+end)
+
+AddPrefabPostInit("rook_nightmare", function(inst)
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		if inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] == nil then
+			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
+			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+			inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] = fx
+		end
 	end)
 end)
 
