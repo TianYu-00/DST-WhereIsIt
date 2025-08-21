@@ -3,6 +3,7 @@ local require = G.require
 local Widget = require("widgets/widget")
 local WhereIsItMenuScreen = require("screens/menu")
 local WhereIsItHudButton = require("widgets/hudbutton")
+local DefaultLocalConfig = require("defaultsettings")
 local json = require("json")
 
 -- Config Settings
@@ -20,11 +21,12 @@ local debug_mode = GetModConfigData("Debug_Mode") or false
 
 G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact name @.@
 	SETTINGS = {
-		MENU_KEY = "O",
-		REPEAT_LOOKUP_KEY = "V",
+		MENU_KEY = DefaultLocalConfig.MENU_KEY,
+		REPEAT_LOOKUP_KEY = DefaultLocalConfig.REPEAT_LOOKUP_KEY,
 		ARROW_LIMIT_PER_PLAYER = arrow_limit_per_player,
 		ENTITY_LOCATION_SEARCH_COOLDOWN = entity_location_search_cooldown,
 		IS_ALLOW_TELEPORT = is_allow_teleport,
+		MENU_BUTTON_TOGGLE = DefaultLocalConfig.MENU_BUTTON_TOGGLE,
 	},
 	STRINGS = TextStrings,
 	CURRENT_ENTITY = { name = "", is_single = false },
@@ -48,6 +50,7 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		-- Player Attached
 		ATTACHED_IS_ALLOW_ENTITY_LOOKUP = "tian_whereisit_attached_is_allow_entity_lookup",
 		ATTACHED_LAST_TELEPORT_TARGET_INDEX = "tian_whereisit_attached_last_teleport_target_index",
+		ATTACHED_MENU_BUTTON = "tian_whereisit_attached_menu_button",
 		-- Entity Attached
 		ATTACHED_ENTITY_BASE_POSITION = "tian_whereisit_attached_entity_base_position",
 	},
@@ -58,16 +61,20 @@ G.TIAN_WHEREISIT_GLOBAL_HANDLER = { MENU = nil, REPEAT = nil }
 G.TIAN_WHEREISIT_GLOBAL_FUNCTION = {}
 
 local function InGameSettingsInit()
+	-- WHEN YOU ADD NEW PERSIST SETTINGS, ADD IT HERE TOO!
 	G.TheSim:GetPersistentString(G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS, function(success, str)
 		if success and str ~= nil and str ~= "" then
 			local ok, data = G.pcall(json.decode, str)
 			if ok and data then
 				print("Key logging", data.MENU_KEY)
 				print("Key logging", data.REPEAT_LOOKUP_KEY)
+				print("Toggle logging", data.MENU_BUTTON_TOGGLE)
 				G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_KEY = data.MENU_KEY
 					or G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_KEY
 				G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.REPEAT_LOOKUP_KEY = data.REPEAT_LOOKUP_KEY
 					or G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.REPEAT_LOOKUP_KEY
+				G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_BUTTON_TOGGLE = data.MENU_BUTTON_TOGGLE
+					or G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_BUTTON_TOGGLE
 			else
 				DebugLog("Failed to decode saved entities")
 			end
@@ -138,8 +145,8 @@ end)
 
 AddClassPostConstruct("screens/playerhud", function(self)
 	if self ~= nil then
-		self.whereisit_container = self:AddChild(Widget("whereisit_container"))
-		self.whereisit_button = self.whereisit_container:AddChild(WhereIsItHudButton({ screen = self }))
+		self[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_MENU_BUTTON] =
+			self:AddChild(WhereIsItHudButton({ screen = self }))
 	end
 end)
 
@@ -174,6 +181,18 @@ local function ToggleMenu()
 end
 
 G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_MENU = ToggleMenu
+
+local function ToggleMenuButton()
+	local hud = G.ThePlayer and G.ThePlayer.HUD
+	if hud then
+		local button = hud[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_MENU_BUTTON]
+		if button then
+			button:ToggleButton()
+		end
+	end
+end
+
+G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_MENU_BUTTON = ToggleMenuButton
 
 local function FindAllEntity(prefab_name, is_single)
 	local entities = {}

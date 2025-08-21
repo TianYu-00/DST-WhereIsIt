@@ -8,6 +8,11 @@ local HudButton = Class(Widget, function(self, context)
 
 	self.hud_button_root = self:AddChild(Widget("hud_button_container"))
 
+	self:CreateButton()
+	self:ToggleButton()
+end)
+
+function HudButton:CreateButton()
 	self.hud_button_root:SetHAnchor(ANCHOR_RIGHT)
 	self.hud_button_root:SetVAnchor(ANCHOR_BOTTOM)
 	self.hud_button_root:SetScaleMode(SCALEMODE_PROPORTIONAL)
@@ -25,6 +30,14 @@ local HudButton = Class(Widget, function(self, context)
 	self.bg:SetTextFocusColour(unpack(WHITE))
 	self.bg:SetTextSize(20)
 	self.bg.image:SetTint(0, 0, 0, 0.5)
-end)
+end
+
+function HudButton:ToggleButton()
+	if TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.MENU_BUTTON_TOGGLE == "true" then
+		self.hud_button_root:Show()
+	else
+		self.hud_button_root:Hide()
+	end
+end
 
 return HudButton

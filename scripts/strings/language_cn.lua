@@ -13,6 +13,8 @@ return {
 	MENU_KEY_DESCRIPTION = "开关「在哪里」模组菜单",
 	REPEAT_KEY = "重复键",
 	REPEAT_KEY_DESCRIPTION = "快速重复上一次实体搜索",
+	MENU_BUTTON_TOGGLE = "菜单按钮",
+	MENU_BUTTON_TOGGLE_DESCRIPTION = "切换显示或隐藏主HUD菜单按钮",
 	SAVE = "保存",
 	RESET = "重置",
 	BACK = "返回",

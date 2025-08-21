@@ -101,6 +101,7 @@ function Settings:SaveSettings()
 		)
 		TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS = self.settings_data
 		TIAN_WHEREISIT_GLOBAL_FUNCTION.UpdateKeyBindings()
+		TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_MENU_BUTTON()
 	else
 		print("No settings_data to save, writing defaults")
 		self.settings_data = deepcopy(DefaultSettings)
@@ -153,6 +154,20 @@ function Settings:CreateSpinner()
 		end,
 	}))
 	self.repeat_key_spinner:SetPosition(0, -50)
+
+	-- Menu Button Toggle
+	self.repeat_key_spinner = self.spinner_container:AddChild(SettingsSpinner({ screen = self }, {
+		label = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MENU_BUTTON_TOGGLE,
+		description = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MENU_BUTTON_TOGGLE_DESCRIPTION,
+		description_widget = self.description,
+		options = { "true", "false" },
+		default = self.settings_data.MENU_BUTTON_TOGGLE,
+		on_changed = function(value)
+			print("Toggle toggeled:", value)
+			self.settings_data.MENU_BUTTON_TOGGLE = value
+		end,
+	}))
+	self.repeat_key_spinner:SetPosition(0, -100)
 end
 
 function Settings:OpenMenu()

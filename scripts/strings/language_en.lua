@@ -13,6 +13,8 @@ return {
 	MENU_KEY_DESCRIPTION = "Toggle the Where Is It mod menu",
 	REPEAT_KEY = "Repeat Key",
 	REPEAT_KEY_DESCRIPTION = "Hotkey to quickly repeat your last entity search",
+	MENU_BUTTON_TOGGLE = "Menu Button Toggle",
+	MENU_BUTTON_TOGGLE_DESCRIPTION = "Toggle between show or hide main hud menu button",
 	SAVE = "Save",
 	RESET = "Reset",
 	BACK = "Back",
