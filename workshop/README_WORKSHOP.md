@@ -1,3 +1,8 @@
+[h1] Default Keys[/h1]
+
+Menu Key = O
+菜单键 = O
+
 [h1]Where Is It[/h1]
 
 Where Is It is a quality-of-life mod for Don't Starve Together that makes finding entities much easier. It adds a searchable entity menu with fuzzy search, lets you add and remove custom entities, and gives you the ability to pin important ones so they always appear first. Selecting an entity highlights its location with a directional arrow, helping you quickly track it down in the world.
