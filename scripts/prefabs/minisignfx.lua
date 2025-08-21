@@ -1,5 +1,6 @@
 local assets = {
 	Asset("ANIM", "anim/sign_mini.zip"),
+	Asset("ANIM", "anim/firefighter_placement.zip"),
 }
 
 local function CreateMiniSignFX()

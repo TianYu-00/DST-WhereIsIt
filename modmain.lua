@@ -230,7 +230,7 @@ end
 ----------------------------------- Spawn Point Handlers -----------------------------------
 
 -- ill just put it here for now since its specific to it, and i wont be using it else where
-PrefabFiles = { "lightninggoatfx", "minisignfx" } -- prefab file names without extension
+PrefabFiles = { "lightninggoatfx", "minisignfx", "radiusfx" } -- prefab file names without extension
 
 ----------------------------------- Lightning Goat
 AddPrefabPostInit("lightninggoatherd", function(inst)
@@ -261,6 +261,10 @@ AddPrefabPostInit("bishop_nightmare", function(inst)
 			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
 			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
 			inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] = fx
+
+			local radius = G.SpawnPrefab("tian_whereisit_radiusfx")
+			radius.entity:SetParent(fx.entity)
+			radius.Transform:SetScale(0.4, 0.4, 0.4)
 		end
 	end)
 end)
@@ -276,6 +280,10 @@ AddPrefabPostInit("knight_nightmare", function(inst)
 			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
 			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
 			inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] = fx
+
+			local radius = G.SpawnPrefab("tian_whereisit_radiusfx")
+			radius.entity:SetParent(fx.entity)
+			radius.Transform:SetScale(0.4, 0.4, 0.4)
 		end
 	end)
 end)
@@ -291,6 +299,10 @@ AddPrefabPostInit("rook_nightmare", function(inst)
 			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
 			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
 			inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] = fx
+
+			local radius = G.SpawnPrefab("tian_whereisit_radiusfx")
+			radius.entity:SetParent(fx.entity)
+			radius.Transform:SetScale(0.4, 0.4, 0.4)
 		end
 	end)
 end)

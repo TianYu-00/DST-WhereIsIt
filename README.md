@@ -40,7 +40,7 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Search cooldown - Host permission
         - [x] Teleport to entity
         - [x] Disable teleport - Host Permission
-        - [ ] Clockwork Anenemy Placement  
+        - [x] Clockwork Anenemy Placement  
 
 
 <!-- 
