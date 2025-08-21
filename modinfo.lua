@@ -12,6 +12,9 @@ Where Is It is a quality-of-life mod for Don't Starve Together that makes findin
 
 The mod also features fully customizable hotkeys that can be changed at any time during gameplay. All of your settings, including hotkeys and custom entities, are saved persistently between servers, so your preferences carry over seamlessly across different worlds and sessions.
 
+The mod now supports displaying the spawn location of ruin clockworks. A semi-transparent mini sign and a range area will be generated at the centre of the clockwork. As long as you place anenemy just outside the range, you can deal damage to the clockwork when it respawns.
+
+
 ]]
 or
 [[
@@ -20,9 +23,10 @@ or
 
 模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
 
+该模组现已支持显示遗迹发条重生位置。 发条正中心会生成一个半透明的迷你标识牌以及一个范围区域， 只要你正好在范围外放置海星就能对发条造成伤害。
 ]]
 author = "Tian || TianYu"
-version = "1.4.0"
+version = "1.6.0"
 forumthread = ""
 
 -- Mod Icon

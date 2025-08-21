@@ -6,6 +6,8 @@ Where Is It is a quality-of-life mod for Don't Starve Together that makes findin
 
 The mod also features fully customizable hotkeys that can be changed at any time during gameplay. All of your settings, including hotkeys and custom entities, are saved persistently between servers, so your preferences carry over seamlessly across different worlds and sessions.
 
+The mod now supports displaying the spawn location of ruin clockworks. A semi-transparent mini sign and a range area will be generated at the centre of the clockwork. As long as you place anenemy just outside the range, you can deal damage to the clockwork when it respawns.
+
 
 Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are), but mod was coded from scratch.
 
@@ -14,6 +16,8 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
 《Where Is It》是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
 
 模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
+
+该模组现已支持显示遗迹发条重生位置。 发条正中心会生成一个半透明的迷你标识牌以及一个范围区域， 只要你正好在范围外放置海星就能对发条造成伤害。
 
 受[**Where You Are?**](https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are)启发，可是模组是从零开始编写的。
 
@@ -41,6 +45,9 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Teleport to entity
         - [x] Disable teleport - Host Permission
         - [x] Clockwork Anenemy Placement  
+        - [ ] Main screen UI Button
+        - [ ] Entity Image layering rework
+        - [ ] Spawn points for other entities
 
 
 <!-- 
