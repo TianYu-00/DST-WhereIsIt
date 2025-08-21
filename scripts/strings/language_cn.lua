@@ -8,7 +8,7 @@ return {
 	INTERACTION_HELPER = "Shift + 右键 = 传送 || Ctrl + 右键 = 切换置顶 || Alt + 右键 = 删除",
 	ADD_ENTITY = "添加实体",
 	SETTINGS = "设置",
-	SETTINGS_BASE_DESCRIPTION = "所有设置会在服务器间保存，请记得点击保存以应用新的按键绑定",
+	SETTINGS_BASE_DESCRIPTION = "所有设置会在服务器间保存，请记得点击保存以应用新的设置",
 	MENU_KEY = "菜单键",
 	MENU_KEY_DESCRIPTION = "开关「在哪里」模组菜单",
 	REPEAT_KEY = "重复键",

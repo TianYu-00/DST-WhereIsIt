@@ -45,7 +45,7 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Teleport to entity
         - [x] Disable teleport - Host Permission
         - [x] Clockwork Anenemy Placement  
-        - [ ] Main screen UI Button
+        - [x] Main screen UI Button
         - [ ] Entity Image layering rework
         - [ ] Spawn points for other entities
 

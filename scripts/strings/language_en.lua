@@ -8,7 +8,7 @@ return {
 	INTERACTION_HELPER = "Shift + Right Click = Teleport || CTRL + Right Click = Toggle Favourite || ALT + Right Click = Remove",
 	ADD_ENTITY = "Add",
 	SETTINGS = "Settings",
-	SETTINGS_BASE_DESCRIPTION = "All settings are saved across servers, remember to press save to apply your new key binds",
+	SETTINGS_BASE_DESCRIPTION = "All settings are saved across servers, remember to press save to apply your new settings",
 	MENU_KEY = "Menu Key",
 	MENU_KEY_DESCRIPTION = "Toggle the Where Is It mod menu",
 	REPEAT_KEY = "Repeat Key",

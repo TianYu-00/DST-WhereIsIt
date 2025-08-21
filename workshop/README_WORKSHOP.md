@@ -50,7 +50,7 @@ Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=28239635
         [*][✔]Teleport to entity
         [*][✔]Disable teleport - Host Permission
         [*][✔]Clockwork Anenemy Placement
-        [*][✘]Main screen UI Button
+        [*][✔]Main screen UI Button
         [*][✘]Entity Image layering rework
         [*][✘]Spawn points for other entities
     [/list]
