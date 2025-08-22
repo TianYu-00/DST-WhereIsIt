@@ -267,6 +267,7 @@ PrefabFiles = {
 	"tumbleweedfx",
 	"mushgnomefx",
 	"grassgeckofx",
+	"rockyfx",
 	"minisignfx",
 	"radiusfx",
 } -- prefab file names without extension
@@ -315,6 +316,22 @@ AddPrefabPostInit("grassgekkoherd", function(inst)
 	-- server code
 	inst:DoTaskInTime(G.FRAMES, function()
 		local fx = G.SpawnPrefab("tian_whereisit_grassgeckofx")
+		fx.entity:SetParent(inst.entity)
+	end)
+end)
+
+----------------------------------- Rocky Herd
+AddPrefabPostInit("rockyherd", function(inst)
+	-- client code
+	inst.entity:AddNetwork()
+	inst.entity:SetPristine()
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		local fx = G.SpawnPrefab("tian_whereisit_rockyfx")
 		fx.entity:SetParent(inst.entity)
 	end)
 end)
