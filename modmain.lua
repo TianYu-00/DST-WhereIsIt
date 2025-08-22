@@ -266,7 +266,6 @@ PrefabFiles = {
 	"beefalofx",
 	"tumbleweedfx",
 	"mushgnomefx",
-	"grassgeckofx",
 	"rockyfx",
 	"minisignfx",
 	"radiusfx",
@@ -300,22 +299,6 @@ AddPrefabPostInit("beefaloherd", function(inst)
 	-- server code
 	inst:DoTaskInTime(G.FRAMES, function()
 		local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
-		fx.entity:SetParent(inst.entity)
-	end)
-end)
-
------------------------------------ Grassgecko Herd
-AddPrefabPostInit("grassgekkoherd", function(inst)
-	-- client code
-	inst.entity:AddNetwork()
-	inst.entity:SetPristine()
-	if not G.TheWorld.ismastersim then
-		return
-	end
-
-	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
-		local fx = G.SpawnPrefab("tian_whereisit_grassgeckofx")
 		fx.entity:SetParent(inst.entity)
 	end)
 end)
