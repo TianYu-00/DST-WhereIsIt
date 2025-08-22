@@ -40,19 +40,52 @@ Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=28239635
         [*][✔]Save the new added entity as persistent string
         [*][✔]Remove entity from menu
         [*][✔]Update more base entities
-        [*][✔]Volt goat herd position
+        [*][✔]Volt goat herd respawn point
         [*][✔]Repeat previous entity search
         [*][✔]Clear old directional beam when new beam is generated
         [*][✔]Pin/Favourite entity
-        [*][✔]Allow players to have their own keybinds
-        [*][✔]Search limits - Host permission
-        [*][✔]Search cooldown - Host permission
+        [*][✔]Allow players to have their own keybinds that is changeable in game
+        [*][✔]Directional beam limit per player - Host permission
+        [*][✔]Entity Search cooldown - Host permission
         [*][✔]Teleport to entity
-        [*][✔]Disable teleport - Host Permission
-        [*][✔]Clockwork Anenemy Placement
+        [*][✔]Disable teleport feature - Host Permission
+        [*][✔]Ruins Clockwork respawn point visualizer 
         [*][✔]Main screen UI Button
-        [*][✘]Entity Image layering rework
-        [*][✘]Spawn points for other entities
+        [*][✔]Entity Image layering rework
+        [*][✔]Spawn points for other entities
+    [/list]
+
+[h1]待办事项清单[/h1]
+
+[b]最小可行产品 (MVP)[/b]
+    [list]
+        [*][✔]自定义菜单屏幕
+        [*][✔]查找实体
+        [*][✔]定向光束
+        [*][✔]菜单滚动器
+        [*][✔]模组自带实体
+    [/list]
+
+[b]附加功能[/b]
+    [list]
+        [*][✔]从菜单搜索实体
+        [*][✔]将实体添加到菜单
+        [*][✔]让新添加的实体服务器互通
+        [*][✔]从菜单中删除实体
+        [*][✔]添加更多模组自带实体
+        [*][✔]显示伏特羊群重生点
+        [*][✔]快捷键重复实体搜索
+        [*][✔]生成新光束时清除旧定向光束
+        [*][✔]置顶实体
+        [*][✔]允许玩家拥有自己的键位绑定
+        [*][✔]光束显示限制 - 主机权限
+        [*][✔]搜索冷却时间 - 主机权限
+        [*][✔]传送到实体
+        [*][✔]禁用传送功能 - 主机权限
+        [*][✔]显示遗迹发条重生点，方便放置海星
+        [*][✔]主屏幕显示模组菜单按钮
+        [*][✔]实体UI图层重做
+        [*][✔]其他实体的复活点显示
     [/list]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]
