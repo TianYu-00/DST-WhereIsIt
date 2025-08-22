@@ -261,9 +261,17 @@ end
 ----------------------------------- Spawn Point Handlers -----------------------------------
 
 -- ill just put it here for now since its specific to it, and i wont be using it else where
-PrefabFiles = { "lightninggoatfx", "minisignfx", "radiusfx" } -- prefab file names without extension
+PrefabFiles = {
+	"lightninggoatfx",
+	"beefalofx",
+	"tumbleweedfx",
+	"mushgnomefx",
+	"grassgeckofx",
+	"minisignfx",
+	"radiusfx",
+} -- prefab file names without extension
 
------------------------------------ Lightning Goat
+----------------------------------- Lightning Goat Herd
 AddPrefabPostInit("lightninggoatherd", function(inst)
 	-- client code
 	inst.entity:AddNetwork()
@@ -276,6 +284,64 @@ AddPrefabPostInit("lightninggoatherd", function(inst)
 	inst:DoTaskInTime(G.FRAMES, function()
 		local fx = G.SpawnPrefab("tian_whereisit_lightninggoatfx")
 		fx.entity:SetParent(inst.entity)
+	end)
+end)
+
+----------------------------------- Beefalo Herd
+AddPrefabPostInit("beefaloherd", function(inst)
+	-- client code
+	inst.entity:AddNetwork()
+	inst.entity:SetPristine()
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
+		fx.entity:SetParent(inst.entity)
+	end)
+end)
+
+----------------------------------- Grassgecko Herd
+AddPrefabPostInit("grassgekkoherd", function(inst)
+	-- client code
+	inst.entity:AddNetwork()
+	inst.entity:SetPristine()
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		local fx = G.SpawnPrefab("tian_whereisit_grassgeckofx")
+		fx.entity:SetParent(inst.entity)
+	end)
+end)
+
+----------------------------------- Tumbleweed Spawner
+AddPrefabPostInit("tumbleweedspawner", function(inst)
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		local fx = G.SpawnPrefab("tian_whereisit_tumbleweedfx")
+		fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+	end)
+end)
+
+----------------------------------- Mushgnome Spawner
+AddPrefabPostInit("mushgnome_spawner", function(inst)
+	if not G.TheWorld.ismastersim then
+		return
+	end
+
+	-- server code
+	inst:DoTaskInTime(G.FRAMES, function()
+		local fx = G.SpawnPrefab("tian_whereisit_mushgnomefx")
+		fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
 	end)
 end)
 
