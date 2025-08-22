@@ -4,28 +4,27 @@ local assets = {
 
 -- This is taken from my other mod(Lazy-Wortox) but changed its logic to fit
 local function CreateRangeIndicator()
-	local circle = CreateEntity()
-	circle.entity:AddTransform()
-	circle.entity:AddAnimState()
-	circle.entity:AddNetwork()
-	circle.entity:SetPristine()
-	circle.Transform:SetRotation(0)
-	-- circle.Transform:SetScale(scale, scale, scale)
+	local inst = CreateEntity()
+	inst.entity:AddTransform()
+	inst.entity:AddAnimState()
+	inst.entity:AddNetwork()
+	inst.entity:SetPristine()
+	inst.Transform:SetRotation(0)
+	-- inst.Transform:SetScale(scale, scale, scale)
 
-	circle.AnimState:SetBank("firefighter_placement")
-	circle.AnimState:SetBuild("firefighter_placement")
-	circle.AnimState:PlayAnimation("idle", true)
-	circle.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
-	circle.AnimState:SetLayer(LAYER_BACKGROUND)
-	circle.AnimState:SetSortOrder(3)
-	circle.AnimState:SetLightOverride(1)
-	circle.AnimState:SetAddColour(unpack(WHITE))
-	circle.persists = false
+	inst.AnimState:SetBank("firefighter_placement")
+	inst.AnimState:SetBuild("firefighter_placement")
+	inst.AnimState:PlayAnimation("idle", true)
+	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+	inst.AnimState:SetLayer(LAYER_BACKGROUND)
+	inst.AnimState:SetSortOrder(3)
+	inst.AnimState:SetAddColour(unpack(WHITE))
+	inst.persists = false
 
-	circle:AddTag("NOCLICK")
-	circle:AddTag("placer")
+	inst:AddTag("NOCLICK")
+	inst:AddTag("placer")
 
-	return circle
+	return inst
 end
 
 return Prefab("tian_whereisit_radiusfx", CreateRangeIndicator, assets)
