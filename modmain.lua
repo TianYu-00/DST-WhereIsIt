@@ -373,7 +373,7 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 				inst:Remove()
 			end)
 		end
-		player.SoundEmitter:PlaySound("grotto/common/archive_resonator/beam")
+		-- player.SoundEmitter:PlaySound("grotto/common/archive_resonator/beam")
 	else
 		if player.components.talker then
 			player.components.talker:Say(

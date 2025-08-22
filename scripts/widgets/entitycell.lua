@@ -39,7 +39,11 @@ local EntityCell = Class(Widget, function(self, context, index)
 		end
 	end)
 
-	-- Allocate children ONCE
+	-- Background for the icon (middle layer)
+	self.icon_bg = self.cell_root:AddChild(Image("images/scrapbook.xml", "inv_item_background.tex"))
+	self.icon_bg:ScaleToSize(63, 63)
+
+	-- Icon (front layer)
 	self.icon = self.cell_root:AddChild(Image())
 	self.icon:Hide()
 
@@ -70,6 +74,7 @@ function EntityCell:SetData(data)
 			self.cell_root.image:SetTint(0.3, 0.3, 0.3, 0.3)
 		end
 		self.icon:Hide()
+		self.icon_bg:Hide()
 		self.custom_name:Hide()
 		self:Disable()
 		return
@@ -79,9 +84,10 @@ function EntityCell:SetData(data)
 		self.cell_root.image:SetTint(1, 1, 1, 1)
 	end
 
-	-- Icon
+	-- Icon + background
+	self.icon_bg:Show()
 	self.icon:SetTexture(data.icon_atlas or "images/global.xml", data.icon_tex or "square.tex")
-	self.icon:ScaleToSize(63, 63)
+	self.icon:ScaleToSize(data.icon_size_x or 63, data.icon_size_y or 63)
 	self.icon:Show()
 
 	-- Custom name/remove
