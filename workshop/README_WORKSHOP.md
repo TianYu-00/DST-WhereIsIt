@@ -29,38 +29,40 @@ Check [b]change notes[/b] to see what I have updated.
 
 中文版 [url=https://dontstarve.huijiwiki.com/wiki/%E9%A5%A5%E8%8D%92%EF%BC%9A%E8%81%94%E6%9C%BA%E7%89%88][b]饥荒Wiki[/b][/url]
 
-
 查看 [b]变更说明[/b] 以了解更新的内容。
 
 [h1]TO DO LIST[/h1]
 [b]Minimum Viable Product (MVP)[/b]
     [list]
-        [*][✔]Custom menu screen
-        [*][✔]Find entities
-        [*][✔]Directional beam
-        [*][✔]Menu scroller
-        [*][✔]Base entities
+         [*][✔]Custom menu screen
+         [*][✔]Find entities
+         [*][✔]Directional beam
+         [*][✔]Menu scroller
+         [*][✔]Base entities
     [/list]
+
 [b]Additional Features[/b]
     [list]
-        [*][✔]Search entity from menu
-        [*][✔]Add entity to menu
-        [*][✔]Save the new added entity as persistent string
-        [*][✔]Remove entity from menu
-        [*][✔]Update more base entities
-        [*][✔]Volt goat herd respawn point
-        [*][✔]Repeat previous entity search
-        [*][✔]Clear old directional beam when new beam is generated
-        [*][✔]Pin/Favourite entity
-        [*][✔]Allow players to have their own keybinds that is changeable in game
-        [*][✔]Directional beam limit per player - Host permission
-        [*][✔]Entity Search cooldown - Host permission
-        [*][✔]Teleport to entity
-        [*][✔]Disable teleport feature - Host Permission
-        [*][✔]Ruins Clockwork respawn point visualizer 
-        [*][✔]Main screen UI Button
-        [*][✔]Entity Image layering rework
-        [*][✔]Spawn points for other entities
+         [*][✔]Search entity from menu – by entity code name
+         [*][✔]Add entity to menu – Add button
+         [*][✔]Save the newly added entity as persistent string (server-wide)
+         [*][✔]Remove entity from menu – Alt + Right Click
+         [*][✔]Update more base entities
+         [*][✔]Volt Goat herd respawn point visualizer
+         [*][✔]Repeat previous entity search – default key: V
+         [*][✔]Clear old directional beam when new beam is generated
+         [*][✔]Pin/Favourite entity – Ctrl + Right Click
+         [*][✔]Allow players to have their own keybinds – configurable in menu settings
+         [*][✔]Directional beam limit per player – Host permission
+         [*][✔]Entity Search cooldown – Host permission
+         [*][✔]Teleport to entity – Shift + Right Click
+         [*][✔]Disable teleport feature – Host permission
+         [*][✔]Ruins Clockwork respawn point visualizer – for easy Ancient Guardian placement
+         [*][✔]Main screen UI button – bottom right corner
+         [*][✔]Entity image layering rework
+         [*][✔]Spawn point visualization for other entities – Beefalo, Tumbleweed, Rock Lobster, Mushgnome
+         [*][✔]Hide/Unhide base entities – Alt + Right Click
+         [*][✔]Category system – Default, Favourites, Hidden, Custom
     [/list]
 
 [h1]待办事项清单[/h1]
@@ -76,31 +78,34 @@ Check [b]change notes[/b] to see what I have updated.
 
 [b]附加功能[/b]
     [list]
-        [*][✔]从菜单搜索实体
-        [*][✔]将实体添加到菜单
+        [*][✔]从菜单搜索实体 - 实体代码名称
+        [*][✔]将实体添加到菜单 - 添加按钮
         [*][✔]让新添加的实体服务器互通
-        [*][✔]从菜单中删除实体
+        [*][✔]从菜单中删除实体 - Alt + 右键
         [*][✔]添加更多模组自带实体
         [*][✔]显示伏特羊群重生点
-        [*][✔]快捷键重复实体搜索
+        [*][✔]快捷键重复实体搜索 - 默认 V 键
         [*][✔]生成新光束时清除旧定向光束
-        [*][✔]置顶实体
-        [*][✔]允许玩家拥有自己的键位绑定
+        [*][✔]置顶实体 - Ctrl + 右键
+        [*][✔]允许玩家拥有自己的键位绑定 - 菜单设置页面
         [*][✔]光束显示限制 - 主机权限
         [*][✔]搜索冷却时间 - 主机权限
-        [*][✔]传送到实体
+        [*][✔]传送到实体 - Shift + 右键
         [*][✔]禁用传送功能 - 主机权限
         [*][✔]显示遗迹发条重生点，方便放置海星
-        [*][✔]主屏幕显示模组菜单按钮
+        [*][✔]主屏幕显示模组菜单按钮 - 右下角
         [*][✔]实体UI图层重做
-        [*][✔]其他实体的复活点显示
+        [*][✔]其他实体的复活点显示 - 牛群 + 风滚草 + 石虾 + 蘑菇地精
+        [*][✔]显示/不显示 模组自带实体 - Alt + 右键
+        [*][✔]分类 - 默认，收藏，隐藏，自定义
+
     [/list]
 
 [h1] Known Issue [/h1]
 The mod's in game settings feature doesn't work well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]Don't Starve Alone[/b] [/url]
 
 [h1] 已知问题 [/h1]
-模组游戏内设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
+模组内的设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]
 [table]

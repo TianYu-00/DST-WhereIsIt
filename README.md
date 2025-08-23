@@ -48,7 +48,7 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Main screen UI Button
         - [x] Entity Image layering rework
         - [x] Spawn points for other entities
-        - [ ] Hide/Unhide base entities
-        - [ ] Category
+        - [x] Hide/Unhide base entities
+        - [x] Category system
 
     
