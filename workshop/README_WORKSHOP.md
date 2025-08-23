@@ -13,6 +13,8 @@ The mod now supports displaying the spawn location of ruin clockworks. A semi-tr
 
 Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url], but mod was coded from scratch.
 
+Check [b]change notes[/b] to see what I have updated.
+
 [h1]在哪里[/h1]
 
 《Where Is It》是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
@@ -23,6 +25,7 @@ Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=28239635
 
 受[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url]启发，可是模组是从零开始编写的。
 
+查看 [b]变更说明[/b] 以了解更新的内容。
 
 [h1]TO DO LIST[/h1]
 [b]Minimum Viable Product (MVP)[/b]
@@ -87,6 +90,12 @@ Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=28239635
         [*][✔]实体UI图层重做
         [*][✔]其他实体的复活点显示
     [/list]
+
+[h1] Known Issue [/h1]
+The mod's in game settings feature doesn't work well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]Don't Starve Alone[/b] [/url]
+
+[h1] 已知问题 [/h1]
+模组游戏内设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]
 [table]
