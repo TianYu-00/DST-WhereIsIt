@@ -1,10 +1,8 @@
 [h1] Default Keys[/h1]
-
 Menu Key = O
 菜单键 = O
 
 [h1]Where Is It[/h1]
-
 Where Is It is a quality-of-life mod for Don't Starve Together that makes finding entities much easier. It adds a searchable entity menu with fuzzy search, lets you add and remove custom entities, and gives you the ability to pin important ones so they always appear first. Selecting an entity highlights its location with a directional arrow, helping you quickly track it down in the world.
 
 The mod also features fully customizable hotkeys that can be changed at any time during gameplay. All of your settings, including hotkeys and custom entities, are saved persistently between servers, so your preferences carry over seamlessly across different worlds and sessions.
@@ -18,7 +16,6 @@ English version [url=https://dontstarve.fandom.com/wiki/Don%27t_Starve_Together]
 Check [b]change notes[/b] to see what I have updated.
 
 [h1]在哪里[/h1]
-
 《Where Is It》是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
 
 模组还支持自定义快捷键，并且可以在游戏过程中随时修改。无论是快捷键设置还是自定义实体，都会被自动保存，并在不同的服务器和世界中保持一致，让你的游戏体验更加顺手和省心。
@@ -34,39 +31,37 @@ Check [b]change notes[/b] to see what I have updated.
 [h1]TO DO LIST[/h1]
 [b]Minimum Viable Product (MVP)[/b]
     [list]
-         [*][✔]Custom menu screen
-         [*][✔]Find entities
-         [*][✔]Directional beam
-         [*][✔]Menu scroller
-         [*][✔]Base entities
+        [*][✔]Custom menu screen
+        [*][✔]Find entities
+        [*][✔]Directional beam
+        [*][✔]Menu scroller
+        [*][✔]Base entities
     [/list]
-
 [b]Additional Features[/b]
     [list]
-         [*][✔]Search entity from menu – by entity code name
-         [*][✔]Add entity to menu – Add button
-         [*][✔]Save the newly added entity as persistent string (server-wide)
-         [*][✔]Remove entity from menu – Alt + Right Click
-         [*][✔]Update more base entities
-         [*][✔]Volt Goat herd respawn point visualizer
-         [*][✔]Repeat previous entity search – default key: V
-         [*][✔]Clear old directional beam when new beam is generated
-         [*][✔]Pin/Favourite entity – Ctrl + Right Click
-         [*][✔]Allow players to have their own keybinds – configurable in menu settings
-         [*][✔]Directional beam limit per player – Host permission
-         [*][✔]Entity Search cooldown – Host permission
-         [*][✔]Teleport to entity – Shift + Right Click
-         [*][✔]Disable teleport feature – Host permission
-         [*][✔]Ruins Clockwork respawn point visualizer – for easy Ancient Guardian placement
-         [*][✔]Main screen UI button – bottom right corner
-         [*][✔]Entity image layering rework
-         [*][✔]Spawn point visualization for other entities – Beefalo, Tumbleweed, Rock Lobster, Mushgnome
-         [*][✔]Hide/Unhide base entities – Alt + Right Click
-         [*][✔]Category system – Default, Favourites, Hidden, Custom
+        [*][✔]Search entity from menu - by entity code name
+        [*][✔]Add entity to menu - Add button
+        [*][✔]Save the new added entity as persistent string (server-wide)
+        [*][✔]Remove entity from menu - Alt + Right Click
+        [*][✔]Update more base entities
+        [*][✔]Volt goat herd respawn point
+        [*][✔]Repeat previous entity search - default V key
+        [*][✔]Clear old directional beam when new beam is generated
+        [*][✔]Pin/Favourite entity - Ctrl + Right Click
+        [*][✔]Allow players to have their own keybinds - menu settings page
+        [*][✔]Directional beam limit per player - Host permission
+        [*][✔]Entity Search cooldown - Host permission
+        [*][✔]Teleport to entity - Shift + Right Click
+        [*][✔]Disable teleport feature - Host permission
+        [*][✔]Ruins Clockwork respawn point visualizer - for easy placement
+        [*][✔]Main screen UI Button - bottom right corner
+        [*][✔]Entity Image layering rework
+        [*][✔]Spawn points for other entities - Beefalo + Tumbleweed + Rock Lobster + Mushgnome
+        [*][✔]Hide/Unhide base entities - Alt + Right Click
+        [*][✔]Category system - Default, Favourite, Hidden, Custom
     [/list]
 
 [h1]待办事项清单[/h1]
-
 [b]最小可行产品 (MVP)[/b]
     [list]
         [*][✔]自定义菜单屏幕
@@ -75,7 +70,6 @@ Check [b]change notes[/b] to see what I have updated.
         [*][✔]菜单滚动器
         [*][✔]模组自带实体
     [/list]
-
 [b]附加功能[/b]
     [list]
         [*][✔]从菜单搜索实体 - 实体代码名称
@@ -98,7 +92,6 @@ Check [b]change notes[/b] to see what I have updated.
         [*][✔]其他实体的复活点显示 - 牛群 + 风滚草 + 石虾 + 蘑菇地精
         [*][✔]显示/不显示 模组自带实体 - Alt + 右键
         [*][✔]分类 - 默认，收藏，隐藏，自定义
-
     [/list]
 
 [h1] Known Issue [/h1]
