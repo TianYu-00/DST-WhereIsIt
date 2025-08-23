@@ -151,6 +151,7 @@ function EntityCell:OnControl(control, down)
 						print("hidden:", self.data.name)
 						local hidden = self.parent_screen.hidden_persist_data
 						hidden[self.data.name] = not hidden[self.data.name]
+						-- self.entity_favourite_root:ToggleFavourite(self.data.name, false)
 
 						SavePersistentString(
 							TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_HIDE_BASE_ENTITY,

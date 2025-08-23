@@ -86,14 +86,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	----------------------------------- create scroll list
 
 	self.scroll_list = nil
-	-- Initialize favourite list
-	EntityFavourite:GetFavouritePersistentData(function(data)
-		self.favourite_persist_data = data
-	end)
-
-	EntityHide:GetHiddenPersistentData(function(data)
-		self.hidden_persist_data = data
-	end)
 
 	-- Initialize entity storage
 	self.saved_entities = {}
@@ -130,7 +122,124 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.settings_root:CreateMenu()
 	self.settings_button = self.proot:AddChild(self.settings_root:CreateSettingsButton())
 	self.settings_button:SetPosition(310, 245, 0)
+
+	----------------------------------- Category
+	-- Tables for each category
+	self.all_entities = {}
+	self.favourite_entities = {}
+	self.hidden_entities = {}
+
+	-- default
+	self.default_button = self.proot:AddChild(
+		Templates2.IconButton("images/crafting_menu_icons.xml", "filter_none.tex", "", "", "", function()
+			self:SetCategory("default")
+		end)
+	)
+	self.default_button:SetPosition(-250, 245)
+	self.default_button:SetScale(0.5)
+
+	self.default_button:SetOnGainFocus(function()
+		self.tooltip_root:UpdatePosition(self.default_button, 0, -25)
+		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.DEFAULT)
+	end)
+
+	self.default_button:SetOnLoseFocus(function()
+		self.tooltip_root:HideTooltip(self.default_button)
+	end)
+
+	-- favourite
+	self.fav_button = self.proot:AddChild(
+		Templates2.IconButton("images/crafting_menu_icons.xml", "filter_favorites.tex", "", "", "", function()
+			self:SetCategory("favourite")
+		end)
+	)
+	self.fav_button:SetPosition(-210, 245)
+	self.fav_button:SetScale(0.5)
+
+	self.fav_button:SetOnGainFocus(function()
+		self.tooltip_root:UpdatePosition(self.fav_button, 0, -25)
+		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAVOURITE)
+	end)
+
+	self.fav_button:SetOnLoseFocus(function()
+		self.tooltip_root:HideTooltip(self.fav_button)
+	end)
+
+	-- hidden
+	self.hidden_button = self.proot:AddChild(
+		Templates2.IconButton("images/crafting_menu_icons.xml", "station_hermitcrab_shop.tex", "", "", "", function()
+			self:SetCategory("hidden")
+		end)
+	)
+	self.hidden_button:SetPosition(-170, 245)
+	self.hidden_button:SetScale(0.5)
+
+	self.hidden_button:SetOnGainFocus(function()
+		self.tooltip_root:UpdatePosition(self.hidden_button, 0, -25)
+		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.HIDDEN)
+	end)
+
+	self.hidden_button:SetOnLoseFocus(function()
+		self.tooltip_root:HideTooltip(self.hidden_button)
+	end)
+
+	-- custom
+	self.custom_button = self.proot:AddChild(
+		Templates2.IconButton("images/crafting_menu_icons.xml", "filter_modded.tex", "", "", "", function()
+			self:SetCategory("custom")
+		end)
+	)
+	self.custom_button:SetPosition(-130, 245)
+	self.custom_button:SetScale(0.5)
+
+	self.custom_button:SetOnGainFocus(function()
+		self.tooltip_root:UpdatePosition(self.custom_button, 0, -25)
+		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.CUSTOM)
+	end)
+
+	self.custom_button:SetOnLoseFocus(function()
+		self.tooltip_root:HideTooltip(self.custom_button)
+	end)
+
+	self:InitCategoryAfterAsyncLoad()
 end)
+
+function WhereIsItMenuScreen:InitCategoryAfterAsyncLoad()
+	local fav_loaded, hidden_loaded = false, false
+
+	local function tryRefresh()
+		if fav_loaded and hidden_loaded then
+			self.current_category = "default"
+			self:RefreshEntityList()
+		end
+	end
+
+	EntityFavourite:GetFavouritePersistentData(function(data)
+		self.favourite_persist_data = data
+		fav_loaded = true
+		tryRefresh()
+	end)
+
+	EntityHide:GetHiddenPersistentData(function(data)
+		self.hidden_persist_data = data
+		hidden_loaded = true
+		tryRefresh()
+	end)
+end
+
+function WhereIsItMenuScreen:SetCategory(category)
+	local valid_categories = {
+		default = true,
+		favourite = true,
+		hidden = true,
+		custom = true,
+	}
+
+	if valid_categories[category] then
+		self.current_category = category
+		self:RefreshEntityList()
+	end
+end
 
 function WhereIsItMenuScreen:LoadSavedEntities()
 	TheSim:GetPersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_CUSTOM_ENTITIES, function(success, str)
@@ -159,44 +268,61 @@ end
 function WhereIsItMenuScreen:RefreshEntityList()
 	-- Combine default and saved entities
 	self.master_entity_list = {}
-
-	-- Add default entities
 	for _, e in ipairs(EntityList) do
 		table.insert(self.master_entity_list, e)
 	end
-
-	-- Add saved entities
 	for _, e in ipairs(self.saved_entities) do
 		table.insert(self.master_entity_list, e)
 	end
 
-	self.entity_list = {}
+	-- Reset category tables
+	self.default_entities = {}
+	self.favourite_entities = {}
+	self.hidden_entities = {}
+	self.custom_entities = {}
 
-	-- Separate favourites and non-favourites
-	local favourites = {}
-	local non_favourites = {}
+	local fav_data = self.favourite_persist_data or {}
+	local hidden_data = self.hidden_persist_data or {}
 
-	for _, e in ipairs(self.master_entity_list) do
-		local is_hidden = self.hidden_persist_data and self.hidden_persist_data[e.name]
-
-		if not is_hidden then
-			if self.favourite_persist_data and self.favourite_persist_data[e.name] then
-				table.insert(favourites, e)
-			else
-				table.insert(non_favourites, e)
-			end
+	local function insertFavFirst(list, entity, is_fav)
+		if is_fav then
+			table.insert(list, 1, entity)
+		else
+			table.insert(list, entity)
 		end
 	end
 
-	-- Put favourites first
-	for _, e in ipairs(favourites) do
-		table.insert(self.entity_list, e)
+	for _, e in ipairs(self.master_entity_list) do
+		local is_fav = fav_data[e.name] or false
+		local is_hidden = hidden_data[e.name] or false
+		local is_custom = e.is_custom or false
+
+		-- Normal category: non-hidden
+		if not is_hidden then
+			insertFavFirst(self.default_entities, e, is_fav)
+		end
+
+		-- Favourites category
+		if is_fav then
+			table.insert(self.favourite_entities, e)
+		end
+
+		-- Hidden category
+		if is_hidden then
+			insertFavFirst(self.hidden_entities, e, is_fav)
+		end
+
+		-- Custom category
+		if is_custom then
+			insertFavFirst(self.custom_entities, e, is_fav)
+		end
 	end
 
-	-- Then the rest
-	for _, e in ipairs(non_favourites) do
-		table.insert(self.entity_list, e)
-	end
+	-- Set the entity list for the current category
+	self.entity_list = self.current_category == "default" and self.default_entities
+		or self.current_category == "favourite" and self.favourite_entities
+		or self.current_category == "hidden" and self.hidden_entities
+		or self.current_category == "custom" and self.custom_entities
 
 	self:CreateEntityList()
 end

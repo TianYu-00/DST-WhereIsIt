@@ -34,12 +34,17 @@ function EntityFavouriteState:GetFavouritePersistentData(callback)
 	end)
 end
 
-function EntityFavouriteState:ToggleFavourite(entity_name)
+function EntityFavouriteState:ToggleFavourite(entity_name, toggle_value)
 	local favourites = self.parent_screen.favourite_persist_data or {}
 
 	-- Toggle directly by prefab name
-	local current = favourites[entity_name] or false
-	favourites[entity_name] = not current
+
+	if toggle_value ~= nil then
+		favourites[entity_name] = toggle_value
+	else
+		local current = favourites[entity_name] or false
+		favourites[entity_name] = not current
+	end
 
 	-- Save the updated table
 	SavePersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_FAVOURITES, json.encode(favourites), false)
