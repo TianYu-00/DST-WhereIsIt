@@ -13,6 +13,8 @@ The mod now supports displaying the spawn location of ruin clockworks. A semi-tr
 
 Inspired by [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url], but mod was coded from scratch.
 
+English version [url=https://dontstarve.fandom.com/wiki/Don%27t_Starve_Together][b]Dont't Starve Together Wiki[/b][/url]
+
 Check [b]change notes[/b] to see what I have updated.
 
 [h1]在哪里[/h1]
@@ -24,6 +26,9 @@ Check [b]change notes[/b] to see what I have updated.
 该模组现已支持显示遗迹发条重生位置。 发条正中心会生成一个半透明的迷你标识牌以及一个范围区域， 只要你正好在范围外放置海星就能对发条造成伤害。
 
 受[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are][b]Where You Are?[/b][/url]启发，可是模组是从零开始编写的。
+
+中文版 [url=https://dontstarve.huijiwiki.com/wiki/%E9%A5%A5%E8%8D%92%EF%BC%9A%E8%81%94%E6%9C%BA%E7%89%88][b]饥荒Wiki[/b][/url]
+
 
 查看 [b]变更说明[/b] 以了解更新的内容。
 
