@@ -5,7 +5,7 @@ return {
 	NO_ENTITY_SELECTED = "No Entity Selected",
 	PINNED = "Pinned",
 	UNPINNED = "Unpinned",
-	INTERACTION_HELPER = "Shift + Right Click = Teleport || CTRL + Right Click = Toggle Favourite || ALT + Right Click = Remove",
+	INTERACTION_HELPER = "Shift + Right Click = Teleport || CTRL + Right Click = Toggle Favourite || ALT + Right Click = Remove/Hide",
 	ADD_ENTITY = "Add",
 	SETTINGS = "Settings",
 	SETTINGS_BASE_DESCRIPTION = "All settings are saved across servers, remember to press save to apply your new settings",
@@ -21,4 +21,8 @@ return {
 	ENTITY_ON_COOLDOWN = "Entity lookup on cooldown",
 	TELEPORTED_TO = "Teleported to ",
 	TELEPORT_PERMISSION_OFF = "Teleport permission is not enabled",
+	DEFAULT = "Default",
+	FAVOURITE = "Favourites",
+	HIDDEN = "Hidden",
+	CUSTOM = "Custom",
 }

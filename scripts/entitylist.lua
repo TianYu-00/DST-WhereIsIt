@@ -2,6 +2,7 @@
 
 return {
     {name="multiplayer_portal", icon_atlas="images/scrapbook_icons2.xml", icon_tex="multiplayer_portal.tex"},
+    {name="multiplayer_portal_moonrock", icon_atlas="images/inventoryimages2.xml", icon_tex="multiplayer_portal_moonrock_constr_plans.tex", icon_size_x = 40, icon_size_y = 40},
     {name="beefalo", icon_atlas="images/scrapbook_icons1.xml", icon_tex="beefalo.tex"},
     {name="klaus_sack", icon_atlas="images/scrapbook_icons1.xml", icon_tex="klaus_sack.tex"},
     {name="walrus_camp", icon_atlas="images/scrapbook_icons3.xml", icon_tex="walrus_camp.tex"},
