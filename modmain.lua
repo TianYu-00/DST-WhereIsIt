@@ -37,11 +37,13 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		PERSIST_SETTINGS = "tian_whereisit_persist_settings",
 		PERSIST_CUSTOM_ENTITIES = "tian_whereisit_persist_custom_entities",
 		PERSIST_FAVOURITES = "tian_whereisit_persist_entity_favourite_states",
+		PERSIST_HIDE_BASE_ENTITY = "tian_whereisit_persist_entity_hide_states",
 		-- Widgets
 		WIDGET_HUD_BUTTON = "tian_whereisit_widget_hud_button",
 		WIDGET_ENTITY_ADD = "tian_whereisit_widget_entity_add",
 		WIDGET_ENTITY_CELL = "tian_whereisit_widget_entity_cell_",
 		WIDGET_ENTITY_FAVOURITE_STATE = "tian_whereisit_widget_entity_favourite_state_",
+		WIDGET_ENTITY_HIDDEN_STATE = "tian_whereisit_widget_entity_hidden_state_",
 		WIDGET_ENTITY_INPUT = "tian_whereisit_widget_entity_input",
 		WIDGET_ENTITY_REMOVE = "tian_whereisit_widget_entity_remove_",
 		WIDGET_ENTITY_SEARCH = "tian_whereisit_widget_entity_search",

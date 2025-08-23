@@ -3,6 +3,7 @@ local Image = require("widgets/image")
 local ImageButton = require("widgets/imagebutton")
 local EntityRemove = require("widgets/entityremove")
 local EntityFavourite = require("widgets/entityfavourite")
+local EntityHide = require("widgets/entityhide")
 local Text = require("widgets/text")
 
 local EntityCell = Class(Widget, function(self, context, index)
@@ -60,6 +61,12 @@ local EntityCell = Class(Widget, function(self, context, index)
 	}))
 
 	self.entity_favourite_root = self:AddChild(EntityFavourite({
+		screen = self,
+		main_parent_screen = self.parent_screen,
+		index = self.entity_index,
+	}))
+
+	self.entity_hide_root = self:AddChild(EntityHide({
 		screen = self,
 		main_parent_screen = self.parent_screen,
 		index = self.entity_index,
@@ -128,12 +135,33 @@ function EntityCell:OnControl(control, down)
 		end
 	end
 
-	-- Remove
+	-- Remove / Hide
 	if down and control == CONTROL_SECONDARY then
 		if TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
-			if self.data and self.data.name and self.entity_remove_root then
+			if self.data and self.data.name then
 				print("Alt+Right Click on:", self.data.name)
-				self.entity_remove_root:RemoveEntity(self.data.name)
+
+				if self.data.is_custom and self.entity_remove_root then
+					-- Remove custom entities
+					print("removed:", self.data.name)
+					self.entity_remove_root:RemoveEntity(self.data.name)
+				else
+					-- Hide base entities
+					if self.parent_screen and self.parent_screen.hidden_persist_data then
+						print("hidden:", self.data.name)
+						local hidden = self.parent_screen.hidden_persist_data
+						hidden[self.data.name] = not hidden[self.data.name]
+
+						SavePersistentString(
+							TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_HIDE_BASE_ENTITY,
+							json.encode(hidden),
+							false
+						)
+
+						-- Refresh UI to reflect change
+						self.parent_screen:RefreshEntityList()
+					end
+				end
 			end
 			return true
 		end

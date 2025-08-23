@@ -13,6 +13,7 @@ local EntityInput = require("widgets/entityinput")
 local EntitySearch = require("widgets/entitysearch")
 local EntityAdd = require("widgets/entityadd")
 local EntityFavourite = require("widgets/entityfavourite")
+local EntityHide = require("widgets/entityhide")
 local Tooltip = require("widgets/tooltip")
 local Settings = require("widgets/settings")
 local Image = require("widgets/image")
@@ -88,6 +89,10 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Initialize favourite list
 	EntityFavourite:GetFavouritePersistentData(function(data)
 		self.favourite_persist_data = data
+	end)
+
+	EntityHide:GetHiddenPersistentData(function(data)
+		self.hidden_persist_data = data
 	end)
 
 	-- Initialize entity storage
@@ -172,10 +177,14 @@ function WhereIsItMenuScreen:RefreshEntityList()
 	local non_favourites = {}
 
 	for _, e in ipairs(self.master_entity_list) do
-		if self.favourite_persist_data and self.favourite_persist_data[e.name] then
-			table.insert(favourites, e)
-		else
-			table.insert(non_favourites, e)
+		local is_hidden = self.hidden_persist_data and self.hidden_persist_data[e.name]
+
+		if not is_hidden then
+			if self.favourite_persist_data and self.favourite_persist_data[e.name] then
+				table.insert(favourites, e)
+			else
+				table.insert(non_favourites, e)
+			end
 		end
 	end
 
