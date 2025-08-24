@@ -4,14 +4,16 @@ local json = require("json")
 local Image = require("widgets/image")
 local Text = require("widgets/text")
 local Templates2 = require("widgets/redux/templates")
+local DebugLog = require("utils/debug")
 
 local EntityAddMenu = Class(Widget, function(self, context)
 	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_ENTITY_ADD_MENU)
 	self.parent_screen = context.screen
+	DebugLog("EntityAddMenu: Initialized")
 end)
 
 function EntityAddMenu:CreateMenu()
-	-- scoreboard_frame.tex -- scoreboard.xml
+	DebugLog("EntityAddMenu: Creating Menu")
 
 	self.menu_root = self:AddChild(Widget("MENU_ROOT"))
 	self.menu_root:SetPosition(0, 0, 0)
@@ -24,6 +26,7 @@ function EntityAddMenu:CreateMenu()
 	self.background_button.image:SetVRegPoint(ANCHOR_MIDDLE)
 	self.background_button.image:SetTint(0, 0, 0, 0.75)
 	self.background_button:SetOnClick(function()
+		DebugLog("Background clicked: Closing Menu")
 		self:CloseMenu()
 	end)
 
@@ -57,6 +60,7 @@ function EntityAddMenu:CreateMenu()
 	self.code_name_input:SetPosition(0, 50, 0)
 	self.code_name_input.textbox:SetOnGainFocus(function()
 		self.parent_screen.focused_input_widget = self.code_name_input
+		DebugLog("Code Name Input: Gained Focus")
 	end)
 
 	-- custom name
@@ -74,44 +78,49 @@ function EntityAddMenu:CreateMenu()
 	self.custom_name_input:SetPosition(0, 0, 0)
 	self.custom_name_input:SetOnGainFocus(function()
 		self.parent_screen.focused_input_widget = self.custom_name_input
+		DebugLog("Custom Name Input: Gained Focus")
 	end)
 
 	self.add_button = self.menu_root:AddChild(Templates2.StandardButton(function()
 		local code_name = self.code_name_input.textbox:GetString()
 		local custom_name = self.custom_name_input.textbox:GetString()
+		DebugLog("Add Button Clicked: code_name=" .. tostring(code_name) .. ", custom_name=" .. tostring(custom_name))
 		self:AddToEntityList(code_name, custom_name)
-		print("Added Entity To Menu")
 	end, TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SAVE))
 	self.add_button:SetScale(0.4)
 	self.add_button:SetPosition(0, -100, 0)
 
 	self.exit_button = self.menu_root:AddChild(ImageButton("images/global_redux.xml", "close.tex"))
 	self.exit_button:SetOnClick(function()
-		print("Closed Menu")
+		DebugLog("Exit Button Clicked: Closing Menu")
 		self:CloseMenu()
 	end)
 	self.exit_button:SetPosition(200, 120, 0)
 	self.exit_button:SetScale(0.4)
+
+	DebugLog("EntityAddMenu: Menu Created")
 end
 
 function EntityAddMenu:AddToEntityList(code_name, custom_name)
 	if not code_name or code_name:match("^%s*$") then
+		DebugLog("AddToEntityList: Invalid code_name, skipping")
 		return
 	end
 	code_name = code_name:lower():gsub("^%s*(.-)%s*$", "%1")
+	DebugLog("AddToEntityList: Processing entity " .. code_name .. " with custom name " .. tostring(custom_name))
 
 	local function Finalize()
 		self.parent_screen:SaveEntities()
 		self.parent_screen:RefreshEntityList()
 		self.parent_screen.name_input:ClearText()
-
 		self:CloseMenu()
+		DebugLog("AddToEntityList: Finalized entity addition for " .. code_name)
 	end
 
 	-- Check for duplicates in saved entities
 	for i, e in ipairs(self.parent_screen.saved_entities) do
 		if e.name == code_name then
-			-- Replace the existing entity
+			DebugLog("AddToEntityList: Found duplicate for " .. code_name .. ", replacing")
 			self.parent_screen.saved_entities[i] = {
 				name = code_name,
 				icon_atlas = "images/scrapbook.xml",
@@ -133,6 +142,7 @@ function EntityAddMenu:AddToEntityList(code_name, custom_name)
 		is_custom = true,
 		custom_name = custom_name,
 	})
+	DebugLog("AddToEntityList: Added new entity " .. code_name)
 
 	Finalize()
 end
@@ -140,12 +150,14 @@ end
 function EntityAddMenu:OpenMenu()
 	self.parent_screen.addmenu_root:MoveToFront()
 	self.menu_root:Show()
+	DebugLog("EntityAddMenu: Opened Menu")
 end
 
 function EntityAddMenu:CloseMenu()
 	self.menu_root:Hide()
 	self.code_name_input.textbox:SetString("")
 	self.custom_name_input.textbox:SetString("")
+	DebugLog("EntityAddMenu: Closed Menu")
 end
 
 return EntityAddMenu
