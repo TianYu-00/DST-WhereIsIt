@@ -53,5 +53,3 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Mark the spawner of ruins clockworks instead
         - [x] Rework Add Entity feature - replaced with menu allowing Code Name (*) and Custom Name input
         - [x] Add fuzzy search for custom names
-
-    
