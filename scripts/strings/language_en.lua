@@ -1,7 +1,8 @@
 return {
 	MOD_NAME = "Where Is It",
-	ENTITY_INPUT_PLACEHOLDER = "Code Name",
-	ENTITY_INPUT_CUSTOM_PLACEHOLDER = "Custom Name",
+	ENTITY_INPUT_PLACEHOLDER = "Code Name/Custom Name",
+	ENTITY_ADD_INPUT_PLACEHOLDER = "Code Name",
+	ENTITY_ADD_CUSTOM_PLACEHOLDER = "Custom Name",
 	FAILED_TO_FIND = "Failed To Find",
 	NO_ENTITY_SELECTED = "No Entity Selected",
 	PINNED = "Pinned",

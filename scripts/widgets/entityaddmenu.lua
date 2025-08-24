@@ -50,7 +50,7 @@ function EntityAddMenu:CreateMenu()
 			textbox_height,
 			textbox_font,
 			textbox_fontsize,
-			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_INPUT_PLACEHOLDER
+			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_ADD_INPUT_PLACEHOLDER
 		)
 	)
 	self.code_name_input.textbox:SetTextLengthLimit(textbox_textlimit)
@@ -67,7 +67,7 @@ function EntityAddMenu:CreateMenu()
 			textbox_height,
 			textbox_font,
 			textbox_fontsize,
-			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_INPUT_CUSTOM_PLACEHOLDER
+			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_ADD_CUSTOM_PLACEHOLDER
 		)
 	)
 	self.custom_name_input.textbox:SetTextLengthLimit(textbox_textlimit)
