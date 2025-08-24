@@ -1,6 +1,7 @@
 return {
 	MOD_NAME = "在哪里",
 	ENTITY_INPUT_PLACEHOLDER = "代码名称",
+	ENTITY_INPUT_CUSTOM_PLACEHOLDER = "自定义名称",
 	FAILED_TO_FIND = "未能找到",
 	NO_ENTITY_SELECTED = "未选择实体",
 	PINNED = "已置顶",

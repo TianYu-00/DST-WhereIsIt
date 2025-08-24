@@ -33,7 +33,7 @@ function EntityAddMenu:CreateMenu()
 
 	self.title = self.menu_root:AddChild(Text(NEWFONT_OUTLINE, 30))
 	self.title:SetPosition(0, 120, 0)
-	self.title:SetString("Add Entity")
+	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ADD_ENTITY)
 	self.title:SetColour(unpack(GOLD))
 
 	local textbox_width = 150
@@ -50,7 +50,7 @@ function EntityAddMenu:CreateMenu()
 			textbox_height,
 			textbox_font,
 			textbox_fontsize,
-			"Code Name"
+			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_INPUT_PLACEHOLDER
 		)
 	)
 	self.code_name_input.textbox:SetTextLengthLimit(textbox_textlimit)
@@ -67,7 +67,7 @@ function EntityAddMenu:CreateMenu()
 			textbox_height,
 			textbox_font,
 			textbox_fontsize,
-			"Custom Name"
+			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_INPUT_CUSTOM_PLACEHOLDER
 		)
 	)
 	self.custom_name_input.textbox:SetTextLengthLimit(textbox_textlimit)
@@ -79,10 +79,9 @@ function EntityAddMenu:CreateMenu()
 	self.add_button = self.menu_root:AddChild(Templates2.StandardButton(function()
 		local code_name = self.code_name_input.textbox:GetString()
 		local custom_name = self.custom_name_input.textbox:GetString()
-
 		self:AddToEntityList(code_name, custom_name)
 		print("Added Entity To Menu")
-	end, "Add Entity"))
+	end, TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SAVE))
 	self.add_button:SetScale(0.4)
 	self.add_button:SetPosition(0, -100, 0)
 
