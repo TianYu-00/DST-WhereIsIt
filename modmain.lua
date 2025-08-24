@@ -49,6 +49,7 @@ G.TIAN_WHEREISIT_GLOBAL_DATA = { -- Hopefully no other mods use this same exact 
 		WIDGET_ENTITY_SEARCH = "tian_whereisit_widget_entity_search",
 		WIDGET_SETTINGS = "tian_whereisit_widget_settings",
 		WIDGET_TOOLTIP = "tian_whereisit_widget_tooltip",
+		WIDGET_ENTITY_ADD_MENU = "tian_whereisit_widget_entity_add_menu",
 		-- Player Attached
 		ATTACHED_IS_ALLOW_ENTITY_LOOKUP = "tian_whereisit_attached_is_allow_entity_lookup",
 		ATTACHED_LAST_TELEPORT_TARGET_INDEX = "tian_whereisit_attached_last_teleport_target_index",

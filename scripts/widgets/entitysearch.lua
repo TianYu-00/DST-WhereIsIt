@@ -18,7 +18,9 @@ function EntitySearch:FilterEntityList(search)
 		end
 	else
 		for _, entity in ipairs(self.parent_screen.master_entity_list) do
-			if entity.name:lower():find(search_lower, 1, true) then
+			local name_match = entity.name:lower():find(search_lower, 1, true)
+			local custom_match = entity.custom_name and entity.custom_name:lower():find(search_lower, 1, true)
+			if name_match or custom_match then
 				table.insert(self.parent_screen.entity_list, entity)
 			end
 		end

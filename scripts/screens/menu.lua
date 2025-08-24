@@ -6,6 +6,7 @@ local Templates2 = require("widgets/redux/templates")
 local Text = require("widgets/text")
 local json = require("json")
 local ImageButton = require("widgets/imagebutton")
+local Image = require("widgets/image")
 -- My files imports
 local EntityList = require("entitylist")
 local EntityCell = require("widgets/entitycell")
@@ -16,7 +17,7 @@ local EntityFavourite = require("widgets/entityfavourite")
 local EntityHide = require("widgets/entityhide")
 local Tooltip = require("widgets/tooltip")
 local Settings = require("widgets/settings")
-local Image = require("widgets/image")
+local AddMenu = require("widgets/entityaddmenu")
 
 -- Assets
 -- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
@@ -96,6 +97,9 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	----------------------------------- creating the base interactions
 
+	-- Input focus
+	self.focused_input_widget = nil
+
 	-- Input
 	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
 	self.name_input:SetPosition(180, 245, 0)
@@ -108,7 +112,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Save
 	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
 	self.name_add:SetPosition(275, 245, 0)
-	-- self.name_add:SetPosition(315, 245, 0)
 
 	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
 
@@ -202,6 +205,12 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	end)
 
 	self:InitCategoryAfterAsyncLoad()
+
+	----------------------------------- Add Menu
+	self.addmenu_root = self.proot:AddChild(AddMenu({ screen = self }))
+	self.addmenu_root:CreateMenu()
+	self.addmenu_root:CloseMenu()
+	self.addmenu_root:SetPosition(0, 0, 0)
 end)
 
 function WhereIsItMenuScreen:InitCategoryAfterAsyncLoad()
@@ -362,8 +371,12 @@ function WhereIsItMenuScreen:CreateEntityList()
 end
 
 function WhereIsItMenuScreen:OnClose()
-	if self.name_input.is_focus then
-		return -- end function when its input focus
+	if
+		self.focused_input_widget
+		and self.focused_input_widget.textbox
+		and self.focused_input_widget.textbox.editing
+	then
+		return
 	end
 
 	-- Cancel any started tasks
@@ -387,7 +400,7 @@ function WhereIsItMenuScreen:OnControl(control, down)
 	end
 	-- Close UI on ESC
 	if not down and (control == CONTROL_PAUSE or control == CONTROL_CANCEL) then
-		self.name_input.is_focus = false
+		self.focused_input_widget = nil
 		self:OnClose()
 		return true
 	end
