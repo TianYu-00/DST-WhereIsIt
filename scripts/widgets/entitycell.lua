@@ -5,9 +5,11 @@ local EntityRemove = require("widgets/entityremove")
 local EntityFavourite = require("widgets/entityfavourite")
 local EntityHide = require("widgets/entityhide")
 local Text = require("widgets/text")
+local DebugLog = require("utils/debug")
 
 local EntityCell = Class(Widget, function(self, context, index)
 	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_ENTITY_CELL .. index)
+	DebugLog("EntityCell: Initialized cell " .. index)
 
 	self.parent_screen = context.screen
 	local cell_size = context.cell_size
@@ -24,15 +26,18 @@ local EntityCell = Class(Widget, function(self, context, index)
 		if self.data then
 			self.parent_screen.tooltip_root:UpdatePosition(self.cell_root, 0, -40)
 			self.parent_screen.tooltip_root.tooltip:SetString(self.data.name)
+			DebugLog("EntityCell: Focus gained on " .. self.data.name)
 		end
 	end)
 	self.cell_root:SetOnLoseFocus(function()
 		self.parent_screen.tooltip_root:HideTooltip(self.cell_root)
+		DebugLog("EntityCell: Focus lost")
 	end)
 
 	-- Click
 	self.cell_root:SetOnClick(function()
 		if self.data then
+			DebugLog("EntityCell: Clicked on " .. self.data.name)
 			SendModRPCToServer(GetModRPC("WhereIsIt", "LocateEntity"), self.data.name, self.data.is_single)
 			TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.name = self.data.name
 			TIAN_WHEREISIT_GLOBAL_DATA.CURRENT_ENTITY.is_single = self.data.is_single
@@ -51,7 +56,6 @@ local EntityCell = Class(Widget, function(self, context, index)
 	self.custom_name = self:AddChild(Text(NEWFONT_OUTLINE, 20))
 	self.custom_name:SetRegionSize(50, 50)
 	self.custom_name:SetPosition(1, 0, 0)
-	-- self.custom_name:EnableWordWrap(true)
 	self.custom_name:Hide()
 
 	self.entity_remove_root = self:AddChild(EntityRemove({
@@ -75,6 +79,11 @@ end)
 
 function EntityCell:SetData(data)
 	self.data = data
+	if data then
+		DebugLog("EntityCell: SetData called for " .. data.name)
+	else
+		-- DebugLog("EntityCell: SetData called for nil (initial)")
+	end
 
 	if not data then
 		if self.cell_root.image then
@@ -100,7 +109,6 @@ function EntityCell:SetData(data)
 	-- Custom name/remove
 	if data.is_custom then
 		local name = (data.custom_name and data.custom_name ~= "" and data.custom_name) or data.name
-		-- SetTruncatedString(str, maxwidth, maxchars, ellipses) text.lua line 140
 		self.custom_name:SetTruncatedString(name, nil, 7, true)
 		self.custom_name:Show()
 	else
@@ -124,14 +132,13 @@ function EntityCell:OnControl(control, down)
 	if down and control == CONTROL_SECONDARY then
 		if TheInput:IsKeyDown(KEY_LCTRL) or TheInput:IsKeyDown(KEY_RCTRL) then
 			if self.data and self.data.name and self.entity_favourite_root then
-				print("Ctrl+Right Click on:", self.data.name)
+				DebugLog("Ctrl+Right Click on: " .. self.data.name)
 				self.entity_favourite_root:ToggleFavourite(self.data.name)
 				local favourite_state = self.entity_favourite_root:CheckFavourite(self.data.name)
-				if favourite_state then
-					self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.PINNED)
-				else
-					self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.UNPINNED)
-				end
+				self.parent_screen.tooltip_root.tooltip:SetString(
+					favourite_state and TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.PINNED
+						or TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.UNPINNED
+				)
 			end
 			return true
 		end
@@ -141,19 +148,16 @@ function EntityCell:OnControl(control, down)
 	if down and control == CONTROL_SECONDARY then
 		if TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
 			if self.data and self.data.name then
-				print("Alt+Right Click on:", self.data.name)
+				DebugLog("Alt+Right Click on: " .. self.data.name)
 
 				if self.data.is_custom and self.entity_remove_root then
-					-- Remove custom entities
-					print("removed:", self.data.name)
+					DebugLog("Removing custom entity: " .. self.data.name)
 					self.entity_remove_root:RemoveEntity(self.data.name)
 				else
-					-- Hide base entities
 					if self.parent_screen and self.parent_screen.hidden_persist_data then
-						print("hidden:", self.data.name)
+						DebugLog("Toggling hidden state for base entity: " .. self.data.name)
 						local hidden = self.parent_screen.hidden_persist_data
 						hidden[self.data.name] = not hidden[self.data.name]
-						-- self.entity_favourite_root:ToggleFavourite(self.data.name, false)
 
 						SavePersistentString(
 							TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_HIDE_BASE_ENTITY,
@@ -161,7 +165,6 @@ function EntityCell:OnControl(control, down)
 							false
 						)
 
-						-- Refresh UI to reflect change
 						self.parent_screen:RefreshEntityList()
 					end
 				end
@@ -175,7 +178,7 @@ function EntityCell:OnControl(control, down)
 		if TheInput:IsKeyDown(KEY_LSHIFT) or TheInput:IsKeyDown(KEY_RSHIFT) then
 			if TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.IS_ALLOW_TELEPORT then
 				if self.data and self.data.name then
-					print("Shift+Right Click on:", self.data.name)
+					DebugLog("Shift+Right Click (Teleport) on: " .. self.data.name)
 					SendModRPCToServer(GetModRPC("WhereIsIt", "TeleportToEntity"), self.data.name)
 					self.parent_screen:OnClose()
 				end
@@ -183,8 +186,8 @@ function EntityCell:OnControl(control, down)
 				self.parent_screen.tooltip_root.tooltip:SetString(
 					TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.TELEPORT_PERMISSION_OFF
 				)
+				DebugLog("Teleport blocked: Permission off")
 			end
-
 			return true
 		end
 	end

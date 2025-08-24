@@ -1,10 +1,12 @@
 local Widget = require("widgets/widget")
 local Templates2 = require("widgets/redux/templates")
 local EntitySearch = require("widgets/entitysearch")
+local DebugLog = require("utils/debug")
 
 local EntityInput = Class(Widget, function(self, context)
 	Widget._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.WIDGET_ENTITY_INPUT)
 	self.parent_screen = context.screen
+	DebugLog("EntityInput: Initialized")
 
 	local textbox_width = 150
 	local textbox_height = 30
@@ -13,8 +15,6 @@ local EntityInput = Class(Widget, function(self, context)
 	local textbox_placeholder = TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ENTITY_INPUT_PLACEHOLDER
 	local textbox_textlimit = 50
 
-	-- fieldtext, width_field, height, font, font_size, prompt_text
-	-- redux templates.lua line 1077
 	self.textinput = self:AddChild(
 		Templates2.StandardSingleLineTextEntry(
 			"",
@@ -28,19 +28,22 @@ local EntityInput = Class(Widget, function(self, context)
 	self.textinput.textbox:SetTextLengthLimit(textbox_textlimit)
 
 	self.textinput.textbox.OnTextInputted = function()
+		local input_str = self.textinput.textbox:GetString()
+		DebugLog("EntityInput: Text inputted -> " .. tostring(input_str))
 		if self.parent_screen and self.parent_screen.name_search then
-			self.parent_screen.name_search:FilterEntityList(self.textinput.textbox:GetString())
+			self.parent_screen.name_search:FilterEntityList(input_str)
 		end
 	end
 
 	self.textinput:SetOnGainFocus(function()
 		self.parent_screen.focused_input_widget = self.textinput
+		DebugLog("EntityInput: Gained focus")
 	end)
 end)
 
 function EntityInput:ClearText()
 	if self.textinput and self.textinput.textbox then
-		print("cleared main menu textbox")
+		DebugLog("EntityInput: Cleared main menu textbox")
 		self.textinput.textbox:SetString("")
 	end
 end

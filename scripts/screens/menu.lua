@@ -18,23 +18,10 @@ local EntityHide = require("widgets/entityhide")
 local Tooltip = require("widgets/tooltip")
 local Settings = require("widgets/settings")
 local AddMenu = require("widgets/entityaddmenu")
-
--- Assets
--- NOTE: USE SCRAPBOOK ICONS INSTEAD!! databundles/images/images/scrapbook_icons1 2 and 3
--- Change images-backup folder to images and uncomment this section here only if dst changed its scrapbook icons to something completely different or no longer match my entity name, atlas and tex.
--- This will save about 16mb when not using it
--- Assets = {
--- 	Asset("ATLAS", "images/scrapbook_icons1.xml"),
--- 	Asset("IMAGE", "images/scrapbook_icons1.tex"),
-
--- 	Asset("ATLAS", "images/scrapbook_icons2.xml"),
--- 	Asset("IMAGE", "images/scrapbook_icons2.tex"),
-
--- 	Asset("ATLAS", "images/scrapbook_icons3.xml"),
--- 	Asset("IMAGE", "images/scrapbook_icons3.tex"),
--- }
+local DebugLog = require("utils/debug")
 
 local WhereIsItMenuScreen = Class(Screen, function(self, inst)
+	DebugLog("Initializing WhereIsItMenuScreen")
 	self.inst = inst
 	self.tasks = {}
 	Screen._ctor(self, TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.SCREEN_MAIN) -- screen name
@@ -57,6 +44,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.background_button.image:SetVRegPoint(ANCHOR_MIDDLE)
 	self.background_button.image:SetTint(0, 0, 0, 0.75)
 	self.background_button:SetOnClick(function()
+		DebugLog("Background button clicked - closing menu")
 		self:OnClose()
 	end)
 
@@ -66,6 +54,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.proot:SetHAnchor(ANCHOR_MIDDLE)
 	self.proot:SetPosition(0, 0, 0)
 	self.proot:SetScaleMode(SCALEMODE_PROPORTIONAL)
+	DebugLog("Root container created")
 
 	-- Settings menu container
 	self.sroot = self:AddChild(Widget("SETTINGS_ROOT"))
@@ -73,19 +62,21 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.sroot:SetHAnchor(ANCHOR_MIDDLE)
 	self.sroot:SetPosition(0, 0, 0)
 	self.sroot:SetScaleMode(SCALEMODE_PROPORTIONAL)
+	DebugLog("Settings root created")
 
 	-- Main Background UI
-	self.bg = self.proot:AddChild(Templates.CurlyWindow(400, 450, 1, 1, 68, -40)) -- sizeX, sizeY, scaleX, scaleY, topCrownOffset, bottomCrownOffset, xOffset
+	self.bg = self.proot:AddChild(Templates.CurlyWindow(400, 450, 1, 1, 68, -40))
 	self.bg:SetTint(1, 1, 1, 0.7)
+	DebugLog("Main background UI created")
 
 	-- Title
 	self.title = self.proot:AddChild(Text(NEWFONT_OUTLINE, 50))
 	self.title:SetPosition(0, 250, 0)
 	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MOD_NAME)
 	self.title:SetColour(unpack(GOLD))
+	DebugLog("Title set: " .. TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.MOD_NAME)
 
 	----------------------------------- create scroll list
-
 	self.scroll_list = nil
 
 	-- Initialize entity storage
@@ -96,7 +87,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self:LoadSavedEntities()
 
 	----------------------------------- creating the base interactions
-
 	-- Input focus
 	self.focused_input_widget = nil
 
@@ -107,13 +97,13 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Search
 	self.name_search = self.proot:AddChild(EntitySearch({ screen = self }))
 	self.name_search:Hide()
-	-- self.name_search:SetPosition(275, 245, 0)
 
 	-- Save
 	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
 	self.name_add:SetPosition(275, 245, 0)
 
 	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
+	DebugLog("Tooltip root initialized")
 
 	self.title = self.proot:AddChild(Text(NEWFONT, 20))
 	self.title:SetPosition(0, -240, 0)
@@ -125,6 +115,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.settings_root:CreateMenu()
 	self.settings_button = self.proot:AddChild(self.settings_root:CreateSettingsButton())
 	self.settings_button:SetPosition(310, 245, 0)
+	DebugLog("Settings button created")
 
 	----------------------------------- Category
 	-- Tables for each category
@@ -132,20 +123,19 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.favourite_entities = {}
 	self.hidden_entities = {}
 
-	-- default
+	-- default button
 	self.default_button = self.proot:AddChild(
 		Templates2.IconButton("images/crafting_menu_icons.xml", "filter_none.tex", "", "", "", function()
+			DebugLog("Default category button clicked")
 			self:SetCategory("default")
 		end)
 	)
 	self.default_button:SetPosition(-250, 245)
 	self.default_button:SetScale(0.5)
-
 	self.default_button:SetOnGainFocus(function()
 		self.tooltip_root:UpdatePosition(self.default_button, 0, -25)
 		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.DEFAULT)
 	end)
-
 	self.default_button:SetOnLoseFocus(function()
 		self.tooltip_root:HideTooltip(self.default_button)
 	end)
@@ -153,17 +143,16 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- favourite
 	self.fav_button = self.proot:AddChild(
 		Templates2.IconButton("images/crafting_menu_icons.xml", "filter_favorites.tex", "", "", "", function()
+			DebugLog("Favourite category button clicked")
 			self:SetCategory("favourite")
 		end)
 	)
 	self.fav_button:SetPosition(-210, 245)
 	self.fav_button:SetScale(0.5)
-
 	self.fav_button:SetOnGainFocus(function()
 		self.tooltip_root:UpdatePosition(self.fav_button, 0, -25)
 		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.FAVOURITE)
 	end)
-
 	self.fav_button:SetOnLoseFocus(function()
 		self.tooltip_root:HideTooltip(self.fav_button)
 	end)
@@ -171,17 +160,16 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- hidden
 	self.hidden_button = self.proot:AddChild(
 		Templates2.IconButton("images/crafting_menu_icons.xml", "station_hermitcrab_shop.tex", "", "", "", function()
+			DebugLog("Hidden category button clicked")
 			self:SetCategory("hidden")
 		end)
 	)
 	self.hidden_button:SetPosition(-170, 245)
 	self.hidden_button:SetScale(0.5)
-
 	self.hidden_button:SetOnGainFocus(function()
 		self.tooltip_root:UpdatePosition(self.hidden_button, 0, -25)
 		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.HIDDEN)
 	end)
-
 	self.hidden_button:SetOnLoseFocus(function()
 		self.tooltip_root:HideTooltip(self.hidden_button)
 	end)
@@ -189,17 +177,16 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- custom
 	self.custom_button = self.proot:AddChild(
 		Templates2.IconButton("images/crafting_menu_icons.xml", "filter_modded.tex", "", "", "", function()
+			DebugLog("Custom category button clicked")
 			self:SetCategory("custom")
 		end)
 	)
 	self.custom_button:SetPosition(-130, 245)
 	self.custom_button:SetScale(0.5)
-
 	self.custom_button:SetOnGainFocus(function()
 		self.tooltip_root:UpdatePosition(self.custom_button, 0, -25)
 		self.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.CUSTOM)
 	end)
-
 	self.custom_button:SetOnLoseFocus(function()
 		self.tooltip_root:HideTooltip(self.custom_button)
 	end)
@@ -211,14 +198,17 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.addmenu_root:CreateMenu()
 	self.addmenu_root:CloseMenu()
 	self.addmenu_root:SetPosition(0, 0, 0)
+	DebugLog("AddMenu initialized")
 end)
 
 function WhereIsItMenuScreen:InitCategoryAfterAsyncLoad()
+	DebugLog("Initializing categories after async load")
 	local fav_loaded, hidden_loaded = false, false
 
 	local function tryRefresh()
 		if fav_loaded and hidden_loaded then
 			self.current_category = "default"
+			DebugLog("All persistent data loaded, refreshing entity list")
 			self:RefreshEntityList()
 		end
 	end
@@ -226,12 +216,14 @@ function WhereIsItMenuScreen:InitCategoryAfterAsyncLoad()
 	EntityFavourite:GetFavouritePersistentData(function(data)
 		self.favourite_persist_data = data
 		fav_loaded = true
+		DebugLog("Favourite persistent data loaded")
 		tryRefresh()
 	end)
 
 	EntityHide:GetHiddenPersistentData(function(data)
 		self.hidden_persist_data = data
 		hidden_loaded = true
+		DebugLog("Hidden persistent data loaded")
 		tryRefresh()
 	end)
 end
@@ -246,23 +238,28 @@ function WhereIsItMenuScreen:SetCategory(category)
 
 	if valid_categories[category] then
 		self.current_category = category
+		DebugLog("Category set to " .. category)
 		self:RefreshEntityList()
 	end
 end
 
 function WhereIsItMenuScreen:LoadSavedEntities()
+	DebugLog("Loading saved entities")
 	TheSim:GetPersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_CUSTOM_ENTITIES, function(success, str)
 		if success and str ~= nil and str ~= "" then
 			local ok, data = pcall(json.decode, str)
 			if ok and data then
 				self.saved_entities = data
+				DebugLog("Saved entities loaded: " .. tostring(#data) .. " entities")
 			else
 				print("WhereIsIt: Failed to decode saved entities")
+				DebugLog("Failed to decode saved entities")
 			end
 		else
 			print("WhereIsIt: No saved entities found")
+			DebugLog("No saved entities found")
 		end
-		self:RefreshEntityList()
+		-- self:RefreshEntityList()
 	end)
 end
 
@@ -272,9 +269,11 @@ function WhereIsItMenuScreen:SaveEntities()
 		json.encode(self.saved_entities),
 		false
 	)
+	DebugLog("Saved entities to persistent storage: " .. tostring(#self.saved_entities))
 end
 
 function WhereIsItMenuScreen:RefreshEntityList()
+	DebugLog("Refreshing entity list for category: " .. tostring(self.current_category))
 	-- Combine default and saved entities
 	self.master_entity_list = {}
 	for _, e in ipairs(EntityList) do
@@ -332,12 +331,15 @@ function WhereIsItMenuScreen:RefreshEntityList()
 		or self.current_category == "favourite" and self.favourite_entities
 		or self.current_category == "hidden" and self.hidden_entities
 		or self.current_category == "custom" and self.custom_entities
+		or {}
 
+	DebugLog("Entity list prepared with " .. tostring(#self.entity_list) .. " entities")
 	self:CreateEntityList()
 end
 
 function WhereIsItMenuScreen:CreateEntityList()
 	if self.scroll_list then
+		DebugLog("Killing old scroll list")
 		self.scroll_list:Kill()
 		self.scroll_list = nil
 	end
@@ -349,7 +351,6 @@ function WhereIsItMenuScreen:CreateEntityList()
 	local col_spacing = 10
 
 	-- Create scrolling grid
-	-- refer to redux templates.lua line 1961 and cookbookpage_crockpot.lua line 540
 	self.scroll_list = self.proot:AddChild(Templates2.ScrollingGrid(self.entity_list, {
 		scroll_context = { screen = self, cell_size = cell_size, base_size = base_size },
 		widget_width = cell_size + col_spacing,
@@ -367,20 +368,21 @@ function WhereIsItMenuScreen:CreateEntityList()
 		scrollbar_height_offset = -60,
 	}))
 	self.scroll_list:SetPosition(0, 0, 0)
-	-- self.scroll_list:MoveToBack()
+	DebugLog("Scroll list created with " .. tostring(#self.entity_list) .. " entities")
 end
 
 function WhereIsItMenuScreen:OnClose()
+	DebugLog("Closing WhereIsItMenuScreen")
 	if
 		self.focused_input_widget
 		and self.focused_input_widget.textbox
 		and self.focused_input_widget.textbox.editing
 	then
+		DebugLog("Input is focused, not closing")
 		return
 	end
 
 	-- Cancel any started tasks
-	-- This prevents stale components
 	for k, task in pairs(self.tasks) do
 		if task then
 			task:Cancel()
@@ -388,17 +390,14 @@ function WhereIsItMenuScreen:OnClose()
 	end
 	local screen = TheFrontEnd:GetActiveScreen()
 	if screen and screen.name:find("HUD") == nil then
-		-- Remove my screen only not hud
 		TheFrontEnd:PopScreen()
 	end
 end
 
 function WhereIsItMenuScreen:OnControl(control, down)
-	-- Sends clicks to the screen
 	if WhereIsItMenuScreen._base.OnControl(self, control, down) then
 		return true
 	end
-	-- Close UI on ESC
 	if not down and (control == CONTROL_PAUSE or control == CONTROL_CANCEL) then
 		self.focused_input_widget = nil
 		self:OnClose()
@@ -414,13 +413,13 @@ function WhereIsItMenuScreen:SetDebugMode(state)
 		self.debug_elements = true
 		self:SetupDebugElements()
 	end
+	DebugLog("Debug mode set to " .. tostring(state))
 end
 
 function WhereIsItMenuScreen:SetupDebugElements()
 	-- y animation
 	self.animationUp = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30, "Y: ", { unpack(RED) }))
 	self.animationUp:SetPosition(-520, -350)
-	-- Assign the task to the client
 	self.tasks[#self.tasks + 1] = self.inst:DoPeriodicTask(0.1, function()
 		local pos = self.animationUp:GetPosition()
 		self.animationUp:SetPosition(pos.x, pos.y > 350 and -350 or pos.y + 5)
@@ -429,12 +428,12 @@ function WhereIsItMenuScreen:SetupDebugElements()
 	-- x animation
 	self.animationRight = self.proot:AddChild(Text(NEWFONT_OUTLINE, 30, "X: ", { unpack(RED) }))
 	self.animationRight:SetPosition(-600, -290)
-	-- Assign the task to the client
 	self.tasks[#self.tasks + 1] = self.inst:DoPeriodicTask(0.1, function()
 		local pos = self.animationRight:GetPosition()
 		self.animationRight:SetPosition(pos.x > 600 and -600 or pos.x + 5, pos.y)
 		self.animationRight:SetString("X: " .. pos.x)
 	end)
+	DebugLog("Debug animations set up")
 end
 
 return WhereIsItMenuScreen
