@@ -59,6 +59,7 @@ Check [b]change notes[/b] to see what I have updated.
         [*][✔]Spawn points for other entities - Beefalo + Tumbleweed + Rock Lobster + Mushgnome
         [*][✔]Hide/Unhide base entities - Alt + Right Click
         [*][✔]Category system - Default, Favourite, Hidden, Custom
+        [*][✔]Modify the logic for marking the location of ruin clockworks - now directly marks the spawn point of clock monsters, rather than the clockwork itself.
     [/list]
 
 [h1]待办事项清单[/h1]
@@ -92,6 +93,7 @@ Check [b]change notes[/b] to see what I have updated.
         [*][✔]其他实体的复活点显示 - 牛群 + 风滚草 + 石虾 + 蘑菇地精
         [*][✔]显示/不显示 模组自带实体 - Alt + 右键
         [*][✔]分类 - 默认，收藏，隐藏，自定义
+        [*][✔]修改标记发条地点逻辑 - 现在会直接标记发条刷怪点而不是发条本身
     [/list]
 
 [h1] Known Issue [/h1]
