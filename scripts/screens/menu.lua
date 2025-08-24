@@ -97,6 +97,9 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	----------------------------------- creating the base interactions
 
+	-- Input focus
+	self.focused_input_widget = nil
+
 	-- Input
 	self.name_input = self.proot:AddChild(EntityInput({ screen = self }))
 	self.name_input:SetPosition(180, 245, 0)
@@ -368,8 +371,12 @@ function WhereIsItMenuScreen:CreateEntityList()
 end
 
 function WhereIsItMenuScreen:OnClose()
-	if self.name_input.is_focus then
-		return -- end function when its input focus
+	if
+		self.focused_input_widget
+		and self.focused_input_widget.textbox
+		and self.focused_input_widget.textbox.editing
+	then
+		return
 	end
 
 	-- Cancel any started tasks
@@ -393,7 +400,7 @@ function WhereIsItMenuScreen:OnControl(control, down)
 	end
 	-- Close UI on ESC
 	if not down and (control == CONTROL_PAUSE or control == CONTROL_CANCEL) then
-		self.name_input.is_focus = false
+		self.focused_input_widget = nil
 		self:OnClose()
 		return true
 	end

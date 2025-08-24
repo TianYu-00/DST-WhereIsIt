@@ -33,14 +33,8 @@ local EntityInput = Class(Widget, function(self, context)
 		end
 	end
 
-	self.is_focus = false
-
 	self.textinput:SetOnGainFocus(function()
-		self.is_focus = true
-	end)
-
-	self.textinput:SetOnLoseFocus(function()
-		self.is_focus = false
+		self.parent_screen.focused_input_widget = self.textinput
 	end)
 end)
 

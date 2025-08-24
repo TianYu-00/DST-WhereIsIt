@@ -55,6 +55,9 @@ function EntityAddMenu:CreateMenu()
 	)
 	self.code_name_input.textbox:SetTextLengthLimit(textbox_textlimit)
 	self.code_name_input:SetPosition(0, 50, 0)
+	self.code_name_input.textbox:SetOnGainFocus(function()
+		self.parent_screen.focused_input_widget = self.code_name_input
+	end)
 
 	-- custom name
 	self.custom_name_input = self.menu_root:AddChild(
@@ -69,6 +72,9 @@ function EntityAddMenu:CreateMenu()
 	)
 	self.custom_name_input.textbox:SetTextLengthLimit(textbox_textlimit)
 	self.custom_name_input:SetPosition(0, 0, 0)
+	self.custom_name_input:SetOnGainFocus(function()
+		self.parent_screen.focused_input_widget = self.custom_name_input
+	end)
 
 	self.add_button = self.menu_root:AddChild(Templates2.StandardButton(function()
 		local code_name = self.code_name_input.textbox:GetString()
