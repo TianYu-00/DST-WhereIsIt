@@ -50,5 +50,6 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Spawn points for other entities
         - [x] Hide/Unhide base entities
         - [x] Category system
+        - [x] Mark the spawner of ruins clockworks instead
 
     

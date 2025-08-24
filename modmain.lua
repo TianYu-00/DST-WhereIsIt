@@ -348,7 +348,8 @@ AddPrefabPostInit("mushgnome_spawner", function(inst)
 end)
 
 ----------------------------------- Ruin Clockworks
-AddPrefabPostInit("bishop_nightmare", function(inst)
+--- Refer to retrofitcavemap_anr.lua line 241 - local respawner = SpawnPrefab(spawnerprefab.."_ruinsrespawner_inst")
+AddPrefabPostInit("bishop_nightmare_ruinsrespawner_inst", function(inst)
 	-- If this code is running on a client, don’t execute the rest of the function — just return the prefab now.
 	if not G.TheWorld.ismastersim then
 		return
@@ -368,7 +369,7 @@ AddPrefabPostInit("bishop_nightmare", function(inst)
 	end)
 end)
 
-AddPrefabPostInit("knight_nightmare", function(inst)
+AddPrefabPostInit("knight_nightmare_ruinsrespawner_inst", function(inst)
 	if not G.TheWorld.ismastersim then
 		return
 	end
@@ -387,7 +388,7 @@ AddPrefabPostInit("knight_nightmare", function(inst)
 	end)
 end)
 
-AddPrefabPostInit("rook_nightmare", function(inst)
+AddPrefabPostInit("rook_nightmare_ruinsrespawner_inst", function(inst)
 	if not G.TheWorld.ismastersim then
 		return
 	end
