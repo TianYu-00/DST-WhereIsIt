@@ -284,9 +284,11 @@ AddPrefabPostInit("lightninggoatherd", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		local fx = G.SpawnPrefab("tian_whereisit_lightninggoatfx")
-		fx.entity:SetParent(inst.entity)
+		if fx ~= nil and fx:IsValid() then
+			fx.entity:SetParent(inst.entity)
+		end
 	end)
 end)
 
@@ -300,9 +302,11 @@ AddPrefabPostInit("beefaloherd", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
-		fx.entity:SetParent(inst.entity)
+		if fx ~= nil and fx:IsValid() then
+			fx.entity:SetParent(inst.entity)
+		end
 	end)
 end)
 
@@ -316,9 +320,11 @@ AddPrefabPostInit("rockyherd", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		local fx = G.SpawnPrefab("tian_whereisit_rockyfx")
-		fx.entity:SetParent(inst.entity)
+		if fx ~= nil and fx:IsValid() then
+			fx.entity:SetParent(inst.entity)
+		end
 	end)
 end)
 
@@ -329,7 +335,7 @@ AddPrefabPostInit("tumbleweedspawner", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		local fx = G.SpawnPrefab("tian_whereisit_tumbleweedfx")
 		fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
 	end)
@@ -342,7 +348,7 @@ AddPrefabPostInit("mushgnome_spawner", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		local fx = G.SpawnPrefab("tian_whereisit_mushgnomefx")
 		fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
 	end)
@@ -357,7 +363,7 @@ AddPrefabPostInit("bishop_nightmare_ruinsrespawner_inst", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		if inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] == nil then
 			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
 			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
@@ -376,7 +382,7 @@ AddPrefabPostInit("knight_nightmare_ruinsrespawner_inst", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		if inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] == nil then
 			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
 			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
@@ -395,7 +401,7 @@ AddPrefabPostInit("rook_nightmare_ruinsrespawner_inst", function(inst)
 	end
 
 	-- server code
-	inst:DoTaskInTime(G.FRAMES, function()
+	inst:DoTaskInTime(1, function()
 		if inst[G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.ATTACHED_ENTITY_BASE_POSITION] == nil then
 			local fx = G.SpawnPrefab("tian_whereisit_minisignfx")
 			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())

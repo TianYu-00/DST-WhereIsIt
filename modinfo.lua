@@ -26,7 +26,7 @@ or
 该模组现已支持显示遗迹发条重生位置。 发条正中心会生成一个半透明的迷你标识牌以及一个范围区域， 只要你正好在范围外放置海星就能对发条造成伤害。
 ]]
 author = "Tian || TianYu"
-version = "1.11.0"
+version = "1.11.2"
 forumthread = ""
 
 -- Mod Icon
