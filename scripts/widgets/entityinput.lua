@@ -38,4 +38,11 @@ local EntityInput = Class(Widget, function(self, context)
 	end)
 end)
 
+function EntityInput:ClearText()
+	if self.textinput and self.textinput.textbox then
+		print("cleared main menu textbox")
+		self.textinput.textbox:SetString("")
+	end
+end
+
 return EntityInput

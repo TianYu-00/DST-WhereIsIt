@@ -100,9 +100,27 @@ function EntityAddMenu:AddToEntityList(code_name, custom_name)
 	end
 	code_name = code_name:lower():gsub("^%s*(.-)%s*$", "%1")
 
+	local function Finalize()
+		self.parent_screen:SaveEntities()
+		self.parent_screen:RefreshEntityList()
+		self.parent_screen.name_input:ClearText()
+
+		self:CloseMenu()
+	end
+
 	-- Check for duplicates in saved entities
-	for _, e in ipairs(self.parent_screen.saved_entities) do
+	for i, e in ipairs(self.parent_screen.saved_entities) do
 		if e.name == code_name then
+			-- Replace the existing entity
+			self.parent_screen.saved_entities[i] = {
+				name = code_name,
+				icon_atlas = "images/scrapbook.xml",
+				icon_tex = "inv_item_background.tex",
+				is_custom = true,
+				custom_name = custom_name,
+			}
+
+			Finalize()
 			return
 		end
 	end
@@ -116,10 +134,7 @@ function EntityAddMenu:AddToEntityList(code_name, custom_name)
 		custom_name = custom_name,
 	})
 
-	self.parent_screen:SaveEntities()
-	self.parent_screen:RefreshEntityList()
-
-	self:CloseMenu()
+	Finalize()
 end
 
 function EntityAddMenu:OpenMenu()
