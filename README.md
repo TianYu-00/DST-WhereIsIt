@@ -51,5 +51,6 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Hide/Unhide base entities
         - [x] Category system
         - [x] Mark the spawner of ruins clockworks instead
+        - [ ] Add custom names to custom entities
 
     
