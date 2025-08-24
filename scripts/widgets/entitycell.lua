@@ -49,9 +49,9 @@ local EntityCell = Class(Widget, function(self, context, index)
 	self.icon:Hide()
 
 	self.custom_name = self:AddChild(Text(NEWFONT_OUTLINE, 20))
-	self.custom_name:SetRegionSize(60, 60)
+	self.custom_name:SetRegionSize(50, 50)
 	self.custom_name:SetPosition(1, 0, 0)
-	self.custom_name:EnableWordWrap(true)
+	-- self.custom_name:EnableWordWrap(true)
 	self.custom_name:Hide()
 
 	self.entity_remove_root = self:AddChild(EntityRemove({
@@ -99,7 +99,9 @@ function EntityCell:SetData(data)
 
 	-- Custom name/remove
 	if data.is_custom then
-		self.custom_name:SetString(data.name)
+		local name = (data.custom_name and data.custom_name ~= "" and data.custom_name) or data.name
+		-- SetTruncatedString(str, maxwidth, maxchars, ellipses) text.lua line 140
+		self.custom_name:SetTruncatedString(name, nil, 7, true)
 		self.custom_name:Show()
 	else
 		self.custom_name:Hide()

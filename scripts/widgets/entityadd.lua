@@ -8,7 +8,9 @@ local EntityAdd = Class(Widget, function(self, context)
 	local button_tex = "save.tex"
 	local button_onclick = function()
 		local text = self.parent_screen.name_input.textinput.textbox:GetString()
-		self:AddToEntityList(text)
+		-- self:AddToEntityList(text)
+		self.parent_screen.addmenu_root.code_name_input.textbox:SetString(text or "")
+		self.parent_screen.addmenu_root:OpenMenu()
 	end
 	-- IconButton(iconAtlas, iconTexture, labelText, sideLabel, alwaysShowLabel, onclick, textinfo, defaultTexture)
 	self.entity_add_button = self:AddChild(Templates2.IconButton(button_atlas, button_tex, "", "", "", button_onclick))
@@ -23,36 +25,5 @@ local EntityAdd = Class(Widget, function(self, context)
 		self.parent_screen.tooltip_root:HideTooltip(self.entity_add_button)
 	end)
 end)
-
-function EntityAdd:AddToEntityList(entity_name)
-	if not entity_name or entity_name:match("^%s*$") then
-		return
-	end
-
-	-- Clean up the input
-	-- "^%s*(.-)%s*$" clears front and back whitespaces and keeps middle content
-	entity_name = entity_name:lower():gsub("^%s*(.-)%s*$", "%1")
-
-	-- Check for duplicates in saved entities
-	for _, e in ipairs(self.parent_screen.saved_entities) do
-		if e.name == entity_name then
-			return
-		end
-	end
-
-	-- new entity
-	table.insert(self.parent_screen.saved_entities, {
-		name = entity_name,
-		icon_atlas = "images/scrapbook_icons3.xml",
-		icon_tex = "unknown.tex",
-		is_custom = true,
-	})
-
-	self.parent_screen:SaveEntities()
-	self.parent_screen:RefreshEntityList()
-
-	-- Clear the input field
-	self.parent_screen.name_input.textinput.textbox:SetString("")
-end
 
 return EntityAdd

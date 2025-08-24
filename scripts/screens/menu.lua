@@ -109,7 +109,6 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	-- Save
 	self.name_add = self.proot:AddChild(EntityAdd({ screen = self }))
 	self.name_add:SetPosition(275, 245, 0)
-	-- self.name_add:SetPosition(315, 245, 0)
 
 	self.tooltip_root = self.proot:AddChild(Tooltip({ screen = self }))
 
@@ -207,6 +206,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	----------------------------------- Add Menu
 	self.addmenu_root = self.proot:AddChild(AddMenu({ screen = self }))
 	self.addmenu_root:CreateMenu()
+	self.addmenu_root:CloseMenu()
 	self.addmenu_root:SetPosition(0, 0, 0)
 end)
 
