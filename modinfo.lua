@@ -1,12 +1,13 @@
 -- Localization
 local isCN = locale == "zh" or locale == "zhr" or locale == "zht"
 local function localize(en, cn)
-    return not isCN and en or cn
+	return not isCN and en or cn
 end
 
 -- Mod Info
 name = not isCN and "Where Is It" or "在哪里"
-description = not isCN and [[
+description = not isCN
+		and [[
 󰀅 Where Is It 󰀅
 Where Is It is a quality-of-life mod for Don't Starve Together that makes finding entities much easier. It adds a searchable entity menu with fuzzy search, lets you add and remove custom entities, and gives you the ability to pin important ones so they always appear first. Selecting an entity highlights its location with a directional arrow, helping you quickly track it down in the world.
 
@@ -16,8 +17,7 @@ The mod now supports displaying the spawn location of ruin clockworks. A semi-tr
 
 
 ]]
-or
-[[
+	or [[
 󰀅 在哪里 󰀅
 《Where Is It》 是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
 
@@ -49,87 +49,171 @@ api_version = 10
 
 -- Tags
 server_filter_tags = {
-   "where is it", "utility", "tian"
+	"where is it",
+	"utility",
+	"tian",
 }
 
 -- Mod Config Helper
 local function AddSection(lang_en, lang_cn)
-    local tempName = "temp_"..lang_en:gsub("%s+", "_"):lower()
-    local front_prefix = "☆ "
-    local back_prefix = " ────────────────────────────────────"
-    local english = front_prefix .. lang_en .. back_prefix
-    local chinese = front_prefix .. lang_cn .. back_prefix
-    return {
-        name = tempName,
-        label = localize(english, chinese),
-        options = {{description = "", data = 0}},
-        default = 0
-    }
+	local tempName = "temp_" .. lang_en:gsub("%s+", "_"):lower()
+	local front_prefix = "☆ "
+	local back_prefix =
+		" ────────────────────────────────────"
+	local english = front_prefix .. lang_en .. back_prefix
+	local chinese = front_prefix .. lang_cn .. back_prefix
+	return {
+		name = tempName,
+		label = localize(english, chinese),
+		options = { { description = "", data = 0 } },
+		default = 0,
+	}
 end
 
 -- Value Options
 local function GenerateValueOptions(min, max, step)
-    local options = {}
-    local i = 1
-    for v = min, max, step or 1 do
-        options[i] = { description = v, data = v }
-        i = i + 1
-    end
-    return options
+	local options = {}
+	local i = 1
+	for v = min, max, step or 1 do
+		options[i] = { description = v, data = v }
+		i = i + 1
+	end
+	return options
 end
 
 -- Mod Config
 configuration_options = {
-    AddSection("Settings", "设置"),
-    {
-        name = "Arrow_Limit_Per_Player",
-        label = localize("Arrow Limit Per Player (Seconds)", "每位玩家的方向箭头上限 (秒)"),
-         hover = localize(
-            "Sets the limit of directional beams per player.\n0 = unlimited",
-            "设置每个玩家的方向光束数量上限。\n0 = 无限。"
-        ),
-        options = GenerateValueOptions(0, 50),
-        default = 0
-    },
-    {
-        name = "Entity_Location_Search_Cooldown",
-        label = localize("Location Search Cooldown (Seconds)", "实体定位冷却时间 (秒)"),
-         hover = localize(
-            "Entity location search cooldown per player\n0 = no cooldown",
-            "每位玩家的实体定位冷却时间。\n0 = 没冷却时间。"
-        ),
-        options = GenerateValueOptions(0, 60),
-        default = 0
-    },
-    {
-        name = "Is_Allow_Teleport",
-        label = localize("Allow Teleport", "是否允许传送"),
-         hover = localize(
-            "Would you like to allow your players to use the teleport feature",
-            "是否允许服务器内玩家使用传送功能"
-        ),
-        options = {
-            { description = localize("True", "是"), data = true },
-            { description = localize("False", "否"), data = false },
-        },
-        default = false
-    },
-    AddSection("Debug", "调试"),
-    {
-        name = "Debug_Mode",
-        label = localize("Debug Mode", "调试模式"),
-        hover = localize(
-            "Debug mode will print additional information to the console.\nUseful for troubleshooting or development.",
-            "调试模式会在控制台显示额外信息。\n有助于故障排除或开发。"
-        ),
-        options = {
-            { description = localize("True", "是"), data = true },
-            { description = localize("False", "否"), data = false },
-        },
-        default = false,
-    }
+	AddSection("Settings", "设置"),
+	{
+		name = "Arrow_Limit_Per_Player",
+		label = localize("Arrow Limit Per Player (Seconds)", "每位玩家的方向箭头上限 (秒)"),
+		hover = localize(
+			"Sets the limit of directional beams per player.\n0 = unlimited",
+			"设置每个玩家的方向光束数量上限。\n0 = 无限。"
+		),
+		options = GenerateValueOptions(0, 50),
+		default = 0,
+	},
+	{
+		name = "Entity_Location_Search_Cooldown",
+		label = localize("Location Search Cooldown (Seconds)", "实体定位冷却时间 (秒)"),
+		hover = localize(
+			"Entity location search cooldown per player\n0 = no cooldown",
+			"每位玩家的实体定位冷却时间。\n0 = 没冷却时间。"
+		),
+		options = GenerateValueOptions(0, 60),
+		default = 0,
+	},
+	{
+		name = "Is_Allow_Teleport",
+		label = localize("Allow Teleport", "是否允许传送"),
+		hover = localize(
+			"Would you like to allow your players to use the teleport feature",
+			"是否允许服务器内玩家使用传送功能"
+		),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = false,
+	},
+	AddSection("Spawner Display", "重生点显示"),
+	{
+		name = "Toggle_Lightninggoat",
+		label = localize("Volt Goat Herd", "伏特羊群"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Beefalo",
+		label = localize("Beefalo Herd", "牛群"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Tumbleweed",
+		label = localize("Tumbleweed Spawner", "风滚草"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Rocky",
+		label = localize("Rocky Spawner", "石虾"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Mushgnome",
+		label = localize("Mushgnome Spawner", "蘑菇地精"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Bishop_Nightmare",
+		label = localize("Ruins Bishop Spawner", "遗迹主教"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Knight_Nightmare",
+		label = localize("Ruins Knight Spawner", "遗迹战马"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	{
+		name = "Toggle_Rook_Nightmare",
+		label = localize("Ruins Rook Spawner", "遗迹战车"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
+	AddSection("Debug", "调试"),
+	{
+		name = "Debug_Mode",
+		label = localize("Debug Mode", "调试模式"),
+		hover = localize(
+			"Debug mode will print additional information to the console.\nUseful for troubleshooting or development.",
+			"调试模式会在控制台显示额外信息。\n有助于故障排除或开发。"
+		),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = false,
+	},
 }
------------------------------------ Comments ----------------------------------- 
+----------------------------------- Comments -----------------------------------
 
 -- Emoji Icons
 -- Source: https://dst-api-docs.fandom.com/wiki/Icon_codes
@@ -187,7 +271,6 @@ configuration_options = {
 -- ["Goblet"] = "󰀭",
 -- ["Hand"] = "󰀮",
 -- ["Wormhole"] = "󰀯"
-
 
 -- Looking through my code and wanting to mod yourself? have a look at the below links.
 -- Links

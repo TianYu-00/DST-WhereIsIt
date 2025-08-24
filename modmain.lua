@@ -7,14 +7,24 @@ local DefaultLocalConfig = require("defaultsettings")
 local json = require("json")
 local DebugLog = require("utils/debug")
 
+-- Language Strings
+local GetTextStrings = require("strings/stringloader")
+local TextStrings = GetTextStrings()
+
 -- Config Settings
 local arrow_limit_per_player = GetModConfigData("Arrow_Limit_Per_Player") or 0
 local entity_location_search_cooldown = GetModConfigData("Entity_Location_Search_Cooldown") or 0
 local is_allow_teleport = GetModConfigData("Is_Allow_Teleport") or false
 
--- Language Strings
-local GetTextStrings = require("strings/stringloader")
-local TextStrings = GetTextStrings()
+-- Spawner Display Settings
+local is_display_lightninggoat = GetModConfigData("Toggle_Lightninggoat") ~= false
+local is_display_beefalo = GetModConfigData("Toggle_Beefalo") ~= false
+local is_display_tumbleweed = GetModConfigData("Toggle_Tumbleweed") ~= false
+local is_display_rocky = GetModConfigData("Toggle_Rocky") ~= false
+local is_display_mushgnome = GetModConfigData("Toggle_Mushgnome") ~= false
+local is_display_bishop_nightmare = GetModConfigData("Toggle_Bishop_Nightmare") ~= false
+local is_display_knight_nightmare = GetModConfigData("Toggle_Knight_Nightmare") ~= false
+local is_display_rook_nightmare = GetModConfigData("Toggle_Rook_Nightmare") ~= false
 
 ---- Mod config data
 -- Debug settings
@@ -271,79 +281,104 @@ PrefabFiles = {
 } -- prefab file names without extension
 
 -- Lightning Goat Herd
-AddPrefabPostInit("lightninggoatherd", function(inst)
-	inst.entity:AddNetwork()
-	inst.entity:SetPristine()
-	if not G.TheWorld.ismastersim then
-		return
-	end
-
-	inst:DoTaskInTime(1, function()
-		local fx = G.SpawnPrefab("tian_whereisit_lightninggoatfx")
-		if fx ~= nil and fx:IsValid() then
-			fx.entity:SetParent(inst.entity)
-			DebugLog("Spawned lightninggoat FX")
+if is_display_lightninggoat then
+	DebugLog("lightninggoatherd FX enabled")
+	AddPrefabPostInit("lightninggoatherd", function(inst)
+		inst.entity:AddNetwork()
+		inst.entity:SetPristine()
+		if not G.TheWorld.ismastersim then
+			return
 		end
+
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_lightninggoatfx")
+			if fx ~= nil and fx:IsValid() then
+				fx.entity:SetParent(inst.entity)
+				DebugLog("Spawned lightninggoat FX")
+			end
+		end)
 	end)
-end)
+else
+	DebugLog("lightninggoatherd FX disabled")
+end
 
 -- Beefalo Herd
-AddPrefabPostInit("beefaloherd", function(inst)
-	inst.entity:AddNetwork()
-	inst.entity:SetPristine()
-	if not G.TheWorld.ismastersim then
-		return
-	end
-
-	inst:DoTaskInTime(1, function()
-		local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
-		if fx ~= nil and fx:IsValid() then
-			fx.entity:SetParent(inst.entity)
-			DebugLog("Spawned beefalo FX")
+if is_display_beefalo then
+	DebugLog("beefaloherd FX enabled")
+	AddPrefabPostInit("beefaloherd", function(inst)
+		inst.entity:AddNetwork()
+		inst.entity:SetPristine()
+		if not G.TheWorld.ismastersim then
+			return
 		end
-	end)
-end)
 
--- Rocky Herd
-AddPrefabPostInit("rockyherd", function(inst)
-	inst.entity:AddNetwork()
-	inst.entity:SetPristine()
-	if not G.TheWorld.ismastersim then
-		return
-	end
-
-	inst:DoTaskInTime(1, function()
-		local fx = G.SpawnPrefab("tian_whereisit_rockyfx")
-		if fx ~= nil and fx:IsValid() then
-			fx.entity:SetParent(inst.entity)
-			DebugLog("Spawned rocky FX")
-		end
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
+			if fx ~= nil and fx:IsValid() then
+				fx.entity:SetParent(inst.entity)
+				DebugLog("Spawned beefalo FX")
+			end
+		end)
 	end)
-end)
+else
+	DebugLog("beefaloherd FX disabled")
+end
 
 -- Tumbleweed Spawner
-AddPrefabPostInit("tumbleweedspawner", function(inst)
-	if not G.TheWorld.ismastersim then
-		return
-	end
-	inst:DoTaskInTime(1, function()
-		local fx = G.SpawnPrefab("tian_whereisit_tumbleweedfx")
-		fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
-		DebugLog("Spawned tumbleweed FX at spawner")
+if is_display_tumbleweed then
+	DebugLog("tumbleweedspawner FX enabled")
+	AddPrefabPostInit("tumbleweedspawner", function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_tumbleweedfx")
+			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+			DebugLog("Spawned tumbleweed FX at spawner")
+		end)
 	end)
-end)
+else
+	DebugLog("tumbleweedspawner FX disabled")
+end
+
+-- Rocky Herd
+if is_display_rocky then
+	DebugLog("rockyherd FX enabled")
+	AddPrefabPostInit("rockyherd", function(inst)
+		inst.entity:AddNetwork()
+		inst.entity:SetPristine()
+		if not G.TheWorld.ismastersim then
+			return
+		end
+
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_rockyfx")
+			if fx ~= nil and fx:IsValid() then
+				fx.entity:SetParent(inst.entity)
+				DebugLog("Spawned rocky FX")
+			end
+		end)
+	end)
+else
+	DebugLog("rockyherd FX disabled")
+end
 
 -- Mushgnome Spawner
-AddPrefabPostInit("mushgnome_spawner", function(inst)
-	if not G.TheWorld.ismastersim then
-		return
-	end
-	inst:DoTaskInTime(1, function()
-		local fx = G.SpawnPrefab("tian_whereisit_mushgnomefx")
-		fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
-		DebugLog("Spawned mushgnome FX at spawner")
+if is_display_mushgnome then
+	DebugLog("mushgnome_spawner FX enabled")
+	AddPrefabPostInit("mushgnome_spawner", function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_mushgnomefx")
+			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+			DebugLog("Spawned mushgnome FX at spawner")
+		end)
 	end)
-end)
+else
+	DebugLog("mushgnome_spawner FX disabled")
+end
 
 -- Ruin Clockworks
 local function AttachMinisignAndRadius(inst)
@@ -359,32 +394,47 @@ local function AttachMinisignAndRadius(inst)
 	end
 end
 
-AddPrefabPostInit("bishop_nightmare_ruinsrespawner_inst", function(inst)
-	if not G.TheWorld.ismastersim then
-		return
-	end
-	inst:DoTaskInTime(1, function()
-		AttachMinisignAndRadius(inst)
+if is_display_bishop_nightmare then
+	DebugLog("bishop_nightmare_ruinsrespawner_inst FX enabled")
+	AddPrefabPostInit("bishop_nightmare_ruinsrespawner_inst", function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+		inst:DoTaskInTime(1, function()
+			AttachMinisignAndRadius(inst)
+		end)
 	end)
-end)
+else
+	DebugLog("bishop_nightmare_ruinsrespawner_inst FX disabled")
+end
 
-AddPrefabPostInit("knight_nightmare_ruinsrespawner_inst", function(inst)
-	if not G.TheWorld.ismastersim then
-		return
-	end
-	inst:DoTaskInTime(1, function()
-		AttachMinisignAndRadius(inst)
+if is_display_knight_nightmare then
+	DebugLog("knight_nightmare_ruinsrespawner_inst FX enabled")
+	AddPrefabPostInit("knight_nightmare_ruinsrespawner_inst", function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+		inst:DoTaskInTime(1, function()
+			AttachMinisignAndRadius(inst)
+		end)
 	end)
-end)
+else
+	DebugLog("knight_nightmare_ruinsrespawner_inst FX disabled")
+end
 
-AddPrefabPostInit("rook_nightmare_ruinsrespawner_inst", function(inst)
-	if not G.TheWorld.ismastersim then
-		return
-	end
-	inst:DoTaskInTime(1, function()
-		AttachMinisignAndRadius(inst)
+if is_display_rook_nightmare then
+	DebugLog("rook_nightmare_ruinsrespawner_inst FX enabled")
+	AddPrefabPostInit("rook_nightmare_ruinsrespawner_inst", function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+		inst:DoTaskInTime(1, function()
+			AttachMinisignAndRadius(inst)
+		end)
 	end)
-end)
+else
+	DebugLog("rook_nightmare_ruinsrespawner_inst FX disabled")
+end
 
 ----------------------------------- MOD RPC -----------------------------------
 
