@@ -15,6 +15,8 @@ English version [url=https://dontstarve.fandom.com/wiki/Don%27t_Starve_Together]
 
 Check [b]change notes[/b] to see what I have updated.
 
+Please do feel free to report any bugs or crashes. Would appreciate it if you could provide a detailed description on how to reproduce the bug along your server_log file.
+
 [h1]在哪里[/h1]
 《Where Is It》是一款专为《饥荒：联机版》打造的实用性模组，让寻找各种物体更加轻松。它提供模糊搜索的实体菜单，让你快速找到目标，还能自由添加或移除自定义实体，并支持将常用或重要的实体置顶，方便随时使用。点击菜单中的实体后，屏幕上会出现方向箭头，指引你前往它所在的位置，再也不用担心迷路或找不到东西。
 
@@ -27,6 +29,8 @@ Check [b]change notes[/b] to see what I have updated.
 中文版 [url=https://dontstarve.huijiwiki.com/wiki/%E9%A5%A5%E8%8D%92%EF%BC%9A%E8%81%94%E6%9C%BA%E7%89%88][b]饥荒Wiki[/b][/url]
 
 查看 [b]变更说明[/b] 以了解更新的内容。
+
+如果遇到报错或者什么可以评论区跟我说一下。能提供详细的复现步骤以及服务器日志文件那就更好了，非常感谢。
 
 [h1]TO DO LIST[/h1]
 [b]Minimum Viable Product (MVP)[/b]
