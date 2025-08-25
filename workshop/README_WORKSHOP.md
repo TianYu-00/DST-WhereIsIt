@@ -62,6 +62,7 @@ Check [b]change notes[/b] to see what I have updated.
         [*][✔]Modify the logic for marking the location of ruin clockworks - now directly marks the spawn point of clock monsters, rather than the clockwork itself.
         [*][✔]Rework Add Entity feature - replaced with menu allowing Code Name (*) and Custom Name input
         [*][✔]Add fuzzy search for custom names
+        [*][✔]Toggle for respawn point display
     [/list]
 
 [h1]待办事项清单[/h1]
@@ -98,6 +99,7 @@ Check [b]change notes[/b] to see what I have updated.
         [*][✔]修改标记发条地点逻辑 - 现在会直接标记发条刷怪点而不是发条本身
         [*][✔]重做“添加实体”功能 - 已替换为允许输入 代码名称(*) 和 自定义名称 的菜单。
         [*][✔]为自定义名称添加模糊搜索功能
+        [*][✔]显示重生点位置开关 - 主机权限
     [/list]
 
 [h1] Known Issue [/h1]
