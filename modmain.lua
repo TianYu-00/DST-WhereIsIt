@@ -176,6 +176,8 @@ local function ToggleMenu()
 	if screen.name:find("HUD") then
 		G.TheFrontEnd:PushScreen(WhereIsItMenuScreen(G.ThePlayer))
 		G.TheFrontEnd:GetSound():PlaySound("dontstarve/HUD/click_move")
+		-- G.SetServerPaused(true)
+		G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_PAUSE(true)
 		DebugLog("Opened Menu screen")
 		return true
 	else
@@ -200,6 +202,27 @@ local function ToggleMenuButton()
 end
 
 G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_MENU_BUTTON = ToggleMenuButton
+
+local function TogglePause(state)
+	if not G.TheNet:GetIsServerAdmin() then
+		DebugLog("Player is not admin, skipping pause")
+		return
+	end
+
+	-- count players
+	local player_count = G.AllPlayers and #G.AllPlayers or 0
+	DebugLog("Player count detected: " .. tostring(player_count))
+
+	-- only allow pause if single player
+	if player_count == 1 then
+		G.SetServerPaused(state)
+		DebugLog("Server paused state set to: " .. tostring(state))
+	else
+		DebugLog("Not pausing because there are multiple players (" .. tostring(player_count) .. ")")
+	end
+end
+
+G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_PAUSE = TogglePause
 
 local function FindAllEntity(prefab_name, is_single)
 	local entities = {}

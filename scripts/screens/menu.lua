@@ -34,7 +34,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.black:SetVAnchor(ANCHOR_MIDDLE)
 	self.black:SetHAnchor(ANCHOR_MIDDLE)
 	self.black:SetScaleMode(SCALEMODE_FILLSCREEN)
-	self.black:SetTint(0, 0, 0, 0.75)
+	self.black:SetTint(0, 0, 0, 0.3)
 
 	self.background_button = self:AddChild(ImageButton("images/global.xml", "square.tex"))
 	self.background_button.image:SetHAnchor(ANCHOR_MIDDLE)
@@ -392,6 +392,9 @@ function WhereIsItMenuScreen:OnClose()
 	if screen and screen.name:find("HUD") == nil then
 		TheFrontEnd:PopScreen()
 	end
+
+	-- SetServerPaused(false)
+	TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_PAUSE(false)
 end
 
 function WhereIsItMenuScreen:OnControl(control, down)
