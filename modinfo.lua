@@ -120,7 +120,7 @@ configuration_options = {
 		},
 		default = true,
 	},
-	AddSection("Spawner Display", "重生点显示"),
+	AddSection("Special Display", "特殊显示"),
 	{
 		name = "Toggle_Lightninggoat",
 		label = localize("Volt Goat Herd", "伏特羊群"),
