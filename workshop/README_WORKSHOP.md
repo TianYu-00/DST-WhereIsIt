@@ -67,6 +67,9 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]Rework Add Entity feature - replaced with menu allowing Code Name (*) and Custom Name input
         [*][✔]Add fuzzy search for custom names
         [*][✔]Toggle for respawn point display
+        [*][✔]Add lost toys location display - Toggleable in mod config
+        [*][✔]Pause on menu open - only pause when playing alone
+        [*][✔]Disable pause - Host Permission
     [/list]
 
 [h1]待办事项清单[/h1]
@@ -104,6 +107,9 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]重做“添加实体”功能 - 已替换为允许输入 代码名称(*) 和 自定义名称 的菜单。
         [*][✔]为自定义名称添加模糊搜索功能
         [*][✔]显示重生点位置开关 - 主机权限
+        [*][✔]添加遗失玩具位置显示 - 可在模组配置中关闭
+        [*][✔]打开菜单时暂停 - 仅在单人时暂停
+        [*][✔]禁用暂停功能 - 需主机权限
     [/list]
 
 [h1] Known Issue [/h1]

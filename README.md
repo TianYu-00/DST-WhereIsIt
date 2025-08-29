@@ -54,3 +54,6 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Rework Add Entity feature - replaced with menu allowing Code Name (*) and Custom Name input
         - [x] Add fuzzy search for custom names
         - [x] Toggle for spawn points - Host Permission
+        - [x] Add lost toys location display - Toggleable in mod config
+        - [x] Pause on menu open
+        - [x] Disable pause - Host Permission
