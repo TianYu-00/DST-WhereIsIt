@@ -27,6 +27,7 @@ local is_display_bishop_nightmare = GetModConfigData("Toggle_Bishop_Nightmare") 
 local is_display_knight_nightmare = GetModConfigData("Toggle_Knight_Nightmare") ~= false
 local is_display_rook_nightmare = GetModConfigData("Toggle_Rook_Nightmare") ~= false
 local is_display_lost_toys = GetModConfigData("Toggle_Lost_Toy") ~= false
+local is_display_klaus_sack = GetModConfigData("Toggle_Klaus_Sack") ~= false
 
 ---- Mod config data
 -- Debug settings
@@ -309,6 +310,8 @@ PrefabFiles = {
 	"minisignfx",
 	"radiusfx",
 	"trinketsfx",
+	"grassgekkofx",
+	"klausbagfx",
 } -- prefab file names without extension
 
 -- Lightning Goat Herd
@@ -372,6 +375,29 @@ else
 	DebugLog("tumbleweedspawner FX disabled")
 end
 
+-- Grassgekko Herd
+-- if is_display_rocky then
+-- 	DebugLog("grassgekkoherd FX enabled")
+-- 	AddPrefabPostInit("grassgekkoherd", function(inst)
+-- 		inst.entity:AddNetwork()
+-- 		inst.entity:SetPristine()
+
+-- 		if not G.TheWorld.ismastersim then
+-- 			return
+-- 		end
+
+-- 		inst:DoTaskInTime(G.FRAMES, function()
+-- 			local fx = G.SpawnPrefab("tian_whereisit_grassgekkofx")
+-- 			if fx ~= nil and fx:IsValid() then
+-- 				fx.entity:SetParent(inst.entity)
+-- 				DebugLog("Spawned grassgekko FX")
+-- 			end
+-- 		end)
+-- 	end)
+-- else
+-- 	DebugLog("grassgekko FX disabled")
+-- end
+
 -- Rocky Herd
 if is_display_rocky then
 	DebugLog("rockyherd FX enabled")
@@ -409,6 +435,26 @@ if is_display_mushgnome then
 	end)
 else
 	DebugLog("mushgnome_spawner FX disabled")
+end
+
+-- Klaus sack location
+if is_display_klaus_sack then
+	DebugLog("deerspawningground FX enabled")
+	AddPrefabPostInit("deerspawningground", function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_klausbagfx")
+			if fx ~= nil and fx:IsValid() then
+				local x, y, z = inst.Transform:GetWorldPosition()
+				local gx, gy, gz = G.TheWorld.Map:GetTileCenterPoint(x, y, z) -- refer to klaussackspawner.lua line 75 to get access to the center of the grid
+				fx.Transform:SetPosition(gx, gy, gz)
+				DebugLog("Spawned klaus sack FX at spawner")
+			end
+		end)
+	end)
 end
 
 -- Ruin Clockworks

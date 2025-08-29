@@ -211,6 +211,16 @@ configuration_options = {
 		},
 		default = true,
 	},
+	{
+		name = "Toggle_Klaus_Sack",
+		label = localize("Klaus Sack Location", "克劳斯的袋子"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
 	AddSection("Debug", "调试"),
 	{
 		name = "Debug_Mode",
