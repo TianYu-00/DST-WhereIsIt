@@ -278,6 +278,7 @@ PrefabFiles = {
 	"rockyfx",
 	"minisignfx",
 	"radiusfx",
+	"trinketsfx",
 } -- prefab file names without extension
 
 -- Lightning Goat Herd
@@ -434,6 +435,40 @@ if is_display_rook_nightmare then
 	end)
 else
 	DebugLog("rook_nightmare_ruinsrespawner_inst FX disabled")
+end
+
+-- Lost toys trinkets
+local is_display_lost_toys = true
+local toy_trinket_nums = {
+	1,
+	2,
+	7,
+	10,
+	11,
+	14,
+	18,
+	19,
+	42,
+	43,
+}
+
+local function LoopThroughLostToys(num)
+	AddPrefabPostInit("lost_toy_" .. tostring(num), function(inst)
+		if not G.TheWorld.ismastersim then
+			return
+		end
+		inst:DoTaskInTime(1, function()
+			local fx = G.SpawnPrefab("tian_whereisit_losttoyfx")
+			fx.AnimState:PlayAnimation(tostring(num), true)
+			fx.entity:SetParent(inst.entity)
+		end)
+	end)
+end
+
+if is_display_lost_toys then
+	for _, k in ipairs(toy_trinket_nums) do
+		LoopThroughLostToys(k)
+	end
 end
 
 ----------------------------------- MOD RPC -----------------------------------
