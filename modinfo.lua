@@ -198,6 +198,16 @@ configuration_options = {
 		},
 		default = true,
 	},
+	{
+		name = "Toggle_Lost_Toy",
+		label = localize("Lost Toys Location", "遗失的玩具"),
+		hover = localize("Should it be displayed", "是否显示"),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
 	AddSection("Debug", "调试"),
 	{
 		name = "Debug_Mode",

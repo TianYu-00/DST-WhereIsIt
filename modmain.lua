@@ -25,6 +25,7 @@ local is_display_mushgnome = GetModConfigData("Toggle_Mushgnome") ~= false
 local is_display_bishop_nightmare = GetModConfigData("Toggle_Bishop_Nightmare") ~= false
 local is_display_knight_nightmare = GetModConfigData("Toggle_Knight_Nightmare") ~= false
 local is_display_rook_nightmare = GetModConfigData("Toggle_Rook_Nightmare") ~= false
+local is_display_lost_toys = GetModConfigData("Toggle_Lost_Toy") ~= false
 
 ---- Mod config data
 -- Debug settings
@@ -438,7 +439,6 @@ else
 end
 
 -- Lost toys trinkets
-local is_display_lost_toys = true
 local toy_trinket_nums = {
 	1,
 	2,
