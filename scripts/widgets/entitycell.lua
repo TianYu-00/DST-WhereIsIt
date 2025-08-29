@@ -174,7 +174,7 @@ function EntityCell:OnControl(control, down)
 	end
 
 	-- Teleport
-	if down and control == CONTROL_SECONDARY then
+	if not down and control == CONTROL_SECONDARY then
 		if TheInput:IsKeyDown(KEY_LSHIFT) or TheInput:IsKeyDown(KEY_RSHIFT) then
 			if TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.IS_ALLOW_TELEPORT then
 				if self.data and self.data.name then
