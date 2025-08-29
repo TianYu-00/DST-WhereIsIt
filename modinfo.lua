@@ -117,6 +117,19 @@ configuration_options = {
 		},
 		default = false,
 	},
+	{
+		name = "Is_Allow_Pause",
+		label = localize("Pause When Menu Opened", "菜单打开时暂停"),
+		hover = localize(
+			"Would you like to pause the game when mod menu opens\nIt would only trigger pause if you are playing by yourself",
+			"当模组菜单打开时是否要暂停游戏？\n仅在你独自游玩时才会触发暂停"
+		),
+		options = {
+			{ description = localize("True", "是"), data = true },
+			{ description = localize("False", "否"), data = false },
+		},
+		default = true,
+	},
 	AddSection("Spawner Display", "重生点显示"),
 	{
 		name = "Toggle_Lightninggoat",

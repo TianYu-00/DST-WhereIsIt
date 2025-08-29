@@ -15,6 +15,7 @@ local TextStrings = GetTextStrings()
 local arrow_limit_per_player = GetModConfigData("Arrow_Limit_Per_Player") or 0
 local entity_location_search_cooldown = GetModConfigData("Entity_Location_Search_Cooldown") or 0
 local is_allow_teleport = GetModConfigData("Is_Allow_Teleport") or false
+local is_allow_pause = GetModConfigData("Is_Allow_Pause") ~= false
 
 -- Spawner Display Settings
 local is_display_lightninggoat = GetModConfigData("Toggle_Lightninggoat") ~= false
@@ -204,6 +205,11 @@ end
 G.TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_MENU_BUTTON = ToggleMenuButton
 
 local function TogglePause(state)
+	if not is_allow_pause then
+		DebugLog("Pause disabled, skipping pause")
+		return
+	end
+
 	if not G.TheNet:GetIsServerAdmin() then
 		DebugLog("Player is not admin, skipping pause")
 		return
