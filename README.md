@@ -57,3 +57,4 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
         - [x] Add lost toys location display - Toggleable in mod config
         - [x] Pause on menu open
         - [x] Disable pause - Host Permission
+        - [x] Add Klaus Sack spawn locations - Toggleable in mod config
