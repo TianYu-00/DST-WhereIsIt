@@ -28,13 +28,13 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	----------------------------------- creating the base menu ui
 	-- Dark background
-	self.black = self:AddChild(Image("images/global.xml", "square.tex"))
-	self.black:SetVRegPoint(ANCHOR_MIDDLE)
-	self.black:SetHRegPoint(ANCHOR_MIDDLE)
-	self.black:SetVAnchor(ANCHOR_MIDDLE)
-	self.black:SetHAnchor(ANCHOR_MIDDLE)
-	self.black:SetScaleMode(SCALEMODE_FILLSCREEN)
-	self.black:SetTint(0, 0, 0, 0.3)
+	-- self.black = self:AddChild(Image("images/global.xml", "square.tex"))
+	-- self.black:SetVRegPoint(ANCHOR_MIDDLE)
+	-- self.black:SetHRegPoint(ANCHOR_MIDDLE)
+	-- self.black:SetVAnchor(ANCHOR_MIDDLE)
+	-- self.black:SetHAnchor(ANCHOR_MIDDLE)
+	-- self.black:SetScaleMode(SCALEMODE_FILLSCREEN)
+	-- self.black:SetTint(0, 0, 0, 0)
 
 	self.background_button = self:AddChild(ImageButton("images/global.xml", "square.tex"))
 	self.background_button.image:SetHAnchor(ANCHOR_MIDDLE)
@@ -42,7 +42,7 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.background_button.image:SetScaleMode(SCALEMODE_FILLSCREEN)
 	self.background_button.image:SetHRegPoint(ANCHOR_MIDDLE)
 	self.background_button.image:SetVRegPoint(ANCHOR_MIDDLE)
-	self.background_button.image:SetTint(0, 0, 0, 0.75)
+	self.background_button.image:SetTint(0, 0, 0, 0.3)
 	self.background_button:SetOnClick(function()
 		DebugLog("Background button clicked - closing menu")
 		self:OnClose()
@@ -199,6 +199,26 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 	self.addmenu_root:CloseMenu()
 	self.addmenu_root:SetPosition(0, 0, 0)
 	DebugLog("AddMenu initialized")
+
+	-- Comment container
+	self.croot = self:AddChild(Widget("COMMENT_ROOT"))
+	self.croot:SetVAnchor(ANCHOR_MIDDLE)
+	self.croot:SetHAnchor(ANCHOR_MIDDLE)
+	self.croot:SetPosition(0, 0, 0)
+	self.croot:SetScaleMode(SCALEMODE_PROPORTIONAL)
+	DebugLog("Comment root created")
+	self.croot:SetClickable(false)
+	self.croot:Hide()
+
+	self.croot_image = self.croot:AddChild(Image("images/ui.xml", "button_large.tex"))
+	self.croot_image:SetPosition(0, -150)
+	self.croot_image:SetTint(0, 0, 0, 0.5)
+	self.croot_image:SetScale(2, 1)
+
+	self.croot_description = self.croot:AddChild(Text(NEWFONT_OUTLINE, 20))
+	self.croot_description:SetPosition(0, -145)
+	self.croot_description:SetString("")
+	self.croot_description:SetColour(unpack(WHITE))
 end)
 
 function WhereIsItMenuScreen:InitCategoryAfterAsyncLoad()
@@ -388,6 +408,14 @@ function WhereIsItMenuScreen:OnClose()
 			task:Cancel()
 		end
 	end
+
+	if self.addmenu_root.alt_click_handler or self.addmenu_root.q_key_handler then
+		TheInput.onmousebutton:RemoveHandler(self.addmenu_root.alt_click_handler)
+		self.addmenu_root.alt_click_handler = nil
+		TheInput.onkeyup:RemoveHandler(self.addmenu_root.q_key_handler)
+		self.addmenu_root.q_key_handler = nil
+	end
+
 	local screen = TheFrontEnd:GetActiveScreen()
 	if screen and screen.name:find("HUD") == nil then
 		TheFrontEnd:PopScreen()

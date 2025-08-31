@@ -24,7 +24,7 @@ function EntityAddMenu:CreateMenu()
 	self.background_button.image:SetScaleMode(SCALEMODE_FILLSCREEN)
 	self.background_button.image:SetHRegPoint(ANCHOR_MIDDLE)
 	self.background_button.image:SetVRegPoint(ANCHOR_MIDDLE)
-	self.background_button.image:SetTint(0, 0, 0, 0.75)
+	self.background_button.image:SetTint(0, 0, 0, 0.3)
 	self.background_button:SetOnClick(function()
 		DebugLog("Background clicked: Closing Menu")
 		self:CloseMenu()
@@ -98,7 +98,71 @@ function EntityAddMenu:CreateMenu()
 	self.exit_button:SetPosition(200, 120, 0)
 	self.exit_button:SetScale(0.4)
 
+	self.select_button = self.menu_root:AddChild(Templates2.IconButton("images/servericons.xml", "search.tex"))
+	self.select_button:SetOnClick(function()
+		DebugLog("Select Button Clicked")
+		self:StartSelect()
+	end)
+	self.select_button:SetPosition(100, 50, 0)
+	self.select_button:SetScale(0.4)
+
 	DebugLog("EntityAddMenu: Menu Created")
+end
+
+function EntityAddMenu:StartSelect()
+	DebugLog("EntityAddMenu: Started Selection")
+	self.parent_screen.proot:Hide()
+	self.parent_screen.sroot:Hide()
+	self.parent_screen.croot:Show()
+	self.parent_screen.background_button:Hide()
+
+	TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_PAUSE(false)
+
+	self.parent_screen.croot_description:SetString(
+		"Alt + Left Click = View entity name\nAlt + Right Click = Select entity  \nQ = Go back"
+	)
+
+	self.alt_click_handler = TheInput:AddMouseButtonHandler(function(button, down, x, y)
+		-- See entity code name
+		if down and button == MOUSEBUTTON_LEFT and TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
+			local target = TheInput:GetWorldEntityUnderMouse()
+			if target and target.prefab then
+				if ThePlayer.components.talker then
+					ThePlayer.components.talker:Say(target.prefab or "")
+				end
+				DebugLog(target.prefab)
+			end
+		end
+
+		-- select entity
+		if down and button == MOUSEBUTTON_RIGHT and TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
+			local target = TheInput:GetWorldEntityUnderMouse()
+			if target and target.prefab then
+				DebugLog(target.prefab)
+				self.code_name_input.textbox:SetString(target.prefab or "")
+				self:EndSelect()
+			end
+		end
+	end)
+
+	self.q_key_handler = TheInput:AddKeyUpHandler(KEY_Q, function()
+		self:EndSelect()
+	end)
+end
+
+function EntityAddMenu:EndSelect()
+	DebugLog("EntityAddMenu: Started Selection")
+	self.parent_screen.proot:Show()
+	self.parent_screen.sroot:Show()
+	self.parent_screen.croot:Hide()
+	self.parent_screen.background_button:Show()
+
+	TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_PAUSE(true)
+
+	TheInput.onmousebutton:RemoveHandler(self.alt_click_handler)
+	self.alt_click_handler = nil
+	TheInput.onkeyup:RemoveHandler(self.q_key_handler)
+	self.q_key_handler = nil
 end
 
 function EntityAddMenu:AddToEntityList(code_name, custom_name)
