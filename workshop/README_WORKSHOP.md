@@ -63,6 +63,7 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]Pause on menu open - only pause when playing alone
         [*][✔]Disable pause - Host Permission
         [*][✔]Add Klaus Sack spawn locations - Toggleable in mod config
+        [*][✔]Select entity button - Automatically populate code name
     [/list]
 
 [h1]待办事项清单[/h1]
@@ -104,6 +105,7 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]打开菜单时暂停 - 仅在单人时暂停
         [*][✔]禁用暂停功能 - 需主机权限
         [*][✔]添加克劳斯袋子的生成地点位置 - 可在模组配置中关闭
+        [*][✔]选择实体按钮 - 自动填写代码名称
     [/list]
 
 [h1] Known Issue [/h1]

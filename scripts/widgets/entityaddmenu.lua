@@ -133,7 +133,7 @@ function EntityAddMenu:StartSelect()
 
 	self.alt_click_handler = TheInput:AddMouseButtonHandler(function(button, down, x, y)
 		-- See entity code name
-		if down and button == MOUSEBUTTON_LEFT and TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
+		if down and button == MOUSEBUTTON_LEFT and (TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT)) then
 			local target = TheInput:GetWorldEntityUnderMouse()
 			if target and target.prefab then
 				if ThePlayer.components.talker then
@@ -144,7 +144,7 @@ function EntityAddMenu:StartSelect()
 		end
 
 		-- select entity
-		if down and button == MOUSEBUTTON_RIGHT and TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT) then
+		if down and button == MOUSEBUTTON_RIGHT and (TheInput:IsKeyDown(KEY_LALT) or TheInput:IsKeyDown(KEY_RALT)) then
 			local target = TheInput:GetWorldEntityUnderMouse()
 			if target and target.prefab then
 				DebugLog(target.prefab)
