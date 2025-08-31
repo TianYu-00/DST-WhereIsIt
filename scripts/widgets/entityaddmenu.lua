@@ -103,7 +103,7 @@ function EntityAddMenu:CreateMenu()
 		DebugLog("Select Button Clicked")
 		self:StartSelect()
 	end)
-	self.select_button:SetPosition(100, 50, 0)
+	self.select_button:SetPosition(90, 50, 0)
 	self.select_button:SetScale(0.4)
 
 	DebugLog("EntityAddMenu: Menu Created")
