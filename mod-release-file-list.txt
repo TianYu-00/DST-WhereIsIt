@@ -1,0 +1,6 @@
+modmain.lua
+modinfo.lua
+modicon.xml
+modicon.tex
+LICENSE
+scripts
