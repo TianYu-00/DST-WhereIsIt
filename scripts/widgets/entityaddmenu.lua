@@ -106,6 +106,17 @@ function EntityAddMenu:CreateMenu()
 	self.select_button:SetPosition(90, 50, 0)
 	self.select_button:SetScale(0.4)
 
+	self.select_button:SetOnGainFocus(function()
+		self.parent_screen.tooltip_root:UpdatePosition(self.select_button, 0, -25)
+		self.parent_screen.tooltip_root.tooltip:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.SELECT_ENTITY)
+		DebugLog("Tooltip shown for Select button")
+	end)
+
+	self.select_button:SetOnLoseFocus(function()
+		self.parent_screen.tooltip_root:HideTooltip(self.select_button)
+		DebugLog("Tooltip hidden for Select button")
+	end)
+
 	DebugLog("EntityAddMenu: Menu Created")
 end
 
