@@ -27,4 +27,5 @@ return {
 	FAVOURITE = "Favourites",
 	HIDDEN = "Hidden",
 	CUSTOM = "Custom",
+	ADD_MENU_SELECT_COMMENT = "Alt + Left Click = View entity code name\nAlt + Right Click = Select entity\nQ = Go back",
 }

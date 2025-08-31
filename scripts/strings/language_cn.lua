@@ -27,4 +27,5 @@ return {
 	FAVOURITE = "收藏",
 	HIDDEN = "隐藏",
 	CUSTOM = "自定义",
+	ADD_MENU_SELECT_COMMENT = "Alt + 左键 = 查看实体代码名称\nAlt + 右键 = 选择实体\nQ = 返回",
 }

@@ -118,9 +118,7 @@ function EntityAddMenu:StartSelect()
 
 	TIAN_WHEREISIT_GLOBAL_FUNCTION.TOGGLE_PAUSE(false)
 
-	self.parent_screen.croot_description:SetString(
-		"Alt + Left Click = View entity name\nAlt + Right Click = Select entity  \nQ = Go back"
-	)
+	self.parent_screen.croot_description:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.ADD_MENU_SELECT_COMMENT)
 
 	self.alt_click_handler = TheInput:AddMouseButtonHandler(function(button, down, x, y)
 		-- See entity code name
