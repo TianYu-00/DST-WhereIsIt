@@ -16,7 +16,7 @@ Where Is It is a utility mod that allows you to search for entities through a cu
 《Where Is It》 是一款实用的模组，可通过自定义菜单搜索实体并生成方向光束指向实体的位置。支持自定义添加/删除/置顶任何实体、设置专属热键、传送（需主机手动开启权限），并显示特殊实体和刷新点，如遗迹发条、伏特羊群，风滚草，牛群、遗失玩具等。
 ]]
 author = "Tian || TianYu"
-version = "1.14.0"
+version = "1.15.0"
 forumthread = ""
 
 -- Mod Icon
