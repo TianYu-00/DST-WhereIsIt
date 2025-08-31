@@ -135,4 +135,6 @@ return {
     {name="statueharp_hedgespawner", icon_atlas="images/scrapbook_icons3.xml", icon_tex="statueharp.tex"},
     {name="oceanfish_shoalspawner", icon_atlas="images/scrapbook_icons2.xml", icon_tex="oceanfish_small_1_inv.tex"},
     {name="buzzardspawner", icon_atlas="images/scrapbook_icons1.xml", icon_tex="buzzard.tex"},
+    {name="smallghost", icon_atlas="images/scrapbook_icons3.xml", icon_tex="smallghost.tex"},
+    {name="grassgekko", icon_atlas="images/scrapbook_icons1.xml", icon_tex="grassgekko.tex"},
 }

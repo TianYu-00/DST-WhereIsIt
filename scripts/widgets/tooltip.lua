@@ -20,6 +20,7 @@ function Tooltip:UpdatePosition(widget, x_offset, y_offset)
 		return
 	end
 
+	self.parent_screen.tooltip_root:MoveToFront()
 	self.current_focus_widget = widget
 	local x, y = widget:GetPosition():Get()
 	local parent = widget:GetParent()
