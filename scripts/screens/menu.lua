@@ -107,7 +107,15 @@ local WhereIsItMenuScreen = Class(Screen, function(self, inst)
 
 	self.title = self.proot:AddChild(Text(NEWFONT, 20))
 	self.title:SetPosition(0, -240, 0)
-	self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.INTERACTION_HELPER)
+	if TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.IS_ALLOW_TELEPORT then
+		self.title:SetString(
+			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.INTERACTION_HELPER_TELEPORT ..
+			TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.INTERACTION_HELPER
+		)
+	else
+		self.title:SetString(TIAN_WHEREISIT_GLOBAL_DATA.STRINGS.INTERACTION_HELPER)
+	end
+	
 
 	----------------------------------- Settings menu
 	self.sroot:Hide()

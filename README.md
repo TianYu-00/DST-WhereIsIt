@@ -64,6 +64,7 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
 D:\SteamLibrary\steamapps\common\Don't Starve Together\data\databundles
 D:\SteamLibrary\steamapps\common\Don't Starve Together\mods\Where-Is-It
 D:\SteamLibrary\steamapps\workshop\content\322330
+C:\Users\tian\Documents\Klei\DoNotStarveTogether\162114550\Cluster_1\Master
  -->
 
 <!--
@@ -72,7 +73,7 @@ TO DO:
 - underwater_salvageable (no icons for it) ❌
 - oceanwhirlbigportal ✔️
 - oceanwhirlbigportalexit (no icons for it)❌
-- 配置中如果不允许传送，能不能把提示shift传送提示去掉
+- 配置中如果不允许传送，能不能把提示shift传送提示去掉 ✔️
 - 图标加几个配置
 - 自定义的代码保存后，给个修改方法
 - 搜索后说一下搜到了几个
