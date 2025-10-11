@@ -136,13 +136,22 @@ end)
 ----------------------------------- Checks -----------------------------------
 
 local function IsInteractionAllowed()
+	local player = G.ThePlayer
+	if not player then
+        return false
+    end
+
 	local active_screen = G.TheFrontEnd:GetActiveScreen()
+	if not active_screen then
+        return false
+    end
 	-- DebugLog("Screen:" .. tostring(active_screen and active_screen.name or "nil"))
+	
 	return active_screen ~= nil
-		and not G.ThePlayer.HUD:IsCraftingOpen()
-		and not G.ThePlayer.HUD:IsChatInputScreenOpen()
-		and not G.ThePlayer.HUD:IsConsoleScreenOpen()
-		and (active_screen.name == "HUD" or active_screen.name == G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.SCREEN_MAIN)
+			and not player.HUD:IsCraftingOpen()
+			and not player.HUD:IsChatInputScreenOpen()
+			and not player.HUD:IsConsoleScreenOpen()
+			and (active_screen.name == "HUD" or active_screen.name == G.TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.SCREEN_MAIN)
 end
 
 ----------------------------------- AddClassPostConstruct -----------------------------------
