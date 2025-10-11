@@ -21,7 +21,19 @@ function HudButton:CreateButton()
     self.hud_button_root:SetHAnchor(ANCHOR_MIDDLE)
     self.hud_button_root:SetVAnchor(ANCHOR_MIDDLE)
     self.hud_button_root:SetScaleMode(SCALEMODE_PROPORTIONAL)
-    self.hud_button_root:SetPosition(1000, -675)
+
+    TheSim:GetPersistentString(TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS, function(success, str)
+		if success and str and str ~= "" then
+			local ok, data = pcall(json.decode, str)
+			if ok and data and data.HUD_BUTTON_X and data.HUD_BUTTON_Y then
+				self.hud_button_root:SetPosition(data.HUD_BUTTON_X, data.HUD_BUTTON_Y)
+			else
+				self.hud_button_root:SetPosition(1000, -675)
+			end
+		else
+			self.hud_button_root:SetPosition(1000, -675)
+		end
+	end)
 
     self.bg = self.hud_button_root:AddChild(ImageButton("images/ui.xml", "button_small.tex"))
     self.bg:SetFocusScale(1.1, 0.8)
@@ -78,6 +90,21 @@ function HudButton:StopDragging()
         self.drag_task:Cancel()
         self.drag_task = nil
     end
+
+    -- Save position to persistent settings
+    local x, y, z = self.hud_button_root:GetPosition():Get()
+    local settings = {
+        HUD_BUTTON_X = x,
+        HUD_BUTTON_Y = y
+    }
+
+    SavePersistentString(
+        TIAN_WHEREISIT_GLOBAL_DATA.IDENTIFIER.PERSIST_SETTINGS,
+        json.encode(settings),
+        false
+    )
+
+    DebugLog(string.format("HudButton: Saved position x=%d y=%d", x, y))
 end
 
 -- Update button position while dragging
