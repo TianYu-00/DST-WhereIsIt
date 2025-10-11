@@ -65,6 +65,7 @@ D:\SteamLibrary\steamapps\common\Don't Starve Together\data\databundles
 D:\SteamLibrary\steamapps\common\Don't Starve Together\mods\Where-Is-It
 D:\SteamLibrary\steamapps\workshop\content\322330
 C:\Users\tian\Documents\Klei\DoNotStarveTogether\162114550\Cluster_1\Master
+C:\Users\tian\Documents\Klei\DoNotStarveTogether\162114550\client_save
  -->
 
 <!--
