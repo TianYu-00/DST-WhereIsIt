@@ -581,6 +581,10 @@ AddModRPCHandler("WhereIsIt", "LocateEntity", function(player, prefab_name, is_s
 			end)
 		end
 		DebugLog("Directional beams spawned for " .. prefab_name)
+
+		if player and player.components and player.components.talker then
+			player.components.talker:Say(string.format("%s: %s", prefab_name, #entities))
+		end
 	else
 		if player.components.talker then
 			player.components.talker:Say(
