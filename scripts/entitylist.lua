@@ -137,4 +137,6 @@ return {
     {name="buzzardspawner", icon_atlas="images/scrapbook_icons1.xml", icon_tex="buzzard.tex"},
     {name="smallghost", icon_atlas="images/scrapbook_icons3.xml", icon_tex="smallghost.tex"},
     {name="grassgekko", icon_atlas="images/scrapbook_icons1.xml", icon_tex="grassgekko.tex"},
+    {name="fissure_lower", icon_atlas="images/customisation.xml", icon_tex="fissure.tex"},
+    {name="oceanwhirlbigportal", icon_atlas="images/scrapbook_icons2.xml", icon_tex="oceanwhirlportal.tex"},
 }

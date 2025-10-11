@@ -68,9 +68,10 @@ D:\SteamLibrary\steamapps\workshop\content\322330
 
 <!--
 TO DO:
-- nightmare fissures
-- underwater_salvageable
-- oceanwhirlbigportal
+- nightmare fissures ✔️
+- underwater_salvageable (no icons for it) ❌
+- oceanwhirlbigportal ✔️
+- oceanwhirlbigportalexit (no icons for it)❌
 - 配置中如果不允许传送，能不能把提示shift传送提示去掉
 - 图标加几个配置
 - 自定义的代码保存后，给个修改方法
