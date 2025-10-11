@@ -74,7 +74,7 @@ TO DO:
 - oceanwhirlbigportal ✔️
 - oceanwhirlbigportalexit (no icons for it)❌
 - 配置中如果不允许传送，能不能把提示shift传送提示去掉 ✔️
-- 图标加几个配置
+- 图标加几个配置 ✔️
 - 自定义的代码保存后，给个修改方法
 - 搜索后说一下搜到了几个
 -->
