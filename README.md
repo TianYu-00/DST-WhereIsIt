@@ -59,6 +59,10 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
     - [x] Disable pause - Host Permission
     - [x] Add Klaus Sack spawn locations - Toggleable in mod config
     - [x] Select entity button - Automatically populate code name
+    - [x] Added more suggested entities - fissures, oceanwhirlbigportal
+    - [x] Remove shift-teleport tool tip when teleport is disabled by host
+    - [x] Menu button is now draggable and would be saved persistently
+    - [x] Show amount of entities found when looking up
 
 <!--
 D:\SteamLibrary\steamapps\common\Don't Starve Together\data\databundles
@@ -76,6 +80,6 @@ TO DO:
 - oceanwhirlbigportalexit (no icons for it)❌
 - 配置中如果不允许传送，能不能把提示shift传送提示去掉 ✔️
 - 图标加几个配置 ✔️
-- 自定义的代码保存后，给个修改方法
-- 搜索后说一下搜到了几个
+- 自定义的代码保存后，给个修改方法 (don't need to add this, if user need to update their custom entities name with new names they just need to re-add it with same code name)
+- 搜索后说一下搜到了几个 ✔️
 -->

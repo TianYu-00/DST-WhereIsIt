@@ -64,6 +64,10 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]Disable pause - Host Permission
         [*][✔]Add Klaus Sack spawn locations - Toggleable in mod config
         [*][✔]Select entity button - Automatically populate code name
+        [*][✔]Added more suggested entities - fissures, oceanwhirlbigportal
+        [*][✔]Remove shift-teleport tool tip when teleport is disabled by host
+        [*][✔]Menu button is now draggable and would be saved persistently
+        [*][✔]Show amount of entities found when looking up
     [/list]
 
 [h1]待办事项清单[/h1]
@@ -106,6 +110,10 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]禁用暂停功能 - 需主机权限
         [*][✔]添加克劳斯袋子的生成地点位置 - 可在模组配置中关闭
         [*][✔]选择实体按钮 - 自动填写代码名称
+        [*][✔] 添加了更多建议的实体 - 裂隙、oceanwhirlbigportal  
+        [*][✔] 当传送被主机禁用时，移除 Shift 传送提示  
+        [*][✔] 菜单按钮现在可以拖动，并且位置会被持久保存  
+        [*][✔] 搜索实体时显示找到的数量
     [/list]
 
 [h1] Known Issue [/h1]
