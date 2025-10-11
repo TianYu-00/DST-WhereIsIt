@@ -8,7 +8,6 @@ The mod also features fully customizable hotkeys that can be changed at any time
 
 The mod now supports displaying the spawn location of ruin clockworks. A semi-transparent mini sign and a range area will be generated at the centre of the clockwork. As long as you place anenemy just outside the range, you can deal damage to the clockwork when it respawns.
 
-
 Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are), but mod was coded from scratch.
 
 **在哪里**
@@ -22,40 +21,58 @@ Inspired by [**Where You Are?**](https://steamcommunity.com/sharedfiles/filedeta
 受[**Where You Are?**](https://steamcommunity.com/sharedfiles/filedetails/?id=2823963520&searchtext=Where+you+are)启发，可是模组是从零开始编写的。
 
 ## TO DO LIST
+
 - [x] Features
-    - [x] Minimum Viable Product (MVP)
-        - [x] Custom menu screen
-        - [x] Find entities 
-        - [x] Directional beam
-        - [x] Menu scroller
-        - [x] Base entities
-    - [x] Additional Features
-        - [x] Search entity from menu
-        - [x] Add entity to menu
-        - [x] Save the new added entity as persistent string
-        - [x] Remove entity from menu
-        - [x] Update more base entities
-        - [x] Volt goat herd position
-        - [x] Repeat previous entity search
-        - [x] Clear old directional beam when new beam is generated
-        - [x] Favourite entity
-        - [x] Allow players to have their own key binds
-        - [x] Search limits - Host permission
-        - [x] Search cooldown - Host permission
-        - [x] Teleport to entity
-        - [x] Disable teleport - Host Permission
-        - [x] Clockwork Anenemy Placement  
-        - [x] Main screen UI Button
-        - [x] Entity Image layering rework
-        - [x] Spawn points for other entities
-        - [x] Hide/Unhide base entities
-        - [x] Category system
-        - [x] Mark the spawner of ruins clockworks instead
-        - [x] Rework Add Entity feature - replaced with menu allowing Code Name (*) and Custom Name input
-        - [x] Add fuzzy search for custom names
-        - [x] Toggle for spawn points - Host Permission
-        - [x] Add lost toys location display - Toggleable in mod config
-        - [x] Pause on menu open
-        - [x] Disable pause - Host Permission
-        - [x] Add Klaus Sack spawn locations - Toggleable in mod config
-        - [x] Select entity button - Automatically populate code name
+  - [x] Minimum Viable Product (MVP)
+    - [x] Custom menu screen
+    - [x] Find entities
+    - [x] Directional beam
+    - [x] Menu scroller
+    - [x] Base entities
+  - [x] Additional Features
+    - [x] Search entity from menu
+    - [x] Add entity to menu
+    - [x] Save the new added entity as persistent string
+    - [x] Remove entity from menu
+    - [x] Update more base entities
+    - [x] Volt goat herd position
+    - [x] Repeat previous entity search
+    - [x] Clear old directional beam when new beam is generated
+    - [x] Favourite entity
+    - [x] Allow players to have their own key binds
+    - [x] Search limits - Host permission
+    - [x] Search cooldown - Host permission
+    - [x] Teleport to entity
+    - [x] Disable teleport - Host Permission
+    - [x] Clockwork Anenemy Placement
+    - [x] Main screen UI Button
+    - [x] Entity Image layering rework
+    - [x] Spawn points for other entities
+    - [x] Hide/Unhide base entities
+    - [x] Category system
+    - [x] Mark the spawner of ruins clockworks instead
+    - [x] Rework Add Entity feature - replaced with menu allowing Code Name (\*) and Custom Name input
+    - [x] Add fuzzy search for custom names
+    - [x] Toggle for spawn points - Host Permission
+    - [x] Add lost toys location display - Toggleable in mod config
+    - [x] Pause on menu open
+    - [x] Disable pause - Host Permission
+    - [x] Add Klaus Sack spawn locations - Toggleable in mod config
+    - [x] Select entity button - Automatically populate code name
+
+<!--
+D:\SteamLibrary\steamapps\common\Don't Starve Together\data\databundles
+D:\SteamLibrary\steamapps\common\Don't Starve Together\mods\Where-Is-It
+D:\SteamLibrary\steamapps\workshop\content\322330
+ -->
+
+<!--
+TO DO:
+- nightmare fissures
+- underwater_salvageable
+- oceanwhirlbigportal
+- 配置中如果不允许传送，能不能把提示shift传送提示去掉
+- 图标加几个配置
+- 自定义的代码保存后，给个修改方法
+- 搜索后说一下搜到了几个
+-->
