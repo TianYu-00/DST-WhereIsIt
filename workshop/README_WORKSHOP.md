@@ -35,6 +35,7 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
 [b]Bug Fixes[/b]
     [list]
         [*][✔]Bug reported by player @云泥之别 should be fixed (added ThePlayer check).
+        [*][✔]v1.16.1 Fixed the menu button disappearing issue reported by player @从小就很帅 (caused by resolution differences).
     [/list]
 
 
@@ -49,6 +50,7 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
 [b]修复[/b]
     [list]
         [*][✔]应该修复了 @云泥之别 玩家提出的崩溃问题 （加了ThePlayer检测）
+        [*][✔]v1.16.1 修复了 @从小就很帅 玩家提出的按钮消失问题 （不同分辨率导致的）
     [/list]
 
 [h1] Known Issue [/h1]
