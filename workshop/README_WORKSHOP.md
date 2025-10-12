@@ -38,7 +38,6 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
         [*][✔]v1.16.1 Fixed the menu button disappearing issue reported by player @从小就很帅 (caused by resolution differences).
     [/list]
 
-
 [h1]v1.16.0 新加功能[/h1]
 [b]功能[/b]
     [list]
@@ -60,7 +59,7 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
     [/list]
 [h1] 已知问题 [/h1]
     [list]
-        [*]模组内的设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
+        [*]模组游戏内的设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
         [*]有一位玩家反馈经过石虾时客户端会崩溃，我暂时还没能复刻这个问题。若你遇到相同情况，可以留言反馈，并暂时在配置设置中关闭石虾的特效。
     [/list]
 
