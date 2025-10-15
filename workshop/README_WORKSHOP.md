@@ -55,12 +55,12 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
 [h1] Known Issue [/h1]
     [list]
         [*]The mod's in game settings feature doesn't work well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]Don't Starve Alone[/b] [/url]
-        [*]A player has reported a client crash when passing by rocky spawner fx, I wasn't able to reproduce the bug but if you are having the same issue, please feel free to leave a comment and turn off rocky spawner fx for now in config settings.
+        [*]Some players have reported that certain fx may cause client lag or crashes, and the specific cause has not yet been identified. If you encounter a similar issue, you can temporarily disable the related effects in the configuration settings and leave feedback to help me investigate further.
     [/list]
 [h1] 已知问题 [/h1]
     [list]
         [*]模组游戏内的设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
-        [*]有一位玩家反馈经过石虾时客户端会崩溃，我暂时还没能复刻这个问题。若你遇到相同情况，可以留言反馈，并暂时在配置设置中关闭石虾的特效。
+        [*]有玩家反馈部分虚影效果可能导致客户端卡顿或崩溃，目前尚未查明具体原因。若你也遇到类似情况，可在配置设置中暂时关闭相关特效，并留言反馈以便我进一步排查。
     [/list]
 
 [h1]Checkout My Other Don't Starve Together Mods[/h1]
