@@ -56,23 +56,41 @@ Please do feel free to report any bugs or crashes. Would appreciate it if you co
     [list]
         [*]The mod's in game settings feature doesn't work well with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]Don't Starve Alone[/b] [/url]
         [*]Some players have reported that certain fx may cause client lag or crashes, and the specific cause has not yet been identified. If you encounter a similar issue, you can temporarily disable the related effects in the configuration settings and leave feedback to help me investigate further.
+       [*]A couple of entity icons are missing due to Klei's changes to image files.
     [/list]
 [h1] 已知问题 [/h1]
     [list]
         [*]模组游戏内的设置功能不是很兼容 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2657513551&searchtext=Dont+starve+alone] [b]独行长路[/b] [/url]
         [*]有玩家反馈部分虚影效果可能导致客户端卡顿或崩溃，目前尚未查明具体原因。若你也遇到类似情况，可在配置设置中暂时关闭相关特效，并留言反馈以便我进一步排查。
+        [*]因为科雷对某些图片做出了修改/移除导致了几个实体图片缺失。
     [/list]
 
-[h1]Checkout My Other Don't Starve Together Mods[/h1]
-[table]
-[tr]
-    [td]My Name[/td]
-    [td]Workshop Link[/td]
-[/tr]
-[tr]
-    [td]Tian[/td]
-    [td]https://steamcommunity.com/profiles/76561198122380278/myworkshopfiles/?appid=322330[/td]
-[/tr]
+[h1]Q&A[/h1]
+[h3]How do I reset my in game settings?[/h3]
+[list]
+	[*]Open WhereIsIt settings menu -> reset -> save
+[/list]
+Or
+[list]
+	[*]Navigate to [i]%USERPROFILE%\Documents\Klei\DoNotStarveTogether\<Steam32 ID>\client_save [/i]
+	[*]Remove the file named [i]tian_whereisit_persist_settings[/i] and finally reboot the game
+[/list]
+
+
+[h3]如何重置游戏内设置？[/h3]
+[list]
+	[*]打开游戏内设置菜单 ->  重置 -> 保存
+[/list]
+Or
+[list]
+	[*]进入目录 [i]%USERPROFILE%\Documents\Klei\DoNotStarveTogether\<Steam32 ID>\client_save [/i]
+	[*]删除名为 [i]tian_whereisit_persist_settings[/i] 的文件，然后重启游戏
+[/list]
+
+
+
+
+
 
 
 <!-- this is used for workshop description formatting
