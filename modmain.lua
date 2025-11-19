@@ -300,7 +300,7 @@ local function CheckLookUpState(player)
 
 	player[temp_key] = true
 
-	player:DoTaskInTime(G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.ENTITY_LOCATION_SEARCH_COOLDOWN, function()
+	player:DoTaskInTime(G.TIAN_WHEREISIT_GLOBAL_DATA.SETTINGS.ENTITY_LOCATION_SEARCH_COOLDOWN or 0, function()
 		player[temp_key] = nil
 		DebugLog("Entity lookup cooldown ended for player: " .. player.userid)
 	end)
