@@ -9,14 +9,14 @@ name = not isCN and "Where Is It" or "在哪里"
 description = not isCN
 		and [[
 󰀅 Where Is It 󰀅
-Where Is It is a utility mod that allows you to search for entities through a customizable menu and generate a directional beam pointing to their location. It supports adding, removing, or pinning any entity, setting custom hotkeys, teleporting (requires host permission), and displays special entities and spawn points, such as Ruins Clockworks, Volt Goat Herds, Tumbleweeds, Beefalo, Lost Toys, and more.
+Where Is It is a utility mod that allows you to search for entities through a customizable menu and generate a directional beam pointing to their location. It supports adding, removing, or pinning any entity, setting custom hotkeys, teleporting (requires host permission), and displays special entities and spawn points, such as Ruins Clockworks, Volt Goat Herds, Tumbleweeds, Lost Toys, and more.
 ]]
 	or [[
 󰀅 在哪里 󰀅
-《Where Is It》 是一款实用的模组，可通过自定义菜单搜索实体并生成方向光束指向实体的位置。支持自定义添加/删除/置顶任何实体、设置专属热键、传送（需主机手动开启权限），并显示特殊实体和刷新点，如遗迹发条、伏特羊群，风滚草，牛群、遗失玩具等。
+《Where Is It》 是一款实用的模组，可通过自定义菜单搜索实体并生成方向光束指向实体的位置。支持自定义添加/删除/置顶任何实体、设置专属热键、传送（需主机手动开启权限），并显示特殊实体和刷新点，如遗迹发条、伏特羊群，风滚草，遗失玩具等。
 ]]
 author = "Tian || TianYu"
-version = "1.16.2"
+version = "1.16.3"
 forumthread = ""
 
 -- Mod Icon
