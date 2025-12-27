@@ -131,16 +131,16 @@ configuration_options = {
 		},
 		default = true,
 	},
-	{
-		name = "Toggle_Beefalo",
-		label = localize("Beefalo Herd", "牛群"),
-		hover = localize("Should it be displayed", "是否显示"),
-		options = {
-			{ description = localize("True", "是"), data = true },
-			{ description = localize("False", "否"), data = false },
-		},
-		default = false,
-	},
+	-- {
+	-- 	name = "Toggle_Beefalo",
+	-- 	label = localize("Beefalo Herd", "牛群"),
+	-- 	hover = localize("Should it be displayed", "是否显示"),
+	-- 	options = {
+	-- 		{ description = localize("True", "是"), data = true },
+	-- 		{ description = localize("False", "否"), data = false },
+	-- 	},
+	-- 	default = false,
+	-- },
 	{
 		name = "Toggle_Tumbleweed",
 		label = localize("Tumbleweed Spawner", "风滚草"),
@@ -149,18 +149,18 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = false,
+		default = true,
 	},
-	{
-		name = "Toggle_Rocky",
-		label = localize("Rocky Spawner", "石虾"),
-		hover = localize("Should it be displayed", "是否显示"),
-		options = {
-			{ description = localize("True", "是"), data = true },
-			{ description = localize("False", "否"), data = false },
-		},
-		default = false,
-	},
+	-- {
+	-- 	name = "Toggle_Rocky",
+	-- 	label = localize("Rocky Spawner", "石虾"),
+	-- 	hover = localize("Should it be displayed", "是否显示"),
+	-- 	options = {
+	-- 		{ description = localize("True", "是"), data = true },
+	-- 		{ description = localize("False", "否"), data = false },
+	-- 	},
+	-- 	default = false,
+	-- },
 	{
 		name = "Toggle_Mushgnome",
 		label = localize("Mushgnome Spawner", "蘑菇地精"),
@@ -169,7 +169,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = false,
+		default = true,
 	},
 	{
 		name = "Toggle_Bishop_Nightmare",
@@ -219,7 +219,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = false,
+		default = true,
 	},
 	AddSection("Debug", "调试"),
 	{

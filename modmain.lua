@@ -346,26 +346,26 @@ else
 end
 
 -- Beefalo Herd
-if is_display_beefalo then
-	DebugLog("beefaloherd FX enabled")
-	AddPrefabPostInit("beefaloherd", function(inst)
-		inst.entity:AddNetwork()
-		inst.entity:SetPristine()
-		if not G.TheWorld.ismastersim then
-			return
-		end
+-- if is_display_beefalo then
+-- 	DebugLog("beefaloherd FX enabled")
+-- 	AddPrefabPostInit("beefaloherd", function(inst)
+-- 		inst.entity:AddNetwork()
+-- 		inst.entity:SetPristine()
+-- 		if not G.TheWorld.ismastersim then
+-- 			return
+-- 		end
 
-		inst:DoTaskInTime(1, function()
-			local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
-			if fx ~= nil and fx:IsValid() then
-				fx.entity:SetParent(inst.entity)
-				DebugLog("Spawned beefalo FX")
-			end
-		end)
-	end)
-else
-	DebugLog("beefaloherd FX disabled")
-end
+-- 		inst:DoTaskInTime(1, function()
+-- 			local fx = G.SpawnPrefab("tian_whereisit_beefalofx")
+-- 			if fx ~= nil and fx:IsValid() then
+-- 				fx.entity:SetParent(inst.entity)
+-- 				DebugLog("Spawned beefalo FX")
+-- 			end
+-- 		end)
+-- 	end)
+-- else
+-- 	DebugLog("beefaloherd FX disabled")
+-- end
 
 -- Tumbleweed Spawner
 if is_display_tumbleweed then
@@ -408,26 +408,26 @@ end
 -- end
 
 -- Rocky Herd
-if is_display_rocky then
-	DebugLog("rockyherd FX enabled")
-	AddPrefabPostInit("rockyherd", function(inst)
-		inst.entity:AddNetwork()
-		inst.entity:SetPristine()
-		if not G.TheWorld.ismastersim then
-			return
-		end
+-- if is_display_rocky then
+-- 	DebugLog("rockyherd FX enabled")
+-- 	AddPrefabPostInit("rockyherd", function(inst)
+-- 		inst.entity:AddNetwork()
+-- 		inst.entity:SetPristine()
+-- 		if not G.TheWorld.ismastersim then
+-- 			return
+-- 		end
 
-		inst:DoTaskInTime(1, function()
-			local fx = G.SpawnPrefab("tian_whereisit_rockyfx")
-			if fx ~= nil and fx:IsValid() then
-				fx.entity:SetParent(inst.entity)
-				DebugLog("Spawned rocky FX")
-			end
-		end)
-	end)
-else
-	DebugLog("rockyherd FX disabled")
-end
+-- 		inst:DoTaskInTime(1, function()
+-- 			local fx = G.SpawnPrefab("tian_whereisit_rockyfx")
+-- 			if fx ~= nil and fx:IsValid() then
+-- 				fx.entity:SetParent(inst.entity)
+-- 				DebugLog("Spawned rocky FX")
+-- 			end
+-- 		end)
+-- 	end)
+-- else
+-- 	DebugLog("rockyherd FX disabled")
+-- end
 
 -- Mushgnome Spawner
 if is_display_mushgnome then
