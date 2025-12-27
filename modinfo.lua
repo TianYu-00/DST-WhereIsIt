@@ -139,7 +139,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = true,
+		default = false,
 	},
 	{
 		name = "Toggle_Tumbleweed",
@@ -149,7 +149,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = true,
+		default = false,
 	},
 	{
 		name = "Toggle_Rocky",
@@ -159,7 +159,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = true,
+		default = false,
 	},
 	{
 		name = "Toggle_Mushgnome",
@@ -169,7 +169,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = true,
+		default = false,
 	},
 	{
 		name = "Toggle_Bishop_Nightmare",
@@ -219,7 +219,7 @@ configuration_options = {
 			{ description = localize("True", "是"), data = true },
 			{ description = localize("False", "否"), data = false },
 		},
-		default = true,
+		default = false,
 	},
 	AddSection("Debug", "调试"),
 	{
