@@ -1,5 +1,5 @@
 local assets = {
-	Asset("ANIM", "anim/lightning_goat_basic.zip"),
+	Asset("ANIM", "anim/beefalo_build.zip"),
 }
 
 local function CreateBeefaloFX()
